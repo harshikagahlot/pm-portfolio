@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { useSmoothScroll } from './lib/smoothScroll'
 import PageWrapper from './components/layout/PageWrapper'
@@ -12,11 +12,19 @@ import Timeline from './sections/Timeline'
 import SectionVignette from './components/SectionVignette'
 import { WorldCanvas } from './components/three/WorldCanvas'
 import { useDeviceCapability } from './hooks/useDeviceCapability'
+import Blog from './sections/Blog'
+import CurrentlyExploring from './sections/CurrentlyExploring'
+import Footer from './components/layout/Footer'
 
 const App: React.FC = () => {
   // Initialize Lenis smooth scroll + GSAP ticker wiring (once, at root level)
   useSmoothScroll()
   const { shouldRender3D } = useDeviceCapability()
+
+  // Smooth scroll to top on page load/mount
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <BrowserRouter>
@@ -55,12 +63,17 @@ const App: React.FC = () => {
             <Timeline />
           </div>
 
-          {/* id="blog" — placeholder for Part 6 (Blog / Writing section) */}
-          <div
-            id="blog"
-            style={{ minHeight: '100px', backgroundColor: 'transparent' }}
-          />
+          {/* id="blog" — scroll target for Part 6 (Blog / Writing section) */}
+          <div id="blog" style={{ backgroundColor: 'transparent' }}>
+            <Blog />
+          </div>
+
+          {/* Currently Exploring section */}
+          <CurrentlyExploring />
         </main>
+
+        {/* Footer component */}
+        <Footer />
       </PageWrapper>
     </BrowserRouter>
   )

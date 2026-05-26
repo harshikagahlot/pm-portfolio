@@ -1,17 +1,84 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { TRANSITIONS } from '../../lib/motion'
+import { scrollTo } from '../../lib/smoothScroll'
 
 const NAV_LINKS = ['Work', 'Thinking', 'Teardown', 'Timeline', 'Blog']
 
+// Maps display label to HTML target ID
+const LINK_TARGETS: Record<string, string> = {
+  Work: '#work',
+  Thinking: '#thinking',
+  Teardown: '#teardown',
+  Timeline: '#timeline',
+  Blog: '#blog',
+}
+
 const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState<string | null>(null)
   const shouldReduceMotion = useReducedMotion()
   const { scrollY } = useScroll()
 
   // Background opacity: transparent at 0px → full at 80px
   const bgOpacity = useTransform(scrollY, [0, 80], [0, 1])
   const blurAmount = useTransform(scrollY, [0, 80], [0, 12])
+
+  // Track active section via IntersectionObserver
+  useEffect(() => {
+    const sectionIds = ['thinking', 'work', 'teardown', 'timeline', 'blog']
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -40% 0px', // triggers when the section is centered in the viewport
+      threshold: 0,
+    }
+
+    const observerCallbacks = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id)
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(observerCallbacks, observerOptions)
+    
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+
+    // Fallback: If at the very top, clear active section
+    const handleScroll = () => {
+      if (window.scrollY < 100) {
+        setActiveSection(null)
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id)
+        if (el) observer.unobserve(el)
+      })
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, label: string) => {
+    e.preventDefault()
+    const target = LINK_TARGETS[label]
+    if (target) {
+      scrollTo(target, -60)
+    }
+    setMobileOpen(false)
+  }
+
+  const handleSayHelloClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    scrollTo('footer', 0)
+    setMobileOpen(false)
+  }
 
   return (
     <>
@@ -45,6 +112,11 @@ const Navbar: React.FC = () => {
         <div style={{ position: 'relative', flex: 1 }}>
           <a
             href="/"
+            onClick={(e) => {
+              e.preventDefault()
+              scrollTo('#hero', -60)
+              setMobileOpen(false)
+            }}
             style={{
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
@@ -69,32 +141,59 @@ const Navbar: React.FC = () => {
           }}
           className="hidden-mobile"
         >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '14px',
-                color: 'var(--color-text-secondary)',
-                textDecoration: 'none',
-                transition: `color ${TRANSITIONS.fast.duration}s ease`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--color-text-primary)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--color-text-secondary)'
-              }}
-            >
-              {link}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const targetId = LINK_TARGETS[link].substring(1) // remove '#'
+            const isActive = activeSection === targetId
+
+            return (
+              <a
+                key={link}
+                href={LINK_TARGETS[link]}
+                onClick={(e) => handleLinkClick(e, link)}
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                  textDecoration: 'none',
+                  position: 'relative',
+                  paddingBottom: '4px',
+                  transition: `color ${TRANSITIONS.fast.duration}s ease`,
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) e.currentTarget.style.color = 'var(--color-text-primary)'
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) e.currentTarget.style.color = 'var(--color-text-secondary)'
+                }}
+              >
+                {link}
+                {isActive && (
+                  <motion.span
+                    layoutId="navbar-active-dot"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
+                    transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
+                    style={{
+                      position: 'absolute',
+                      bottom: '-4px',
+                      left: 'calc(50% - 2px)',
+                      width: '4px',
+                      height: '4px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--color-accent-purple)',
+                    }}
+                  />
+                )}
+              </a>
+            )
+          })}
 
           {/* Say hello pill */}
           <motion.a
-            href="mailto:hello@aditya.dev"
-            whileHover={shouldReduceMotion ? {} : { backgroundColor: 'rgba(124,111,247,0.1)' }}
+            href="#footer"
+            onClick={handleSayHelloClick}
+            whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
             transition={TRANSITIONS.fast}
             style={{
               fontFamily: 'var(--font-body)',
@@ -104,8 +203,17 @@ const Navbar: React.FC = () => {
               padding: '6px 16px',
               borderRadius: '100px',
               border: '1px solid var(--color-border-default)',
-              transition: `background-color ${TRANSITIONS.fast.duration}s ease`,
+              backgroundColor: 'transparent',
               cursor: 'pointer',
+              transition: 'border-color 0.2s ease, background-color 0.2s ease',
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.borderColor = 'var(--color-accent-purple)'
+              e.currentTarget.style.backgroundColor = 'rgba(124,111,247,0.06)'
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.borderColor = 'var(--color-border-default)'
+              e.currentTarget.style.backgroundColor = 'transparent'
             }}
           >
             Say hello →
@@ -192,25 +300,44 @@ const Navbar: React.FC = () => {
               gap: '16px',
             }}
           >
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '16px',
-                  color: 'var(--color-text-secondary)',
-                  textDecoration: 'none',
-                  padding: '8px 0',
-                  borderBottom: '1px solid var(--color-border-subtle)',
-                }}
-              >
-                {link}
-              </a>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const targetId = LINK_TARGETS[link].substring(1)
+              const isActive = activeSection === targetId
+
+              return (
+                <a
+                  key={link}
+                  href={LINK_TARGETS[link]}
+                  onClick={(e) => handleLinkClick(e, link)}
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '16px',
+                    color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                    textDecoration: 'none',
+                    padding: '8px 0',
+                    borderBottom: '1px solid var(--color-border-subtle)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <span>{link}</span>
+                  {isActive && (
+                    <span
+                      style={{
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        backgroundColor: 'var(--color-accent-purple)',
+                      }}
+                    />
+                  )}
+                </a>
+              )
+            })}
             <a
-              href="mailto:hello@aditya.dev"
+              href="#footer"
+              onClick={handleSayHelloClick}
               style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '14px',
