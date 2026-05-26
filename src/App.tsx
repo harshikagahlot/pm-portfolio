@@ -7,6 +7,7 @@ import GuideCharacter from './components/GuideCharacter'
 import Hero from './sections/Hero'
 import HowIThink from './sections/HowIThink'
 import CaseStudies from './sections/CaseStudies'
+import ProductTeardown from './sections/ProductTeardown'
 
 const App: React.FC = () => {
   // Initialize Lenis smooth scroll + GSAP ticker wiring (once, at root level)
@@ -33,9 +34,14 @@ const App: React.FC = () => {
             <CaseStudies />
           </div>
 
-          {/* id="teardown" — placeholder for Part 4 (Teardowns section) */}
+          {/* id="teardown" — scroll target from CaseStudies bottom connector */}
+          <div id="teardown">
+            <ProductTeardown />
+          </div>
+
+          {/* id="timeline" — placeholder for Part 5 (Journey/Timeline section) */}
           <div
-            id="teardown"
+            id="timeline"
             style={{ minHeight: '100px', backgroundColor: 'var(--color-bg-primary)' }}
           />
         </main>

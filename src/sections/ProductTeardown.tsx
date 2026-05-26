@@ -1,0 +1,477 @@
+import React, { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { TRANSITIONS, VARIANTS } from '../lib/motion'
+import { scrollTo } from '../lib/smoothScroll'
+import { TEARDOWNS } from '../data/teardowns'
+import type { TeardownData } from '../data/teardowns'
+import TeardownOverlay from '../components/TeardownOverlay'
+
+// ── Shared teal constant ──────────────────────────────────────
+const TEAL = '#2dd4a8'
+
+// ── Pulsing dots (teal variant) ───────────────────────────────
+const PulsingDots: React.FC<{ shouldReduceMotion: boolean | null }> = ({ shouldReduceMotion }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+    {[0, 1, 2].map((i) => (
+      <motion.span
+        key={i}
+        animate={
+          shouldReduceMotion
+            ? {}
+            : {
+                opacity: [0.2, 1, 0.2],
+                transition: {
+                  duration: 1.2,
+                  repeat: Infinity,
+                  delay: i * 0.3,
+                  ease: 'easeInOut' as const,
+                },
+              }
+        }
+        style={{
+          display: 'block',
+          width: '5px',
+          height: '5px',
+          borderRadius: '50%',
+          backgroundColor: TEAL,
+        }}
+      />
+    ))}
+  </div>
+)
+
+// ── Individual teardown card ──────────────────────────────────
+interface TeardownCardProps {
+  teardown: TeardownData
+  onClick: () => void
+  shouldReduceMotion: boolean | null
+}
+
+const TeardownCard: React.FC<TeardownCardProps> = ({ teardown, onClick, shouldReduceMotion }) => {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <motion.div
+      role="button"
+      tabIndex={0}
+      aria-label={`Open ${teardown.name} teardown`}
+      onClick={onClick}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick() }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      variants={VARIANTS.fadeUp}
+      whileHover={
+        shouldReduceMotion
+          ? {}
+          : {
+              y: -6,
+              boxShadow: '0 8px 32px rgba(45,212,168,0.08)',
+              borderColor: 'rgba(45,212,168,0.35)',
+            }
+      }
+      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: 'easeOut' }}
+      style={{
+        backgroundColor: 'var(--color-bg-card)',
+        border: '0.5px solid var(--color-border-subtle)',
+        borderRadius: '16px',
+        padding: '28px',
+        cursor: 'pointer',
+        position: 'relative',
+        overflow: 'hidden',
+        outline: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* 1. Logo square */}
+      <div
+        style={{
+          width: '48px',
+          height: '48px',
+          borderRadius: '12px',
+          backgroundColor: teardown.logoColor,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: '22px',
+            fontWeight: 800,
+            color: teardown.logoColor === '#ffffff' ? '#0a0a0f' : '#ffffff',
+            lineHeight: 1,
+          }}
+        >
+          {teardown.name[0]}
+        </span>
+      </div>
+
+      {/* 2. Product name */}
+      <p
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '22px',
+          fontWeight: 700,
+          color: 'var(--color-text-primary)',
+          marginTop: '16px',
+          marginBottom: 0,
+        }}
+      >
+        {teardown.name}
+      </p>
+
+      {/* 3. Category */}
+      <p
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '13px',
+          color: 'var(--color-text-hint)',
+          marginTop: '4px',
+          marginBottom: 0,
+        }}
+      >
+        {teardown.category}
+      </p>
+
+      {/* 4. Teaser */}
+      <p
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: '14px',
+          color: 'var(--color-text-secondary)',
+          lineHeight: 1.6,
+          marginTop: '12px',
+          marginBottom: 0,
+          flex: 1,
+        }}
+      >
+        {teardown.teaser}
+      </p>
+
+      {/* 5. Bottom row: link + observations pill */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginTop: '20px',
+        }}
+      >
+        <motion.span
+          animate={
+            shouldReduceMotion
+              ? {}
+              : { filter: hovered ? 'brightness(1.2)' : 'brightness(1)' }
+          }
+          transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '13px',
+            color: TEAL,
+          }}
+        >
+          Read teardown →
+        </motion.span>
+
+        <span
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '11px',
+            color: 'var(--color-text-hint)',
+            backgroundColor: 'rgba(255,255,255,0.04)',
+            border: '0.5px solid var(--color-border-subtle)',
+            padding: '3px 10px',
+            borderRadius: '999px',
+          }}
+        >
+          {teardown.observationCount} observations
+        </span>
+      </div>
+    </motion.div>
+  )
+}
+
+// ── Main section ──────────────────────────────────────────────
+const ProductTeardown: React.FC = () => {
+  const [selectedTeardown, setSelectedTeardown] = useState<TeardownData | null>(null)
+  const shouldReduceMotion = useReducedMotion()
+  const viewportConfig = { once: true, margin: '-60px' }
+
+  return (
+    <>
+      {/* Teardown overlay — rendered outside normal flow */}
+      <TeardownOverlay
+        teardown={selectedTeardown}
+        onClose={() => setSelectedTeardown(null)}
+      />
+
+      <section
+        style={{
+          paddingTop: '120px',
+          paddingBottom: '120px',
+          backgroundColor: 'var(--color-bg-primary)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Subtle teal radial gradient — top-right corner "lab" atmosphere */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: '-15%',
+            right: '-10%',
+            width: '50%',
+            height: '60%',
+            background: `radial-gradient(ellipse at center, rgba(45,212,168,0.04) 0%, transparent 70%)`,
+            pointerEvents: 'none',
+          }}
+        />
+
+        <div
+          style={{
+            maxWidth: '1100px',
+            margin: '0 auto',
+            padding: '0 24px',
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          {/* ── Section header ─────────────────────────── */}
+          <div style={{ marginBottom: '72px' }}>
+
+            {/* Overline label — teal accent */}
+            <motion.div
+              initial={shouldReduceMotion ? {} : 'hidden'}
+              whileInView="visible"
+              viewport={viewportConfig}
+              variants={VARIANTS.fadeUp}
+              transition={{ ...TRANSITIONS.slow, delay: 0 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                marginBottom: '24px',
+              }}
+            >
+              <div
+                style={{
+                  width: '24px',
+                  height: '1px',
+                  backgroundColor: TEAL,
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '12px',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-text-hint)',
+                }}
+              >
+                teardown
+              </span>
+            </motion.div>
+
+            {/* Two-line heading */}
+            <motion.h2
+              initial={shouldReduceMotion ? {} : 'hidden'}
+              whileInView="visible"
+              viewport={viewportConfig}
+              variants={VARIANTS.fadeUp}
+              transition={{ ...TRANSITIONS.slow, delay: 0.1 }}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontWeight: 800,
+                fontSize: 'clamp(32px, 5vw, 56px)',
+                lineHeight: 1.1,
+                letterSpacing: '-0.02em',
+                color: 'var(--color-text-primary)',
+                margin: 0,
+              }}
+            >
+              Products I didn't build.
+            </motion.h2>
+            <motion.h2
+              initial={shouldReduceMotion ? {} : 'hidden'}
+              whileInView="visible"
+              viewport={viewportConfig}
+              variants={VARIANTS.fadeUp}
+              transition={{ ...TRANSITIONS.slow, delay: 0.2 }}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontWeight: 800,
+                fontSize: 'clamp(32px, 5vw, 56px)',
+                lineHeight: 1.1,
+                letterSpacing: '-0.02em',
+                color: 'var(--color-text-secondary)',
+                margin: 0,
+              }}
+            >
+              But wish I had.
+            </motion.h2>
+
+            {/* Sub-paragraph */}
+            <motion.p
+              initial={shouldReduceMotion ? {} : 'hidden'}
+              whileInView="visible"
+              viewport={viewportConfig}
+              variants={VARIANTS.fadeUp}
+              transition={{ ...TRANSITIONS.slow, delay: 0.35 }}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '17px',
+                color: 'var(--color-text-secondary)',
+                lineHeight: 1.7,
+                maxWidth: '500px',
+                marginTop: '24px',
+                marginBottom: 0,
+              }}
+            >
+              I take products apart to understand why they work. Not to copy them — to learn what decisions look like when they're made well.
+            </motion.p>
+          </div>
+
+          {/* ── Cards grid ─────────────────────────────── */}
+          <motion.div
+            initial={shouldReduceMotion ? {} : 'hidden'}
+            whileInView="visible"
+            viewport={viewportConfig}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.1 } },
+            }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '20px',
+            }}
+            className="teardown-grid"
+          >
+            {TEARDOWNS.map((teardown) => (
+              <TeardownCard
+                key={teardown.id}
+                teardown={teardown}
+                onClick={() => setSelectedTeardown(teardown)}
+                shouldReduceMotion={shouldReduceMotion}
+              />
+            ))}
+          </motion.div>
+
+          {/* ── Section footer ─────────────────────────── */}
+          <motion.div
+            initial={shouldReduceMotion ? {} : 'hidden'}
+            whileInView="visible"
+            viewport={viewportConfig}
+            variants={VARIANTS.fadeUp}
+            transition={{ ...TRANSITIONS.slow, delay: 0.1 }}
+            style={{
+              marginTop: '80px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '6px',
+              textAlign: 'center',
+            }}
+          >
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '15px',
+                color: 'var(--color-text-secondary)',
+                margin: 0,
+              }}
+            >
+              More teardowns coming.
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <PulsingDots shouldReduceMotion={shouldReduceMotion} />
+              <p
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  color: 'var(--color-text-hint)',
+                  margin: 0,
+                }}
+              >
+                LinkedIn · Duolingo · Swiggy · in progress
+              </p>
+            </div>
+          </motion.div>
+
+          {/* ── Bottom connector ───────────────────────── */}
+          <motion.div
+            initial={shouldReduceMotion ? {} : 'hidden'}
+            whileInView="visible"
+            viewport={viewportConfig}
+            variants={VARIANTS.fadeUp}
+            transition={{ ...TRANSITIONS.slow, delay: 0.3 }}
+            style={{
+              marginTop: '80px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '20px',
+            }}
+          >
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '15px',
+                color: 'var(--color-text-secondary)',
+                textAlign: 'center',
+                margin: 0,
+              }}
+            >
+              Want to see where I've been and where I'm going?
+            </p>
+
+            <motion.button
+              id="connector-timeline-cta"
+              onClick={() => scrollTo('#timeline')}
+              whileHover={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      backgroundColor: 'rgba(45,212,168,0.08)',
+                      borderColor: 'rgba(45,212,168,0.5)',
+                    }
+              }
+              whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+              transition={TRANSITIONS.fast}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '15px',
+                color: 'var(--color-text-primary)',
+                backgroundColor: 'transparent',
+                padding: '12px 28px',
+                borderRadius: '8px',
+                border: '1px solid var(--color-border-default)',
+                cursor: 'pointer',
+              }}
+            >
+              See my journey →
+            </motion.button>
+          </motion.div>
+        </div>
+
+        {/* Responsive grid */}
+        <style>{`
+          @media (max-width: 767px) {
+            .teardown-grid { grid-template-columns: 1fr !important; }
+          }
+          @media (min-width: 768px) and (max-width: 1023px) {
+            .teardown-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          }
+        `}</style>
+      </section>
+    </>
+  )
+}
+
+export default ProductTeardown
