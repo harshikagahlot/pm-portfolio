@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar'
 import GuideCharacter from './components/GuideCharacter'
 import Hero from './sections/Hero'
 import HowIThink from './sections/HowIThink'
+import CaseStudies from './sections/CaseStudies'
 
 const App: React.FC = () => {
   // Initialize Lenis smooth scroll + GSAP ticker wiring (once, at root level)
@@ -22,15 +23,19 @@ const App: React.FC = () => {
         <main>
           <Hero />
 
-          {/* id="thinking" — scroll target for "How I think →" CTA */}
+          {/* id="thinking" — scroll target for Hero "How I think →" CTA */}
           <div id="thinking">
             <HowIThink />
           </div>
 
-          {/* id="work" — placeholder scroll target for "See my work →" CTA */}
-          {/* Will be replaced by the Work/Case Studies section in Part 3 */}
+          {/* id="work" — scroll target for Hero "See my work →" CTA */}
+          <div id="work">
+            <CaseStudies />
+          </div>
+
+          {/* id="teardown" — placeholder for Part 4 (Teardowns section) */}
           <div
-            id="work"
+            id="teardown"
             style={{ minHeight: '100px', backgroundColor: 'var(--color-bg-primary)' }}
           />
         </main>
