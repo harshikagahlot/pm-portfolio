@@ -9,6 +9,7 @@ import HowIThink from './sections/HowIThink'
 import CaseStudies from './sections/CaseStudies'
 import ProductTeardown from './sections/ProductTeardown'
 import Timeline from './sections/Timeline'
+import SectionVignette from './components/SectionVignette'
 
 const App: React.FC = () => {
   // Initialize Lenis smooth scroll + GSAP ticker wiring (once, at root level)
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         {/* Globally persistent components */}
         <Navbar />
         <GuideCharacter />
+        <SectionVignette />
 
         {/* Page sections */}
         <main>

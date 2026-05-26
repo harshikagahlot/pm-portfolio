@@ -23,8 +23,12 @@ export const TRANSITIONS: Record<string, Transition> = {
 // ── Reusable Framer Motion Variants ─────────────────────────
 export const VARIANTS: Record<string, Variants> = {
   fadeUp: {
-    hidden: { opacity: 0, y: 24 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 32, scale: 0.97 },
+    visible: { opacity: 1, y: 0, scale: 1 },
+  },
+  sectionEntry: {
+    hidden: { opacity: 0, y: 60, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1 },
   },
   fadeIn: {
     hidden: { opacity: 0 },

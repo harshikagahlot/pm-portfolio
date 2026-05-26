@@ -13,8 +13,10 @@ export function useSmoothScroll(): void {
   useEffect(() => {
     // Create Lenis instance
     const instance = new Lenis({
-      lerp: 0.08,
+      lerp: 0.06,           // slightly more lerp = heavier, more cinematic momentum
       smoothWheel: true,
+      wheelMultiplier: 0.8, // slightly slower wheel response = more controlled feel
+      touchMultiplier: 1.5, // touch feels responsive on mobile
     })
 
     // Wire scroll event → ScrollTrigger.update

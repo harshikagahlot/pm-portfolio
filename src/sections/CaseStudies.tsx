@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import { scrollTo } from '../lib/smoothScroll'
+import ParallaxGlow from '../components/ParallaxGlow'
 import { PROJECTS } from '../data/projects'
 import type { Project } from '../data/projects'
 import CaseStudyOverlay from '../components/CaseStudyOverlay'
@@ -272,13 +273,20 @@ const CaseStudies: React.FC = () => {
           paddingTop: '120px',
           paddingBottom: '120px',
           backgroundColor: 'var(--color-bg-primary)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
+        {/* Parallax glow background layer */}
+        <ParallaxGlow color="rgba(244,124,90,0.05)" position="top-right" speed={0.15} />
+
         <div
           style={{
             maxWidth: '1100px',
             margin: '0 auto',
             padding: '0 24px',
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           {/* ── Section header ─────────────────────────── */}
@@ -289,7 +297,7 @@ const CaseStudies: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...TRANSITIONS.slow, delay: 0 }}
               style={{
                 display: 'flex',
@@ -324,7 +332,7 @@ const CaseStudies: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...TRANSITIONS.slow, delay: 0.1 }}
               style={{
                 fontFamily: 'var(--font-display)',
@@ -342,7 +350,7 @@ const CaseStudies: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...TRANSITIONS.slow, delay: 0.2 }}
               style={{
                 fontFamily: 'var(--font-display)',
@@ -362,7 +370,7 @@ const CaseStudies: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...TRANSITIONS.slow, delay: 0.35 }}
               style={{
                 fontFamily: 'var(--font-body)',

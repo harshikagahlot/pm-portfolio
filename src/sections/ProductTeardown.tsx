@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import { scrollTo } from '../lib/smoothScroll'
+import ParallaxGlow from '../components/ParallaxGlow'
 import { TEARDOWNS } from '../data/teardowns'
 import type { TeardownData } from '../data/teardowns'
 import TeardownOverlay from '../components/TeardownOverlay'
@@ -217,19 +218,8 @@ const ProductTeardown: React.FC = () => {
           overflow: 'hidden',
         }}
       >
-        {/* Subtle teal radial gradient — top-right corner "lab" atmosphere */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            top: '-15%',
-            right: '-10%',
-            width: '50%',
-            height: '60%',
-            background: `radial-gradient(ellipse at center, rgba(45,212,168,0.04) 0%, transparent 70%)`,
-            pointerEvents: 'none',
-          }}
-        />
+        {/* Parallax glow background layer */}
+        <ParallaxGlow color="rgba(45,212,168,0.05)" position="top-right" speed={0.2} />
 
         <div
           style={{
@@ -248,7 +238,7 @@ const ProductTeardown: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...TRANSITIONS.slow, delay: 0 }}
               style={{
                 display: 'flex',
@@ -283,7 +273,7 @@ const ProductTeardown: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...TRANSITIONS.slow, delay: 0.1 }}
               style={{
                 fontFamily: 'var(--font-display)',
@@ -301,7 +291,7 @@ const ProductTeardown: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...TRANSITIONS.slow, delay: 0.2 }}
               style={{
                 fontFamily: 'var(--font-display)',
@@ -321,7 +311,7 @@ const ProductTeardown: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...TRANSITIONS.slow, delay: 0.35 }}
               style={{
                 fontFamily: 'var(--font-body)',

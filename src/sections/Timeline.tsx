@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import { scrollTo } from '../lib/smoothScroll'
+import ParallaxGlow from '../components/ParallaxGlow'
 
 // ── Constants ─────────────────────────────────────────────────
 const PURPLE = '#7c6ff7'
@@ -283,19 +284,8 @@ const Timeline: React.FC = () => {
         overflow: 'hidden',
       }}
     >
-      {/* Subtle purple gradient — bottom-left */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          bottom: '-10%',
-          left: '-10%',
-          width: '50%',
-          height: '60%',
-          background: `radial-gradient(ellipse at center, rgba(124,111,247,0.05) 0%, transparent 70%)`,
-          pointerEvents: 'none',
-        }}
-      />
+      {/* Parallax glow background layer */}
+      <ParallaxGlow color="rgba(124,111,247,0.06)" position="bottom-left" speed={0.25} />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
 
@@ -307,7 +297,7 @@ const Timeline: React.FC = () => {
             initial={shouldReduceMotion ? {} : 'hidden'}
             whileInView="visible"
             viewport={viewportConfig}
-            variants={VARIANTS.fadeUp}
+            variants={VARIANTS.sectionEntry}
             transition={{ ...TRANSITIONS.slow, delay: 0 }}
             style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}
           >
@@ -330,7 +320,7 @@ const Timeline: React.FC = () => {
                 initial={shouldReduceMotion ? {} : 'hidden'}
                 whileInView="visible"
                 viewport={viewportConfig}
-                variants={VARIANTS.fadeUp}
+                variants={VARIANTS.sectionEntry}
                 transition={{ ...TRANSITIONS.slow, delay: 0.1 }}
                 style={{
                   fontFamily: 'var(--font-display)',
@@ -348,7 +338,7 @@ const Timeline: React.FC = () => {
                 initial={shouldReduceMotion ? {} : 'hidden'}
                 whileInView="visible"
                 viewport={viewportConfig}
-                variants={VARIANTS.fadeUp}
+                variants={VARIANTS.sectionEntry}
                 transition={{ ...TRANSITIONS.slow, delay: 0.2 }}
                 style={{
                   fontFamily: 'var(--font-display)',
@@ -386,7 +376,7 @@ const Timeline: React.FC = () => {
             initial={shouldReduceMotion ? {} : 'hidden'}
             whileInView="visible"
             viewport={viewportConfig}
-            variants={VARIANTS.fadeUp}
+            variants={VARIANTS.sectionEntry}
             transition={{ ...TRANSITIONS.slow, delay: 0.35 }}
             style={{
               fontFamily: 'var(--font-body)',

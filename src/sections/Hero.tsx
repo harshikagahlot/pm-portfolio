@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import { scrollTo } from '../lib/smoothScroll'
+import { useScrollVelocitySkew } from '../hooks/useScrollVelocitySkew'
+import ParallaxGlow from '../components/ParallaxGlow'
 
 const ROLES = ['product thinker', 'frontend builder', 'interaction designer']
 const ROLE_INTERVAL = 2500
@@ -9,6 +11,18 @@ const ROLE_INTERVAL = 2500
 const Hero: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0)
   const shouldReduceMotion = useReducedMotion()
+  const { scrollY } = useScroll()
+
+  // Scroll transforms for push perspective
+  const heroY = useTransform(scrollY, [0, 600], [0, -120])
+  const heroScale = useTransform(scrollY, [0, 600], [1, 0.92])
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0])
+  const heroBlur = useTransform(scrollY, [200, 500], [0, 8])
+  const bgY = useTransform(scrollY, [0, 600], [0, -60])
+  const blurFilter = useMotionTemplate`blur(${heroBlur}px)`
+
+  // Scroll velocity skew
+  const skew = useScrollVelocitySkew(0.002)
 
   // Role switcher timer
   useEffect(() => {
@@ -67,13 +81,22 @@ const Hero: React.FC = () => {
         alignItems: 'center',
         overflow: 'hidden',
         backgroundColor: 'var(--color-bg-primary)',
+        perspective: '1200px',
       }}
     >
       {/* Atmospheric background gradient orb */}
-      <div className="hero-gradient-orb" aria-hidden="true" />
+      <ParallaxGlow
+        color="rgba(124,111,247,0.08)"
+        position="top-left"
+        speed={0.15}
+        style={{
+          y: bgY,
+          filter: blurFilter,
+        }}
+      />
 
       {/* Main content — left-biased layout */}
-      <div
+      <motion.div
         style={{
           position: 'relative',
           zIndex: 1,
@@ -85,6 +108,10 @@ const Hero: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '48px',
+          y: heroY,
+          scale: heroScale,
+          opacity: heroOpacity,
+          skewY: skew,
         }}
       >
         {/* Left content column */}
@@ -368,7 +395,7 @@ const Hero: React.FC = () => {
             ))}
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Hide stat card on mobile */}
       <style>{`

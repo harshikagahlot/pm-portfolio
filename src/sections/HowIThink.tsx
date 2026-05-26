@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import { scrollTo } from '../lib/smoothScroll'
+import ParallaxGlow from '../components/ParallaxGlow'
 import EyeIcon from '../components/icons/EyeIcon'
 import UserIcon from '../components/icons/UserIcon'
 import LayersIcon from '../components/icons/LayersIcon'
@@ -223,13 +224,20 @@ const HowIThink: React.FC = () => {
         paddingTop: '120px',
         paddingBottom: '120px',
         backgroundColor: 'var(--color-bg-primary)',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      {/* Parallax glow background layer */}
+      <ParallaxGlow color="rgba(124,111,247,0.05)" position="bottom-right" speed={0.2} />
+
       <div
         style={{
           maxWidth: '1100px',
           margin: '0 auto',
           padding: '0 24px',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         {/* ── Part A: Heading block ─────────────────────────── */}
@@ -240,7 +248,7 @@ const HowIThink: React.FC = () => {
             initial={shouldReduceMotion ? {} : 'hidden'}
             whileInView="visible"
             viewport={viewportConfig}
-            variants={VARIANTS.fadeUp}
+            variants={VARIANTS.sectionEntry}
             transition={{ ...headingTransition, delay: 0 }}
             style={{
               display: 'flex',
@@ -277,7 +285,7 @@ const HowIThink: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...headingTransition, delay: 0.1 }}
               style={{
                 fontFamily: 'var(--font-display)',
@@ -295,7 +303,7 @@ const HowIThink: React.FC = () => {
               initial={shouldReduceMotion ? {} : 'hidden'}
               whileInView="visible"
               viewport={viewportConfig}
-              variants={VARIANTS.fadeUp}
+              variants={VARIANTS.sectionEntry}
               transition={{ ...headingTransition, delay: 0.2 }}
               style={{
                 fontFamily: 'var(--font-display)',
@@ -316,7 +324,7 @@ const HowIThink: React.FC = () => {
             initial={shouldReduceMotion ? {} : 'hidden'}
             whileInView="visible"
             viewport={viewportConfig}
-            variants={VARIANTS.fadeUp}
+            variants={VARIANTS.sectionEntry}
             transition={{ ...headingTransition, delay: 0.35 }}
             style={{
               fontFamily: 'var(--font-body)',
