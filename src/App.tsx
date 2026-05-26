@@ -10,47 +10,55 @@ import CaseStudies from './sections/CaseStudies'
 import ProductTeardown from './sections/ProductTeardown'
 import Timeline from './sections/Timeline'
 import SectionVignette from './components/SectionVignette'
+import { WorldCanvas } from './components/three/WorldCanvas'
+import { useDeviceCapability } from './hooks/useDeviceCapability'
 
 const App: React.FC = () => {
   // Initialize Lenis smooth scroll + GSAP ticker wiring (once, at root level)
   useSmoothScroll()
+  const { shouldRender3D } = useDeviceCapability()
 
   return (
     <BrowserRouter>
+      {/* Layer 1: Fixed, z-index 0, full screen 3D world */}
+      {shouldRender3D && <WorldCanvas />}
+
       <PageWrapper>
-        {/* Globally persistent components */}
-        <Navbar />
-        <GuideCharacter />
+        {/* Globally persistent overlay vignette */}
         <SectionVignette />
 
-        {/* Page sections */}
-        <main>
+        {/* Globally persistent UI components */}
+        <Navbar />
+        <GuideCharacter />
+
+        {/* Layer 2: All sections here — transparent backgrounds at z-index 1 */}
+        <main style={{ position: 'relative', zIndex: 1, backgroundColor: 'transparent' }}>
           <Hero />
 
           {/* id="thinking" — scroll target for Hero "How I think →" CTA */}
-          <div id="thinking">
+          <div id="thinking" style={{ backgroundColor: 'transparent' }}>
             <HowIThink />
           </div>
 
           {/* id="work" — scroll target for Hero "See my work →" CTA */}
-          <div id="work">
+          <div id="work" style={{ backgroundColor: 'transparent' }}>
             <CaseStudies />
           </div>
 
           {/* id="teardown" — scroll target from CaseStudies bottom connector */}
-          <div id="teardown">
+          <div id="teardown" style={{ backgroundColor: 'transparent' }}>
             <ProductTeardown />
           </div>
 
           {/* id="timeline" — scroll target from ProductTeardown bottom connector */}
-          <div id="timeline">
+          <div id="timeline" style={{ backgroundColor: 'transparent' }}>
             <Timeline />
           </div>
 
           {/* id="blog" — placeholder for Part 6 (Blog / Writing section) */}
           <div
             id="blog"
-            style={{ minHeight: '100px', backgroundColor: 'var(--color-bg-primary)' }}
+            style={{ minHeight: '100px', backgroundColor: 'transparent' }}
           />
         </main>
       </PageWrapper>

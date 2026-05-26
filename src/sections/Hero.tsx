@@ -80,7 +80,7 @@ const Hero: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         overflow: 'hidden',
-        backgroundColor: 'var(--color-bg-primary)',
+        backgroundColor: 'transparent',
         perspective: '1200px',
       }}
     >

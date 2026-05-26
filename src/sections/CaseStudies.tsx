@@ -272,7 +272,7 @@ const CaseStudies: React.FC = () => {
         style={{
           paddingTop: '120px',
           paddingBottom: '120px',
-          backgroundColor: 'var(--color-bg-primary)',
+          backgroundColor: 'rgba(10, 10, 15, 0.75)',
           position: 'relative',
           overflow: 'hidden',
         }}

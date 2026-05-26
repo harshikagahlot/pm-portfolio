@@ -8,7 +8,6 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
   return (
     <div
       style={{
-        backgroundColor: 'var(--color-bg-primary)',
         minHeight: '100vh',
         position: 'relative',
         overflowX: 'hidden',
