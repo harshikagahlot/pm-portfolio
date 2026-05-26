@@ -238,7 +238,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                     style={{
                       fontFamily: 'var(--font-body)',
                       fontSize: '16px',
-                      color: 'var(--color-text-secondary)',
+                      color: 'var(--color-text-primary)',
                       lineHeight: 1.75,
                       margin: 0,
                       marginBottom: i < project.caseStudy.thinking.length - 1 ? '24px' : 0,
