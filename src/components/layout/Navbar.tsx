@@ -67,6 +67,7 @@ const Navbar: React.FC = () => {
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, label: string) => {
     e.preventDefault()
+    window.dispatchEvent(new CustomEvent('close-project-overlay'))
     const target = LINK_TARGETS[label]
     if (target) {
       scrollTo(target, -60)
@@ -76,9 +77,11 @@ const Navbar: React.FC = () => {
 
   const handleSayHelloClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
+    window.dispatchEvent(new CustomEvent('close-project-overlay'))
     scrollTo('footer', 0)
     setMobileOpen(false)
   }
+
 
   return (
     <>
@@ -114,6 +117,7 @@ const Navbar: React.FC = () => {
             href="/"
             onClick={(e) => {
               e.preventDefault()
+              window.dispatchEvent(new CustomEvent('close-project-overlay'))
               scrollTo('#hero', -60)
               setMobileOpen(false)
             }}

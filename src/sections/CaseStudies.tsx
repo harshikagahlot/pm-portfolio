@@ -260,6 +260,16 @@ const CaseStudies: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
   const viewportConfig = { once: true, margin: '-60px' }
 
+  React.useEffect(() => {
+    const handleCloseOverlay = () => {
+      setSelectedProject(null)
+    }
+    window.addEventListener('close-project-overlay', handleCloseOverlay)
+    return () => {
+      window.removeEventListener('close-project-overlay', handleCloseOverlay)
+    }
+  }, [])
+
   return (
     <>
       {/* Case study overlay — rendered outside normal flow */}
