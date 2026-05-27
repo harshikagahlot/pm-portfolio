@@ -15,6 +15,8 @@ import { useDeviceCapability } from './hooks/useDeviceCapability'
 import Blog from './sections/Blog'
 import CurrentlyExploring from './sections/CurrentlyExploring'
 import Footer from './components/layout/Footer'
+import { CustomCursor } from './components/CustomCursor'
+
 
 const App: React.FC = () => {
   // Initialize Lenis smooth scroll + GSAP ticker wiring (once, at root level)
@@ -28,6 +30,7 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
+      <CustomCursor />
       {/* Layer 1: Fixed, z-index 0, full screen 3D world */}
       {shouldRender3D && <WorldCanvas />}
 

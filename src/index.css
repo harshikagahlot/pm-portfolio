@@ -129,3 +129,15 @@ body {
   background: rgba(124, 111, 247, 0.3);
   color: var(--color-text-primary);
 }
+
+/* ── Custom Cursor overrides ────────────────────────────────── */
+* {
+  cursor: none !important;
+}
+
+@media (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+}
+
