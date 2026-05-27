@@ -2,159 +2,128 @@ import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 export const CustomCursor = () => {
-  const cursorX = useMotionValue(-100)
-  const cursorY = useMotionValue(-100)
-
-  // Dot follows instantly
-  const dotX = useSpring(cursorX, { stiffness: 1000, damping: 50 })
-  const dotY = useSpring(cursorY, { stiffness: 1000, damping: 50 })
-
-  // Glow follows with soft lag — the "cloud" effect
-  const glowX = useSpring(cursorX, { stiffness: 150, damping: 20 })
-  const glowY = useSpring(cursorY, { stiffness: 150, damping: 20 })
-
-  // Outer ring follows with even more lag
-  const ringX = useSpring(cursorX, { stiffness: 80, damping: 20 })
-  const ringY = useSpring(cursorY, { stiffness: 80, damping: 20 })
-
+  const mouseX = useMotionValue(-200)
+  const mouseY = useMotionValue(-200)
   const [isHovering, setIsHovering] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
 
+  // Core — snappy
+  const coreX = useSpring(mouseX, { stiffness: 800, damping: 40 })
+  const coreY = useSpring(mouseY, { stiffness: 800, damping: 40 })
+
+  // Inner cloud — soft trail
+  const cloudX = useSpring(mouseX, { stiffness: 120, damping: 18 })
+  const cloudY = useSpring(mouseY, { stiffness: 120, damping: 18 })
+
+  // Outer nebula — heavy trail
+  const nebulaX = useSpring(mouseX, { stiffness: 55, damping: 15 })
+  const nebulaY = useSpring(mouseY, { stiffness: 55, damping: 15 })
+
   useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX)
-      cursorY.set(e.clientY)
-      if (!isVisible) setIsVisible(true)
-    }
+    // Hide on touch devices
+    if (window.matchMedia('(pointer: coarse)').matches) return
 
-    // Detect hovering over clickable elements
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      if (!target) return
-
-      const isClickable = 
-        target.tagName === 'BUTTON' ||
-        target.tagName === 'A' ||
-        target.closest('button') ||
-        target.closest('a') ||
-        target.style.cursor === 'pointer' ||
-        window.getComputedStyle(target).cursor === 'pointer'
-      setIsHovering(!!isClickable)
-    }
-
-    const handleMouseLeave = () => {
-      setIsVisible(false)
-    }
-
-    const handleMouseEnter = () => {
+    const onMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
       setIsVisible(true)
     }
 
-    window.addEventListener('mousemove', moveCursor)
-    window.addEventListener('mouseover', handleMouseOver)
-    document.addEventListener('mouseleave', handleMouseLeave)
-    document.addEventListener('mouseenter', handleMouseEnter)
+    const onOver = (e: MouseEvent) => {
+      const el = e.target as HTMLElement
+      if (!el) return
+
+      const clickable =
+        el.tagName === 'BUTTON' ||
+        el.tagName === 'A' ||
+        !!el.closest('button') ||
+        !!el.closest('a') ||
+        window.getComputedStyle(el).cursor === 'pointer'
+      setIsHovering(clickable)
+    }
+
+    const onLeave = () => setIsVisible(false)
+    const onEnter = () => setIsVisible(true)
+
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseover', onOver)
+    document.addEventListener('mouseleave', onLeave)
+    document.addEventListener('mouseenter', onEnter)
 
     return () => {
-      window.removeEventListener('mousemove', moveCursor)
-      window.removeEventListener('mouseover', handleMouseOver)
-      document.removeEventListener('mouseleave', handleMouseLeave)
-      document.removeEventListener('mouseenter', handleMouseEnter)
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseover', onOver)
+      document.removeEventListener('mouseleave', onLeave)
+      document.removeEventListener('mouseenter', onEnter)
     }
-  }, [isVisible, cursorX, cursorY])
+  }, [mouseX, mouseY])
 
-  // Hide on mobile — custom cursor makes no sense on touch
-  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
-    return null
+  if (typeof window !== 'undefined' &&
+      window.matchMedia('(pointer: coarse)').matches) return null
+
+  const baseStyle = {
+    position: 'fixed' as const,
+    top: 0,
+    left: 0,
+    borderRadius: '50%',
+    pointerEvents: 'none' as const,
+    opacity: isVisible ? 1 : 0,
   }
-
-  // Calculate sizes and opacity
-  const dotSize = isHovering ? 6 : 8
-  const glowSize = isHovering ? 60 : 40
-  const ringSize = isHovering ? 70 : 60
-  const cursorOpacity = isVisible ? 1 : 0
 
   return (
     <>
-      {/* Outer ring */}
+      {/* Outer nebula — heaviest trail */}
       <motion.div
         style={{
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          width: ringSize,
-          height: ringSize,
-          borderRadius: '50%',
-          border: isHovering 
-            ? '1px solid rgba(45, 212, 168, 0.3)' 
-            : '1px solid rgba(124, 111, 247, 0.15)',
-          pointerEvents: 'none',
-          zIndex: 99999,
-          x: ringX,
-          y: ringY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-        animate={{
-          width: ringSize,
-          height: ringSize,
-          opacity: cursorOpacity,
-        }}
-        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-      />
-
-      {/* Glow cloud */}
-      <motion.div
-        style={{
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          width: glowSize,
-          height: glowSize,
-          borderRadius: '50%',
+          ...baseStyle,
+          width: isHovering ? 120 : 100,
+          height: isHovering ? 120 : 100,
           background: isHovering
-            ? 'radial-gradient(circle, rgba(45, 212, 168, 0.35) 0%, rgba(45, 212, 168, 0.12) 50%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(124, 111, 247, 0.25) 0%, rgba(124, 111, 247, 0.08) 50%, transparent 70%)',
-          filter: 'blur(8px)',
-          pointerEvents: 'none',
-          zIndex: 99998,
-          x: glowX,
-          y: glowY,
-          translateX: '-50%',
-          translateY: '-50%',
+            ? 'radial-gradient(circle, rgba(45, 212, 168, 0.1) 0%, rgba(45, 212, 168, 0.03) 50%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(124, 111, 247, 0.12) 0%, rgba(80, 60, 180, 0.06) 50%, transparent 70%)',
+          filter: 'blur(20px)',
+          x: nebulaX,
+          y: nebulaY,
+          zIndex: 9998,
+          transition: 'width 0.4s ease, height 0.4s ease, background 0.4s ease, opacity 0.3s ease',
         }}
-        animate={{
-          width: glowSize,
-          height: glowSize,
-          opacity: cursorOpacity,
-        }}
-        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
       />
 
-      {/* Precise dot */}
+      {/* Inner cloud — medium trail */}
       <motion.div
         style={{
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          width: dotSize,
-          height: dotSize,
-          borderRadius: '50%',
-          backgroundColor: isHovering ? '#2dd4a8' : '#7c6ff7',
-          pointerEvents: 'none',
-          zIndex: 100000,
-          x: dotX,
-          y: dotY,
-          translateX: '-50%',
-          translateY: '-50%',
+          ...baseStyle,
+          width: isHovering ? 70 : 55,
+          height: isHovering ? 70 : 55,
+          background: isHovering
+            ? 'radial-gradient(circle, rgba(45, 212, 168, 0.3) 0%, rgba(45, 212, 168, 0.1) 45%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(124, 111, 247, 0.35) 0%, rgba(100, 80, 220, 0.15) 45%, transparent 70%)',
+          filter: 'blur(12px)',
+          x: cloudX,
+          y: cloudY,
+          zIndex: 9999,
+          transition: 'width 0.4s ease, height 0.4s ease, background 0.4s ease, opacity 0.3s ease',
         }}
-        animate={{
-          width: dotSize,
-          height: dotSize,
-          opacity: cursorOpacity,
+      />
+
+      {/* Star core — snappiest */}
+      <motion.div
+        style={{
+          ...baseStyle,
+          width: 14,
+          height: 14,
+          background: isHovering
+            ? 'radial-gradient(circle, rgba(180, 255, 230, 0.9) 0%, rgba(45, 212, 168, 0.6) 40%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(200, 190, 255, 0.9) 0%, rgba(124, 111, 247, 0.6) 40%, transparent 70%)',
+          filter: 'blur(4px)',
+          x: coreX,
+          y: coreY,
+          zIndex: 10000,
+          transition: 'background 0.4s ease, opacity 0.3s ease',
         }}
-        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
       />
     </>
   )
 }
+
+export default CustomCursor
