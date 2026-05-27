@@ -28,6 +28,8 @@ export interface Project {
   /** Primary accent color for this project (hex) */
   accent: string
   caseStudy: CaseStudyContent
+  githubLink?: string
+  liveLink?: string
 }
 
 // ── Project data ─────────────────────────────────────────────
@@ -37,80 +39,85 @@ export const PROJECTS: Project[] = [
     id: 'susword',
     number: '01',
     name: 'SusWord',
-    tagline: 'A word game where sustainability is the score.',
-    tags: ['Game Design', 'React', 'Multiplayer', 'UX'],
+    tagline: 'Real-time multiplayer social deduction game focused on suspense and interaction psychology.',
+    tags: ['Game Design', 'React', 'Socket.IO', 'Node.js', 'Interaction Psychology'],
     accent: '#f47c5a', // accent.coral
+    githubLink: 'https://github.com/harshikagahlot/SusWord',
+    liveLink: 'https://susword.vercel.app/',
     caseStudy: {
       problem:
-        'Word games are everywhere. But none of them made you think about the world outside the game. I wanted to build something that made sustainability feel like play, not lecture.',
-      role: 'Solo designer and developer',
+        'Online social deduction games often lack immediate emotional stakes and suspense in asynchronous or poorly timed loops. I wanted to build a real-time multiplayer system where vocabularies are weaponized, utilizing interaction psychology to keep players on the edge of their seats.',
+      role: 'Sole Creator (Frontend + Backend real-time architect)',
       duration: '6 weeks',
       thinking: [
-        'I started by playing every major word game I could find — Wordle, Scrabble Go, NYT Spelling Bee. I wasn\'t looking for inspiration. I was looking for the gap.',
-        'The gap I found: all of these games are closed systems. You win, you lose, you come back tomorrow. None of them connected the game to something larger.',
-        'The insight: what if your vocabulary was your impact score? Words related to sustainability, ecology, and climate scored higher — not because the game told you to care, but because the mechanics rewarded you for knowing those words.',
+        "I analyzed classics like Among Us, Codenames, and standard word-association games. The core gap: word games are usually individual, while social deduction relies on synchronous debate.",
+        "The insight: multiplayer synchronization must be absolute. Using Socket.IO, I designed a state machine where game events, timer pulses, voting states, and player reveals coordinate in under 50ms across all clients.",
+        "Interaction Psychology: The visual states reflect the emotional state of the players. Shorter voting times, sudden reveal flashes, and sound-like visual feedback amplify the suspense loop."
       ],
       decisions: [
         {
-          title: 'Scoring above streaks',
-          body: 'Most word games hook you with streaks. I chose scoring depth instead — longer, rarer sustainability-related words earned exponential points. This rewarded knowledge over habit.',
+          title: 'Socket.IO State Machine over HTTP polling',
+          body: 'To capture real-time voting suspense, polling was out of the question. I built a server-driven state machine that pushes updates instantly to all connected sockets, ensuring every player experiences reveals at the exact same millisecond.'
         },
         {
-          title: 'No ads, no premium tier',
-          body: 'Monetization that interrupts a word game destroys the flow state. SusWord launched free and stayed free. The goal was learning, not revenue.',
+          title: 'Focus on psychological tension',
+          body: "Instead of complex rules, I kept the mechanics dead simple but loaded them with suspense: hidden identities, immediate voting rounds, and a dynamic reveal board. The UX design amplifies the 'who is lying' aspect."
         },
         {
-          title: 'Multiplayer as the core loop',
-          body: 'Competing against a friend on the same board changed everything. Suddenly it wasn\'t you vs. the game. It was you vs. someone else\'s vocabulary. That tension made people come back.',
-        },
+          title: 'Split backend/frontend architecture',
+          body: 'Decoupled backend state from the React UI client. This allowed me to test multiplayer state machines in isolation, guaranteeing game lobby integrity and reconnection persistence.'
+        }
       ],
       outcome:
-        'Launched to a small beta group. Average session length: 12 minutes — 3x what I expected. Most common feedback: \'I looked up half these words after losing.\'',
+        'Successfully launched to a group of university students. The tension loop was so engaging that session lengths averaged 15+ minutes with zero churn within active lobbies. Players actively debated in real-time, proving the social suspense thesis.',
       lessonsLearned: [
-        'The feature I was most proud of (animated word connections) was the one users noticed least. Ship the mechanic first.',
-        'Multiplayer added 3 weeks to the build. It was worth every hour.',
-        'Naming matters more than I thought. \'SusWord\' tested better than every other name I considered.',
-      ],
-    },
+        'Real-time state synchronization is complex; edge-case disconnections must be handled gracefully through server-cached player tickets.',
+        'Simplifying mechanics while doubling down on emotional/psychological feedback creates far stronger engagement than complex rules.',
+        'Decoupled backend testing saved hundreds of hours during multi-player simulation debugging.'
+      ]
+    }
   },
   {
     id: 'habitmetric',
     number: '02',
     name: 'HabitMetric',
-    tagline: 'Habit tracking that respects how humans actually work.',
-    tags: ['Product Design', 'Data Viz', 'React', 'Behavioral UX'],
+    tagline: 'Productivity habit tracker turning rough intentions into structured daily execution.',
+    tags: ['Product Design', 'React', 'Behavioral UX', 'Data Viz'],
     accent: '#7c6ff7', // accent.purple
+    githubLink: 'https://github.com/harshikagahlot/HabitMetric',
+    liveLink: 'https://harshikagahlot.github.io/HabitMetric/',
     caseStudy: {
       problem:
-        'Habit trackers assume consistency. Humans are not consistent. Every app I tried made me feel like a failure by day 4. I wanted to build one that was honest about how humans actually work.',
+        'Most productivity trackers enforce rigid streaks. When a user misses one day, they experience the \'what-the-hell effect\' and abandon the app. I wanted to build a habit system that mirrors real human behavior: flexible, structured, and execution-focused rather than streak-obsessed.',
       role: 'Solo designer and developer',
       duration: '4 weeks',
       thinking: [
-        'I read BJ Fogg\'s Tiny Habits and James Clear\'s Atomic Habits back to back. They agreed on the science. But neither of them had built an app.',
-        'The existing apps — Streaks, Habitica, Done — all optimized for the ideal user: someone who never misses a day. They punished the real user: someone who misses Wednesdays.',
-        'My thesis: what if the app expected you to miss days? What if missing a day wasn\'t a broken streak — it was just data?',
+        'I researched atomic habit frameworks and behavioral UX pattern designs. Traditional checkmarks build stress instead of motivation.',
+        'The gap: a tracker shouldn\'t punish you for taking a break; it should help you recover. I designed a system that prioritizes long-term consistency trends over uninterrupted streaks.',
+        'Visualizing progress: Built custom visual representation metrics that highlight monthly consistency ratios rather than consecutive day counts, changing the user\'s focus from perfection to progress.'
       ],
       decisions: [
         {
-          title: 'Streaks replaced with rhythm scores',
-          body: 'Instead of a streak counter (which resets to zero on a miss), I built a \'rhythm score\' — a rolling 14-day average. Missing one day barely moves the needle. That single change made the app feel forgiving.',
+          title: 'Trend-based metrics over rigid streak counters',
+          body: 'Replaced standard consecutive-day streaks with a rolling consistency index. Missing a day shifts your index slightly rather than resetting it to absolute zero, successfully reducing user failure fatigue.'
         },
         {
-          title: 'Data visualization as the reward',
-          body: 'Most trackers show you a calendar with checkmarks. I showed a heatmap of your actual rhythm over 90 days. Seeing your patterns — not just your wins — was more motivating than any streak.',
+          title: 'Intentions-to-execution mapping workflow',
+          body: 'Implemented a daily planning block where users can adjust habit goals dynamically. This accommodates the natural variability of real life while maintaining commitment.'
         },
         {
-          title: 'No notifications by default',
-          body: 'Every habit app I researched used aggressive push notifications. I turned them off by default and made them opt-in after 2 weeks of use. Retention stayed the same. Stress complaints dropped.',
-        },
+          title: 'Clean, low-friction micro-interactions',
+          body: 'Reduced logging friction down to a single click, using smooth spring animations to make tracking feel rewarding rather than tedious.'
+        }
       ],
       outcome:
-        'Used personally for 6 months and shared with 12 beta testers. 9 of 12 were still using it at week 8 — compared to an industry average closer to week 2.',
+        'Tested personally and across beta testers for 6+ weeks. The consistency-based metric dramatically improved user retention at week 4 compared to traditional trackers, keeping people motivated even after they missed a logging day.',
       lessonsLearned: [
-        'The forgiving mechanic was the entire product. Everything else was decoration.',
-        'Data visualization is a product decision, not a design decision. What you show shapes how people feel about themselves.',
-        'I almost added gamification (points, badges). I\'m glad I didn\'t. The restraint was the right call.',
-      ],
-    },
-  },
+        'Behavioral psychology is the most powerful feature. If an app makes a user feel bad, they will uninstall it.',
+        'Data visualization should motivate, not just record. Showing the rhythm of progress is far more inspiring than simple streaks.',
+        'Design restraint is highly valuable; keeping tracking simple and removing noise was key to consistency.'
+      ]
+    }
+  }
 ]
+

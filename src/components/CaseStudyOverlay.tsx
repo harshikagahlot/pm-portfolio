@@ -199,6 +199,57 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
               >
                 {project.caseStudy.role} &nbsp;·&nbsp; {project.caseStudy.duration}
               </p>
+
+              {/* Optional Links */}
+              {(project.githubLink || project.liveLink) && (
+                <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+                  {project.liveLink && (
+                    <motion.a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={shouldReduceMotion ? {} : { scale: 1.02, backgroundColor: project.accent, color: '#ffffff' }}
+                      whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '14px',
+                        fontWeight: 600,
+                        color: '#0d0d14',
+                        backgroundColor: '#f0eff8',
+                        padding: '10px 20px',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        transition: 'background-color 0.2s ease, color 0.2s ease',
+                      }}
+                    >
+                      Live Project ↗
+                    </motion.a>
+                  )}
+                  {project.githubLink && (
+                    <motion.a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={shouldReduceMotion ? {} : { scale: 1.02, borderColor: project.accent, color: project.accent }}
+                      whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '14px',
+                        fontWeight: 600,
+                        color: '#f0eff8',
+                        border: '1px solid var(--color-border-default)',
+                        padding: '10px 20px',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        transition: 'border-color 0.2s ease, color 0.2s ease',
+                      }}
+                    >
+                      GitHub ↗
+                    </motion.a>
+                  )}
+                </div>
+              )}
+
               {/* Divider */}
               <div
                 style={{
@@ -208,6 +259,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                   marginBottom: '48px',
                 }}
               />
+
             </ContentSection>
 
             {/* Section 2 — The problem */}

@@ -87,7 +87,7 @@ export const Footer: React.FC = () => {
           >
             {/* Primary Button */}
             <motion.a
-              href="mailto:harshika@email.com"
+              href="mailto:harshikagahlot@gmail.com"
               onMouseEnter={() => setHelloHover(true)}
               onMouseLeave={() => setHelloHover(false)}
               animate={helloHover ? { scale: 1.03 } : { scale: 1 }}
@@ -203,13 +203,15 @@ export const Footer: React.FC = () => {
           {/* Center Social Links */}
           <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
             {[
-              { label: 'GitHub', url: '#' },
-              { label: 'LinkedIn', url: '#' },
-              { label: 'Twitter/X', url: '#' },
+              { label: 'GitHub', url: 'https://github.com/harshikagahlot' },
+              { label: 'Blog', url: 'https://productandperspective.blogspot.com/' },
+              { label: 'Portfolio', url: 'https://harshikagahlot.github.io/harshika-portfolio/' },
             ].map((social) => (
               <a
                 key={social.label}
                 href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '13px',
@@ -228,6 +230,7 @@ export const Footer: React.FC = () => {
               </a>
             ))}
           </div>
+
 
           {/* Right Copyright */}
           <div

@@ -14,29 +14,30 @@ interface BlogPost {
 const BLOG_POSTS: BlogPost[] = [
   {
     id: 1,
-    date: 'Jan 2024',
-    readTime: '5 min read',
-    title: 'Why I stopped caring about streaks',
-    excerpt: "Building HabitMetric taught me that the products we design for 'ideal users' quietly exclude everyone else. Here's what I changed and why.",
-    href: '#',
+    date: 'Apr 2026',
+    readTime: '6 min read',
+    title: 'What Early User Feedback Taught Me About Why People Stop Using Habit Apps',
+    excerpt: "Building HabitMetric and collecting early user responses revealed critical friction points. Here's why users churn and how we can design better engagement loops.",
+    href: 'https://productandperspective.blogspot.com/2026/04/what-early-user-feedback-taught-me.html',
   },
   {
     id: 2,
-    date: 'Feb 2024',
-    readTime: '3 min read',
-    title: 'The feature I almost shipped (and didn\'t)',
-    excerpt: 'SusWord nearly launched with animated word connection lines. I cut it two days before release. This is the decision-making process behind that call.',
-    href: '#',
+    date: 'Apr 2026',
+    readTime: '4 min read',
+    title: 'Why I’m Starting My Product Management Journey as a Student',
+    excerpt: "Starting early allows for building projects, dissecting popular apps, and seeing decisions behind screens. Here's how I structured my learning path.",
+    href: 'https://productandperspective.blogspot.com/2026/04/why-im-starting-my-product-management.html',
   },
   {
     id: 3,
-    date: 'Apr 2024',
-    readTime: '6 min read',
-    title: 'What Blinkit taught me about product promises',
-    excerpt: "A product promise isn't a tagline. It's a contract. Every design decision either honours it or quietly breaks it. Blinkit gets this better than almost anyone.",
-    href: '#',
+    date: 'May 2026',
+    readTime: 'Visit Blog',
+    title: 'Product & Perspective',
+    excerpt: "Explore my blog for structured PM teardowns, interaction psychology observations, user engagement analysis, and reflections on building real products.",
+    href: 'https://productandperspective.blogspot.com/',
   },
 ]
+
 
 const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
   const [hoveredLink, setHoveredLink] = useState(false)
@@ -114,7 +115,7 @@ const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
       {/* Read link with tooltip */}
       <div style={{ marginTop: '20px', position: 'relative', display: 'inline-block', width: 'fit-content' }}>
         <AnimatePresence>
-          {hoveredLink && (
+          {hoveredLink && post.href === '#' && (
             <motion.div
               initial={{ opacity: 0, y: -8, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -144,9 +145,13 @@ const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
 
         <a
           href={post.href}
+          target={post.href !== '#' ? '_blank' : undefined}
+          rel={post.href !== '#' ? 'noopener noreferrer' : undefined}
           onMouseEnter={() => setHoveredLink(true)}
           onMouseLeave={() => setHoveredLink(false)}
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => {
+            if (post.href === '#') e.preventDefault()
+          }}
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: '13px',
@@ -168,6 +173,7 @@ const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
         >
           Read →
         </a>
+
       </div>
     </motion.article>
   )
