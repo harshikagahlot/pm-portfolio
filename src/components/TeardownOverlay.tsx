@@ -68,11 +68,33 @@ interface TeardownOverlayProps {
 const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) => {
   const shouldReduceMotion = useReducedMotion()
 
-  // Lock body scroll when open
+  // Lock body scroll and handle history state for back button navigation
   useEffect(() => {
-    document.body.style.overflow = teardown ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [teardown])
+    if (teardown) {
+      document.body.style.overflow = 'hidden'
+      
+      // Push state for back button handling
+      window.history.pushState({ overlay: `teardown-${teardown.id}` }, '')
+
+      const handlePopState = () => {
+        onClose()
+      }
+
+      window.addEventListener('popstate', handlePopState)
+      return () => {
+        window.removeEventListener('popstate', handlePopState)
+        // If closed manually (e.g. X button), pop history state
+        if (window.history.state && window.history.state.overlay === `teardown-${teardown.id}`) {
+          window.history.back()
+        }
+      }
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [teardown, onClose])
 
   // Close on Escape
   useEffect(() => {

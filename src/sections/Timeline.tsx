@@ -13,7 +13,8 @@ const NODE_W = 240
 const NODE_W_MOBILE = 180
 const CARD_W = 200
 const CARD_W_MOBILE = 160
-const TRACK_H = 360 // px — height of the scrollable track
+const TRACK_H = 560 // px — height of the scrollable track
+
 
 // ── Milestone data ────────────────────────────────────────────
 interface Milestone {
@@ -180,7 +181,6 @@ const MilestoneNode: React.FC<NodeProps> = ({ milestone, isLast, shouldReduceMot
         style={{
           position: 'absolute',
           left: '50%',
-          transform: 'translateX(-50%)',
           width: `${cardW}px`,
           backgroundColor: 'var(--color-bg-card)',
           border: isLast
@@ -189,9 +189,11 @@ const MilestoneNode: React.FC<NodeProps> = ({ milestone, isLast, shouldReduceMot
           borderRadius: '12px',
           padding: '16px 20px',
           zIndex: 2,
+          x: '-50%',
           ...cardPositionStyle,
         }}
       >
+
         <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--color-text-hint)', margin: '0 0 6px' }}>
           {milestone.date}
         </p>

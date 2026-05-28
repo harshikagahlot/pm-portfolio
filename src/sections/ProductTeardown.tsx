@@ -201,6 +201,16 @@ const ProductTeardown: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
   const viewportConfig = { once: true, margin: '-60px' }
 
+  React.useEffect(() => {
+    const handleCloseOverlay = () => {
+      setSelectedTeardown(null)
+    }
+    window.addEventListener('close-project-overlay', handleCloseOverlay)
+    return () => {
+      window.removeEventListener('close-project-overlay', handleCloseOverlay)
+    }
+  }, [])
+
   return (
     <>
       {/* Teardown overlay — rendered outside normal flow */}

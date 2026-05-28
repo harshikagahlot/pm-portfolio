@@ -1,0 +1,91 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1924 >>
+stream
+BT
+/F1 22 Tf
+54 720 Td
+(Harshika Gahlot) Tj
+0 -30 Td
+/F1 14 Tf
+(Product-Focused Frontend Developer & Builder) Tj
+0 -30 Td
+/F1 11 Tf
+(Email: harshikagahlot@gmail.com | Phone: +91 9XXXX XXXXX) Tj
+0 -15 Td
+(Portfolio: harshikagahlot.github.io/harshika-portfolio/ | GitHub: github.com/harshikagahlot) Tj
+0 -15 Td
+(Blog: productandperspective.blogspot.com) Tj
+0 -30 Td
+/F1 14 Tf
+(EDUCATION) Tj
+0 -20 Td
+/F1 11 Tf
+(Ajay Kumar Garg Engineering College (AKGEC) - B.Tech in CSE (3rd Year, 2023 - 2027)) Tj
+0 -15 Td
+(Class XII (ISC): 80.40% | Class X (ICSE): 82.70%) Tj
+0 -30 Td
+/F1 14 Tf
+(PROJECTS & CASE STUDIES) Tj
+0 -20 Td
+/F1 12 Tf
+(1. SusWord - Real-time Multiplayer Social Deduction Game) Tj
+0 -15 Td
+/F1 10 Tf
+(   - Built with React, Node.js, and Socket.IO for real-time lobby state syncing & voting physics.) Tj
+0 -12 Td
+(   - Focus: User interaction psychology, game loops, connection buffering, and real-time state management.) Tj
+0 -20 Td
+/F1 12 Tf
+(2. HabitMetric - Forgivable Productivity Habit Tracker) Tj
+0 -15 Td
+/F1 10 Tf
+(   - Built with React & Tailwind CSS. Focuses on rhythm averages rather than punishing perfect streaks.) Tj
+0 -12 Td
+(   - Focus: Behavioral UX design, persistent local caching, and custom analytics visualization.) Tj
+0 -20 Td
+/F1 12 Tf
+(3. Accredian Orbit - Unified Student Learning Ecosystem Planning) Tj
+0 -15 Td
+/F1 10 Tf
+(   - Deconstructed student learning workflows to map low-fidelity wireframes, user onboarding flows,) Tj
+0 -12 Td
+(     segmentation models, and core dashboard tradeoffs for a unified learning platform.) Tj
+0 -12 Td
+(   - Focus: Systems thinking, user friction deconstruction, and structured product wireframing.) Tj
+0 -30 Td
+/F1 14 Tf
+(TECHNICAL SKILLS) Tj
+0 -20 Td
+/F1 10 Tf
+(Frontend: HTML5, CSS3, JavaScript (ES6+), React.js, Tailwind CSS, Framer Motion, Three.js) Tj
+0 -15 Td
+(Backend & Tools: Node.js, Express.js, Socket.IO, Git, GitHub, Vercel, Netlify) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000244 00000 n 
+0000000300 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+350
+%%EOF

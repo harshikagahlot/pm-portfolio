@@ -119,7 +119,10 @@ export const Footer: React.FC = () => {
 
             {/* Secondary Button */}
             <motion.a
-              href="#"
+              href="/Resume_Harshika_Gahlot.pdf"
+              download="Resume_Harshika_Gahlot.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               onMouseEnter={() => setResumeHover(true)}
               onMouseLeave={() => setResumeHover(false)}
               animate={resumeHover ? { scale: 1.03 } : { scale: 1 }}

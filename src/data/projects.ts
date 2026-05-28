@@ -82,6 +82,33 @@ export const PROJECTS: Project[] = [
         '"Super simple UI. I just click the button and close the tab. No clutter, no popups."'
       ]
     }
+  },
+  {
+    id: 'accredian-orbit',
+    number: '03',
+    name: 'Accredian Orbit',
+    tagline: 'Unified student ecosystem planning and PM wireframing exploration.',
+    tags: ['Product Management', 'Systems Thinking', 'UX Research', 'Ecosystem Planning'],
+    accent: '#2dd4a8', // accent.teal
+    liveLink: 'https://productandperspective.blogspot.com/', // link to blog/wireframe hub
+    caseStudy: {
+      whatIBuilt:
+        'A structured product exploration and systems planning exercise for "Accredian Orbit" — a unified student ecosystem. This case study deconstructs student friction, mapping out onboarding flows, student segmentation, dashboard wireframes, and feature tradeoffs.',
+      why:
+        'Online learning platforms are highly fragmented; students constantly switch between separate discussion boards, learning portals, and tracking sheets. I wanted to explore systems design for a unified workspace that bridges these gaps, focusing on social accountability and friction reduction.',
+      role: 'Product Management Exploration (Case Study)',
+      duration: '3 weeks',
+      whatSurprisedMe: [
+        'Mapping student segmentation showed that self-paced learners and boot-camp career switchers have completely opposite dashboard needs. One needs strict visual scaffolding, while the other needs high-flexibility shortcuts.',
+        'Low-fidelity wireframing proved that reducing onboarding steps by just 15% completely shifts the ecosystem\'s initial retention and interaction levels.'
+      ],
+      oneThingIWouldChange:
+        'I focused heavily on mapping a complex gamified discussion board. In a real product release, I would prioritize a centralized notification dashboard first, as unified updates solve a more immediate, daily pain point for students.',
+      whatUsersSaid: [
+        '"The ecosystem flow actually feels like it connects all my learning tools together instead of creating another place to check."',
+        '"Highly focused onboarding. It asks exactly what you\'re learning and drops you into a custom workspace immediately."'
+      ]
+    }
   }
 ]
 
