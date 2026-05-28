@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import type { TeardownData } from '../data/teardowns'
+import { lenis } from '../lib/smoothScroll'
 
 // ── Shared accent ─────────────────────────────────────────────
 const TEAL = '#2dd4a8'
@@ -72,6 +73,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
   useEffect(() => {
     if (teardown) {
       document.body.style.overflow = 'hidden'
+      lenis?.stop() // Stop Lenis smooth scroll on body
       
       // Push state for back button handling
       window.history.pushState({ overlay: `teardown-${teardown.id}` }, '')
@@ -83,6 +85,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
       window.addEventListener('popstate', handlePopState)
       return () => {
         window.removeEventListener('popstate', handlePopState)
+        lenis?.start() // Resume Lenis on close
         // If closed manually (e.g. X button), pop history state
         if (window.history.state && window.history.state.overlay === `teardown-${teardown.id}`) {
           window.history.back()
@@ -90,9 +93,11 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
       }
     } else {
       document.body.style.overflow = ''
+      lenis?.start()
     }
     return () => {
       document.body.style.overflow = ''
+      lenis?.start()
     }
   }, [teardown, onClose])
 

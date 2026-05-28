@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import type { Project } from '../data/projects'
+import { lenis } from '../lib/smoothScroll'
 
 // ── Close icon ───────────────────────────────────────────────
 const CloseIcon: React.FC = () => (
@@ -69,6 +70,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
   useEffect(() => {
     if (project) {
       document.body.style.overflow = 'hidden'
+      lenis?.stop() // Stop Lenis smooth scroll on body
       
       // Push state for back button handling
       window.history.pushState({ overlay: `project-${project.id}` }, '')
@@ -80,6 +82,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
       window.addEventListener('popstate', handlePopState)
       return () => {
         window.removeEventListener('popstate', handlePopState)
+        lenis?.start() // Resume Lenis on overlay close
         // If closed manually (e.g. X button), pop the history state
         if (window.history.state && window.history.state.overlay === `project-${project.id}`) {
           window.history.back()
@@ -87,9 +90,11 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
       }
     } else {
       document.body.style.overflow = ''
+      lenis?.start()
     }
     return () => {
       document.body.style.overflow = ''
+      lenis?.start()
     }
   }, [project, onClose])
 

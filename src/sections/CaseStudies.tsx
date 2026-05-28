@@ -6,6 +6,8 @@ import ParallaxGlow from '../components/ParallaxGlow'
 import { PROJECTS } from '../data/projects'
 import type { Project } from '../data/projects'
 import CaseStudyOverlay from '../components/CaseStudyOverlay'
+import suswordImg from '../assets/susword.png'
+import habitmetricImg from '../assets/habitmetricdashboard.png'
 
 // ── Pulsing dots indicator ────────────────────────────────────
 const PulsingDots: React.FC<{ shouldReduceMotion: boolean | null }> = ({ shouldReduceMotion }) => (
@@ -47,6 +49,7 @@ interface ProjectEntryProps {
 
 const ProjectEntry: React.FC<ProjectEntryProps> = ({ project, onClick, shouldReduceMotion }) => {
   const [hovered, setHovered] = useState(false)
+  const isAccredian = project.id === 'accredian-orbit'
 
   return (
     <motion.div
@@ -76,7 +79,7 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({ project, onClick, shouldRed
         viewport={{ once: true, margin: '-60px' }}
         variants={VARIANTS.fadeUp}
         transition={shouldReduceMotion ? { duration: 0 } : { ...TRANSITIONS.slow, delay: 0 }}
-        style={{ flex: '0 0 auto', maxWidth: '55%' }}
+        style={{ flex: '1 1 auto', maxWidth: isAccredian ? '100%' : '55%' }}
         className="project-entry-left"
       >
         {/* Project number */}
@@ -178,78 +181,80 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({ project, onClick, shouldRed
       </motion.div>
 
       {/* ── RIGHT: visual placeholder ──────────────────── */}
-      <motion.div
-        initial={shouldReduceMotion ? {} : { opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={shouldReduceMotion ? { duration: 0 } : { ...TRANSITIONS.slow, delay: 0.15 }}
-        style={{ flex: '1 1 auto', minWidth: 0 }}
-        className="project-entry-right"
-      >
+      {!isAccredian && (
         <motion.div
-          animate={
-            shouldReduceMotion
-              ? {}
-              : {
-                  borderColor: hovered
-                    ? `rgba(${project.accent === '#f47c5a' ? '244,124,90' : '124,111,247'},0.3)`
-                    : 'var(--color-border-subtle)',
-                }
-          }
-          transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
-          style={{
-            width: '100%',
-            aspectRatio: '16/9',
-            borderRadius: '16px',
-            backgroundColor: 'var(--color-bg-card)',
-            border: '0.5px solid var(--color-border-subtle)',
-            position: 'relative',
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+          initial={shouldReduceMotion ? {} : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={shouldReduceMotion ? { duration: 0 } : { ...TRANSITIONS.slow, delay: 0.15 }}
+          style={{ flex: '1 1 auto', minWidth: 0, maxWidth: '40%' }}
+          className="project-entry-right"
         >
-          {/* Ghost watermark letter */}
-          <span
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '120px',
-              fontWeight: 800,
-              color: 'var(--color-text-primary)',
-              opacity: 0.06,
-              lineHeight: 1,
-              userSelect: 'none',
-              pointerEvents: 'none',
-            }}
-            aria-hidden="true"
-          >
-            {project.name[0]}
-          </span>
-
-          {/* Hover gradient overlay */}
           <motion.div
             animate={
               shouldReduceMotion
                 ? {}
                 : {
-                    opacity: hovered ? 1 : 0,
+                    borderColor: hovered
+                      ? `rgba(${project.accent === '#f47c5a' ? '244,124,90' : '124,111,247'},0.3)`
+                      : 'var(--color-border-subtle)',
                   }
             }
             transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
             style={{
-              position: 'absolute',
-              inset: 0,
-              background:
-                project.accent === '#f47c5a'
-                  ? 'linear-gradient(135deg, rgba(244,124,90,0) 0%, rgba(244,124,90,0.08) 100%)'
-                  : 'linear-gradient(135deg, rgba(124,111,247,0) 0%, rgba(124,111,247,0.08) 100%)',
-              pointerEvents: 'none',
+              width: '100%',
+              aspectRatio: '16/9',
               borderRadius: '16px',
+              backgroundColor: 'var(--color-bg-card)',
+              border: '0.5px solid var(--color-border-subtle)',
+              position: 'relative',
+              overflow: 'hidden',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
-          />
+          >
+            {/* Actual project screenshot image */}
+            <img
+              src={project.id === 'susword' ? suswordImg : habitmetricImg}
+              alt={`${project.name} screenshot`}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                position: 'absolute',
+                inset: 0,
+                opacity: hovered ? 1 : 0.85,
+                transition: 'opacity 0.2s ease, transform 0.3s ease',
+                transform: hovered ? 'scale(1.03)' : 'scale(1)',
+              }}
+            />
+
+            {/* Hover gradient overlay */}
+            <motion.div
+              animate={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      opacity: hovered ? 1 : 0,
+                    }
+              }
+              transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background:
+                  project.accent === '#f47c5a'
+                    ? 'linear-gradient(135deg, rgba(244,124,90,0) 0%, rgba(244,124,90,0.08) 100%)'
+                    : 'linear-gradient(135deg, rgba(124,111,247,0) 0%, rgba(124,111,247,0.08) 100%)',
+                pointerEvents: 'none',
+                borderRadius: '16px',
+                zIndex: 1,
+              }}
+            />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
     </motion.div>
   )
 }
