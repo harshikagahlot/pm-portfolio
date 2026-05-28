@@ -114,6 +114,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
       {project && (
         <motion.div
           key={project.id}
+          data-lenis-prevent
           initial={shouldReduceMotion ? {} : { y: '100%', opacity: 1 }}
           animate={{ y: 0, opacity: 1 }}
           exit={shouldReduceMotion ? {} : { y: '100%', opacity: 0 }}

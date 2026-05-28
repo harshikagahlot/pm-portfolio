@@ -113,6 +113,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
       {teardown && (
         <motion.div
           key={teardown.id}
+          data-lenis-prevent
           initial={shouldReduceMotion ? {} : { y: '100%', opacity: 1 }}
           animate={{ y: 0, opacity: 1 }}
           exit={shouldReduceMotion ? {} : { y: '100%', opacity: 0 }}
