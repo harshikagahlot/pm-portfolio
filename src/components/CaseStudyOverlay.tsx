@@ -262,10 +262,10 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
 
             </ContentSection>
 
-            {/* Section 2 — The problem */}
+            {/* Section 2 — What I Built */}
             <ContentSection delay={0.45} shouldReduceMotion={shouldReduceMotion}>
               <div style={{ marginBottom: '56px' }}>
-                <SectionLabel text="The problem" accent={project.accent} />
+                <SectionLabel text="What I Built" accent={project.accent} />
                 <p
                   style={{
                     fontFamily: 'var(--font-body)',
@@ -275,107 +275,82 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                     margin: 0,
                   }}
                 >
-                  {project.caseStudy.problem}
+                  {project.caseStudy.whatIBuilt}
                 </p>
               </div>
             </ContentSection>
 
-            {/* Section 3 — How I thought about it */}
+            {/* Section 3 — Why */}
             <ContentSection delay={0.55} shouldReduceMotion={shouldReduceMotion}>
               <div style={{ marginBottom: '56px' }}>
-                <SectionLabel text="How I thought about it" accent={project.accent} />
-                {project.caseStudy.thinking.map((paragraph, i) => (
+                <SectionLabel text="Why" accent={project.accent} />
+                <p
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '16px',
+                    color: 'var(--color-text-primary)',
+                    lineHeight: 1.75,
+                    margin: 0,
+                  }}
+                >
+                  {project.caseStudy.why}
+                </p>
+              </div>
+            </ContentSection>
+
+            {/* Section 4 — What Surprised Me */}
+            <ContentSection delay={0.65} shouldReduceMotion={shouldReduceMotion}>
+              <div style={{ marginBottom: '56px' }}>
+                <SectionLabel text="What Surprised Me" accent={project.accent} />
+                {project.caseStudy.whatSurprisedMe.map((surprise, i) => (
                   <p
                     key={i}
                     style={{
                       fontFamily: 'var(--font-body)',
-                      fontSize: '16px',
+                      fontSize: '15px',
                       color: 'var(--color-text-primary)',
-                      lineHeight: 1.75,
+                      lineHeight: 1.7,
                       margin: 0,
-                      marginBottom: i < project.caseStudy.thinking.length - 1 ? '24px' : 0,
+                      marginBottom: i < project.caseStudy.whatSurprisedMe.length - 1 ? '16px' : 0,
                     }}
                   >
-                    {paragraph}
+                    💡 &nbsp; {surprise}
                   </p>
                 ))}
               </div>
             </ContentSection>
 
-            {/* Section 4 — Key decisions */}
-            <ContentSection delay={0.65} shouldReduceMotion={shouldReduceMotion}>
-              <div style={{ marginBottom: '56px' }}>
-                <SectionLabel text="Key decisions" accent={project.accent} />
-                {project.caseStudy.decisions.map((decision, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      backgroundColor: 'var(--color-bg-card)',
-                      border: '0.5px solid var(--color-border-subtle)',
-                      borderRadius: '12px',
-                      padding: '24px',
-                      marginBottom: i < project.caseStudy.decisions.length - 1 ? '16px' : 0,
-                    }}
-                  >
-                    <p
-                      style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '17px',
-                        fontWeight: 700,
-                        color: 'var(--color-text-primary)',
-                        margin: 0,
-                      }}
-                    >
-                      {decision.title}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: 'var(--font-body)',
-                        fontSize: '15px',
-                        color: 'var(--color-text-secondary)',
-                        lineHeight: 1.65,
-                        marginTop: '8px',
-                        marginBottom: 0,
-                      }}
-                    >
-                      {decision.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </ContentSection>
-
-            {/* Section 5 — Outcome */}
+            {/* Section 5 — One Thing I'd Change */}
             <ContentSection delay={0.75} shouldReduceMotion={shouldReduceMotion}>
               <div style={{ marginBottom: '56px' }}>
-                <SectionLabel text="What happened" accent={project.accent} />
+                <SectionLabel text="One Thing I'd Change" accent={project.accent} />
                 <p
                   style={{
                     fontFamily: 'var(--font-body)',
-                    fontSize: '17px',
-                    color: 'var(--color-text-primary)',
-                    lineHeight: 1.75,
+                    fontSize: '15px',
+                    color: 'var(--color-text-secondary)',
+                    lineHeight: 1.7,
                     margin: 0,
                   }}
                 >
-                  {project.caseStudy.outcome}
+                  {project.caseStudy.oneThingIWouldChange}
                 </p>
               </div>
             </ContentSection>
 
-            {/* Section 6 — Lessons learned */}
+            {/* Section 6 — What Users Said */}
             <ContentSection delay={0.85} shouldReduceMotion={shouldReduceMotion}>
               <div>
-                <SectionLabel text="What I'd tell myself" accent={project.accent} />
-                <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {project.caseStudy.lessonsLearned.map((lesson, i) => (
+                <SectionLabel text="What Users Said" accent={project.accent} />
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {project.caseStudy.whatUsersSaid.map((quote, i) => (
                     <li
                       key={i}
                       style={{
                         display: 'flex',
                         gap: '16px',
                         alignItems: 'flex-start',
-                        marginBottom: i < project.caseStudy.lessonsLearned.length - 1 ? '12px' : 0,
+                        marginBottom: i < project.caseStudy.whatUsersSaid.length - 1 ? '12px' : 0,
                       }}
                     >
                       <span
@@ -396,16 +371,18 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                           fontSize: '15px',
                           color: 'var(--color-text-secondary)',
                           lineHeight: 1.65,
+                          fontStyle: 'italic',
                           margin: 0,
                         }}
                       >
-                        {lesson}
+                        {quote}
                       </p>
                     </li>
                   ))}
-                </ol>
+                </ul>
               </div>
             </ContentSection>
+
           </div>
         </motion.div>
       )}

@@ -337,21 +337,23 @@ const ProductTeardown: React.FC = () => {
               visible: { transition: { staggerChildren: 0.1 } },
             }}
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
               gap: '20px',
             }}
-            className="teardown-grid"
           >
             {TEARDOWNS.map((teardown) => (
-              <TeardownCard
-                key={teardown.id}
-                teardown={teardown}
-                onClick={() => setSelectedTeardown(teardown)}
-                shouldReduceMotion={shouldReduceMotion}
-              />
+              <div key={teardown.id} style={{ maxWidth: '480px', width: '100%' }}>
+                <TeardownCard
+                  teardown={teardown}
+                  onClick={() => setSelectedTeardown(teardown)}
+                  shouldReduceMotion={shouldReduceMotion}
+                />
+              </div>
             ))}
           </motion.div>
+
 
           {/* ── Section footer ─────────────────────────── */}
           <motion.div
@@ -450,15 +452,6 @@ const ProductTeardown: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Responsive grid */}
-        <style>{`
-          @media (max-width: 767px) {
-            .teardown-grid { grid-template-columns: 1fr !important; }
-          }
-          @media (min-width: 768px) and (max-width: 1023px) {
-            .teardown-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          }
-        `}</style>
       </section>
     </>
   )

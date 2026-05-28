@@ -287,11 +287,13 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                           fontSize: '17px',
                           fontWeight: 700,
                           color: 'var(--color-text-primary)',
-                          margin: '0 0 8px',
+                          margin: '0 0 12px',
                         }}
                       >
                         {ann.title}
                       </p>
+                      
+                      {/* Observation */}
                       <p
                         style={{
                           fontFamily: 'var(--font-body)',
@@ -301,9 +303,23 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                           margin: '0 0 12px',
                         }}
                       >
-                        {ann.observation}
+                        <strong>My Observation:</strong> {ann.observation}
                       </p>
-                      {/* Principle blockquote */}
+
+                      {/* Why it matters */}
+                      <p
+                        style={{
+                          fontFamily: 'var(--font-body)',
+                          fontSize: '15px',
+                          color: 'var(--color-text-primary)',
+                          lineHeight: 1.7,
+                          margin: '0 0 16px',
+                        }}
+                      >
+                        <strong>Why It Matters:</strong> {ann.whyItMatters}
+                      </p>
+
+                      {/* How I'd Test This */}
                       <blockquote
                         style={{
                           margin: 0,
@@ -316,8 +332,9 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                           lineHeight: 1.65,
                         }}
                       >
-                        {ann.principle}
+                        <strong>How I'd Test This:</strong> {ann.howIdTestThis}
                       </blockquote>
+
                     </div>
                   </div>
                 ))}

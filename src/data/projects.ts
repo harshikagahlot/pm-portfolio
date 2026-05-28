@@ -1,21 +1,13 @@
 // ── Types ────────────────────────────────────────────────────
 
-export interface Decision {
-  title: string
-  body: string
-}
-
 export interface CaseStudyContent {
-  problem: string
+  whatIBuilt: string
+  why: string
   role: string
   duration: string
-  /** Array of paragraphs describing the thinking process */
-  thinking: string[]
-  /** Key product/design decisions made during the project */
-  decisions: Decision[]
-  outcome: string
-  /** Lessons learned — each entry is one lesson */
-  lessonsLearned: string[]
+  whatSurprisedMe: string[]
+  oneThingIWouldChange: string
+  whatUsersSaid: string[]
 }
 
 export interface Project {
@@ -45,35 +37,21 @@ export const PROJECTS: Project[] = [
     githubLink: 'https://github.com/harshikagahlot/SusWord',
     liveLink: 'https://susword.vercel.app/',
     caseStudy: {
-      problem:
-        'Online social deduction games often lack immediate emotional stakes and suspense in asynchronous or poorly timed loops. I wanted to build a real-time multiplayer system where vocabularies are weaponized, utilizing interaction psychology to keep players on the edge of their seats.',
-      role: 'Sole Creator (Frontend + Backend real-time architect)',
+      whatIBuilt:
+        'A real-time multiplayer social deduction game. Built with React on the frontend and a Node.js/Socket.IO server on the backend to synchronize game state, timers, voting, and player identities instantly across clients.',
+      why:
+        'Standard word games are solitary and calm. I wanted to build something high-stress where vocabulary meets active deception — forcing players to think on their feet, defend themselves in a synchronous lobby, and figure out who is lying in real time.',
+      role: 'Sole Developer (Frontend + Backend Socket integration)',
       duration: '6 weeks',
-      thinking: [
-        "I analyzed classics like Among Us, Codenames, and standard word-association games. The core gap: word games are usually individual, while social deduction relies on synchronous debate.",
-        "The insight: multiplayer synchronization must be absolute. Using Socket.IO, I designed a state machine where game events, timer pulses, voting states, and player reveals coordinate in under 50ms across all clients.",
-        "Interaction Psychology: The visual states reflect the emotional state of the players. Shorter voting times, sudden reveal flashes, and sound-like visual feedback amplify the suspense loop."
+      whatSurprisedMe: [
+        'Setting up Socket.IO rooms was relatively straightforward, but handling sudden client-side disconnections without ruining the active game state was incredibly challenging. I had to build a simple server-side connection buffer.',
+        'During playtests, players didn\'t care about the scoring system I spent hours drafting. They just cared about the ticking clock. Suspense and social interaction drove 100% of the fun.'
       ],
-      decisions: [
-        {
-          title: 'Socket.IO State Machine over HTTP polling',
-          body: 'To capture real-time voting suspense, polling was out of the question. I built a server-driven state machine that pushes updates instantly to all connected sockets, ensuring every player experiences reveals at the exact same millisecond.'
-        },
-        {
-          title: 'Focus on psychological tension',
-          body: "Instead of complex rules, I kept the mechanics dead simple but loaded them with suspense: hidden identities, immediate voting rounds, and a dynamic reveal board. The UX design amplifies the 'who is lying' aspect."
-        },
-        {
-          title: 'Split backend/frontend architecture',
-          body: 'Decoupled backend state from the React UI client. This allowed me to test multiplayer state machines in isolation, guaranteeing game lobby integrity and reconnection persistence.'
-        }
-      ],
-      outcome:
-        'Successfully launched to a group of university students. The tension loop was so engaging that session lengths averaged 15+ minutes with zero churn within active lobbies. Players actively debated in real-time, proving the social suspense thesis.',
-      lessonsLearned: [
-        'Real-time state synchronization is complex; edge-case disconnections must be handled gracefully through server-cached player tickets.',
-        'Simplifying mechanics while doubling down on emotional/psychological feedback creates far stronger engagement than complex rules.',
-        'Decoupled backend testing saved hundreds of hours during multi-player simulation debugging.'
+      oneThingIWouldChange:
+        'I built a complex reconnection flow that retries for 30 seconds. In hindsight, for a quick-fire social game, a simple \'return to lobby\' button and starting a new round is much faster and matches user behavior better.',
+      whatUsersSaid: [
+        '"It\'s surprisingly intense when the timer drops below 5 seconds and you still haven\'t found a word that fits."',
+        '"We spent more time yelling at each other in the room than playing the actual game. It felt like playing a board game in person."'
       ]
     }
   },
@@ -87,37 +65,24 @@ export const PROJECTS: Project[] = [
     githubLink: 'https://github.com/harshikagahlot/HabitMetric',
     liveLink: 'https://harshikagahlot.github.io/HabitMetric/',
     caseStudy: {
-      problem:
-        'Most productivity trackers enforce rigid streaks. When a user misses one day, they experience the \'what-the-hell effect\' and abandon the app. I wanted to build a habit system that mirrors real human behavior: flexible, structured, and execution-focused rather than streak-obsessed.',
+      whatIBuilt:
+        'A clean productivity habit tracking tool designed around trend ratios. Built with React and Tailwind CSS, focusing on long-term consistency metrics instead of standard uninterrupted streaks.',
+      why:
+        'Most habit apps make you feel like an absolute failure on day 4 when you inevitably miss a checkbox. Enforcing perfect streaks works for machines, not busy students. I wanted to design a tracker that is forgiving, tracking rhythm averages so missing a single Wednesday doesn\'t wipe out your progress.',
       role: 'Solo designer and developer',
       duration: '4 weeks',
-      thinking: [
-        'I researched atomic habit frameworks and behavioral UX pattern designs. Traditional checkmarks build stress instead of motivation.',
-        'The gap: a tracker shouldn\'t punish you for taking a break; it should help you recover. I designed a system that prioritizes long-term consistency trends over uninterrupted streaks.',
-        'Visualizing progress: Built custom visual representation metrics that highlight monthly consistency ratios rather than consecutive day counts, changing the user\'s focus from perfection to progress.'
+      whatSurprisedMe: [
+        'Adding gamification elements (badges and points) actually reduced tracking consistency in my early tests. Users felt it was too childish and ignored the core habits.',
+        'Removing strict push notifications actually kept retention steady. Trusting users to log when they naturally wanted to was more sustainable than nagging them.'
       ],
-      decisions: [
-        {
-          title: 'Trend-based metrics over rigid streak counters',
-          body: 'Replaced standard consecutive-day streaks with a rolling consistency index. Missing a day shifts your index slightly rather than resetting it to absolute zero, successfully reducing user failure fatigue.'
-        },
-        {
-          title: 'Intentions-to-execution mapping workflow',
-          body: 'Implemented a daily planning block where users can adjust habit goals dynamically. This accommodates the natural variability of real life while maintaining commitment.'
-        },
-        {
-          title: 'Clean, low-friction micro-interactions',
-          body: 'Reduced logging friction down to a single click, using smooth spring animations to make tracking feel rewarding rather than tedious.'
-        }
-      ],
-      outcome:
-        'Tested personally and across beta testers for 6+ weeks. The consistency-based metric dramatically improved user retention at week 4 compared to traditional trackers, keeping people motivated even after they missed a logging day.',
-      lessonsLearned: [
-        'Behavioral psychology is the most powerful feature. If an app makes a user feel bad, they will uninstall it.',
-        'Data visualization should motivate, not just record. Showing the rhythm of progress is far more inspiring than simple streaks.',
-        'Design restraint is highly valuable; keeping tracking simple and removing noise was key to consistency.'
+      oneThingIWouldChange:
+        'I focused heavily on local storage persistent caching. In a real production version, I would integrate a lightweight serverless DB first so users could sync habits across their laptop and phone seamlessly.',
+      whatUsersSaid: [
+        '"It\'s the first habit app I didn\'t delete after missing a day. The rhythm score actually feels supportive instead of stressful."',
+        '"Super simple UI. I just click the button and close the tab. No clutter, no popups."'
       ]
     }
   }
 ]
+
 

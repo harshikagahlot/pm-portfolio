@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
+import React from 'react'
+import { motion, useReducedMotion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
+
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import { scrollTo } from '../lib/smoothScroll'
 import { useScrollVelocitySkew } from '../hooks/useScrollVelocitySkew'
 import ParallaxGlow from '../components/ParallaxGlow'
 
-const ROLES = ['product thinker', 'frontend builder', 'interaction designer']
-const ROLE_INTERVAL = 2500
-
 const Hero: React.FC = () => {
-  const [roleIndex, setRoleIndex] = useState(0)
   const shouldReduceMotion = useReducedMotion()
   const { scrollY } = useScroll()
 
@@ -24,14 +21,6 @@ const Hero: React.FC = () => {
   // Scroll velocity skew
   const skew = useScrollVelocitySkew(0.002)
 
-  // Role switcher timer
-  useEffect(() => {
-    if (shouldReduceMotion) return
-    const timer = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % ROLES.length)
-    }, ROLE_INTERVAL)
-    return () => clearInterval(timer)
-  }, [shouldReduceMotion])
 
   // Stagger animation helpers
   const getItemAnimation = (index: number) => ({
@@ -189,42 +178,21 @@ const Hero: React.FC = () => {
           </motion.div>
 
           {/* 3. Role switcher */}
+          {/* 3. Subtitle / Honest statement */}
           <motion.div
             {...getItemAnimation(2)}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
               fontFamily: 'var(--font-body)',
               fontSize: '18px',
-              color: 'var(--color-text-secondary)',
-              height: '28px',
-              overflow: 'hidden',
+              fontWeight: 500,
+              color: 'var(--color-accent-purple)',
+              lineHeight: 1.4,
+              margin: 0,
             }}
           >
-            <span>I'm a</span>
-            <div style={{ position: 'relative', height: '28px', overflow: 'hidden' }}>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={roleIndex}
-                  initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={shouldReduceMotion ? {} : { opacity: 0, y: -20 }}
-                  transition={
-                    shouldReduceMotion ? { duration: 0 } : { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
-                  }
-                  style={{
-                    display: 'block',
-                    color: 'var(--color-accent-purple)',
-                    fontWeight: 500,
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {ROLES[roleIndex]}
-                </motion.span>
-              </AnimatePresence>
-            </div>
+            Frontend developer obsessed with how products work.
           </motion.div>
+
 
           {/* 4. Short bio */}
           <motion.p

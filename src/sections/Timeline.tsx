@@ -28,53 +28,54 @@ interface Milestone {
 const MILESTONES: Milestone[] = [
   {
     id: 1, emoji: '🌱', date: '2022 · Early',
-    title: 'Wrote my first line of code',
-    description: "HTML on a YouTube tutorial. Thought I'd broken the internet when I opened the browser.",
+    title: 'First line of code',
+    description: "Started learning HTML/CSS basics to build simple, custom static layouts.",
     position: 'above',
   },
   {
     id: 2, emoji: '⚡', date: '2022 · Mid',
-    title: 'First JavaScript project',
-    description: 'A calculator app that only worked sometimes. I was extremely proud of it.',
+    title: 'JavaScript core logic',
+    description: 'Began writing dynamic browser scripts, DOM manipulations, and local storage caches.',
     position: 'below',
   },
   {
     id: 3, emoji: '🚀', date: '2022 · Late',
-    title: 'First deployment',
-    description: 'Put something on the internet for real. Sent the link to everyone I knew.',
+    title: 'First live deployment',
+    description: 'Shared my first static landing pages with real users on the web.',
     position: 'above',
   },
   {
     id: 4, emoji: '🎮', date: '2023 · Early',
     title: 'Built SusWord',
-    description: 'First real product. Multiplayer, real users, real feedback. Nothing went as planned.',
+    description: 'Engineered a real-time multiplayer social game using Node.js and Socket.IO for lobby syncing.',
     position: 'below',
   },
   {
     id: 5, emoji: '📊', date: '2023 · Mid',
     title: 'Built HabitMetric',
-    description: 'Started thinking about users, not just code. This is when product thinking clicked.',
+    description: 'Launched a forgivable productivity habit tracker focusing on rolling averages over streaks.',
     position: 'above',
   },
   {
     id: 6, emoji: '🔍', date: '2023 · Late',
-    title: 'Discovered product teardowns',
-    description: "Started dissecting apps I used daily. Couldn't stop seeing the decisions behind every screen.",
+    title: 'Discovered teardowns',
+    description: 'Began analyzing UX mechanics, micro-interactions, and behavioral design in daily apps.',
     position: 'below',
   },
   {
     id: 7, emoji: '🤖', date: '2024',
-    title: 'Went deep on AI',
-    description: 'Explored AI-assisted workflows, prompt engineering, recommendation systems. Still exploring.',
+    title: 'Advanced AI workflows',
+    description: 'Integrating LLMs, prompt engineering, and model-driven code systems to speed up delivery.',
     position: 'above',
   },
   {
     id: 8, emoji: '📍', date: 'Now',
-    title: 'Here.',
-    description: 'Building things that matter. Looking for the right team to build them with.',
+    title: 'Internship Ready',
+    description: 'Looking to join a product-focused frontend team to build high-impact user experiences.',
     position: 'below',
   },
 ]
+
 
 // ── Single milestone node ─────────────────────────────────────
 interface NodeProps {

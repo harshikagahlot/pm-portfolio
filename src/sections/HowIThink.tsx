@@ -3,12 +3,9 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import { scrollTo } from '../lib/smoothScroll'
 import ParallaxGlow from '../components/ParallaxGlow'
-import EyeIcon from '../components/icons/EyeIcon'
 import UserIcon from '../components/icons/UserIcon'
 import LayersIcon from '../components/icons/LayersIcon'
 import BoltIcon from '../components/icons/BoltIcon'
-import FlowIcon from '../components/icons/FlowIcon'
-import HeartIcon from '../components/icons/HeartIcon'
 
 // ── Types ────────────────────────────────────────────────────
 interface ThoughtCard {
@@ -22,59 +19,34 @@ interface ThoughtCard {
 // ── Card data ────────────────────────────────────────────────
 const THOUGHT_CARDS: ThoughtCard[] = [
   {
-    id: 'observe',
-    Icon: EyeIcon,
-    title: 'I observe before I design',
+    id: 'friction',
+    Icon: LayersIcon,
+    title: 'Friction is the default',
     description:
-      'Most bad products are built by people who skipped the watching step. I spend more time in the problem than in Figma.',
+      'If you don\'t actively fight user confusion, the UI will build it for you. Simplicity isn\'t accidental — it\'s a hard-won series of structural cuts.',
     reveal:
-      'I once spent a week just using Blinkit as a first-time user before touching any design.',
+      'SusWord originally had complex voting states. In early tests, players were paralyzed. I cut 3 entire gameplay mechanics to find the fun.',
+  },
+  {
+    id: 'iteration',
+    Icon: BoltIcon,
+    title: 'Iteration over perfection',
+    description:
+      'Shipping a rough draft that solves a core pain teaches you more than delayed polish ever will. Polish is easy; validating the real problem is hard.',
+    reveal:
+      'HabitMetric\'s rolling rhythm score calculation took three major database revisions to feel right based on how beta testers actually logged habits.',
   },
   {
     id: 'behavior',
     Icon: UserIcon,
-    title: 'Users lie. Behavior doesn\'t.',
+    title: 'Behavior beats intentions',
     description:
-      'What people say they want and what they actually do are often completely different. I trust the behavior.',
+      'Users will promise they\'ll use a feature during research, but ignore it once shipped. Trust their active click streams, never their hypothetical statements.',
     reveal:
-      'The biggest UX lesson: users say "I\'d use that" about features they\'d never actually touch.',
-  },
-  {
-    id: 'simplicity',
-    Icon: LayersIcon,
-    title: 'Simplicity is a decision',
-    description:
-      'Every feature removed is a decision made with intention. Simplicity isn\'t the absence of features — it\'s clarity about which ones matter.',
-    reveal:
-      'SusWord launched with 4 features. 3 of them were things I removed after the first prototype.',
-  },
-  {
-    id: 'speed',
-    Icon: BoltIcon,
-    title: 'Speed builds trust',
-    description:
-      'A 200ms interaction feels different from a 600ms one. Performance isn\'t engineering — it\'s UX. It\'s how a product feels to a human.',
-    reveal:
-      'I test every micro-interaction at 3x slow-motion. If it feels wrong there, users will feel it too.',
-  },
-  {
-    id: 'edges',
-    Icon: FlowIcon,
-    title: 'The edges reveal the product',
-    description:
-      'How a product handles its error states, empty states, and edge cases tells you more about its quality than the happy path does.',
-    reveal:
-      'My first question when doing a product teardown: what happens when something goes wrong?',
-  },
-  {
-    id: 'emotion',
-    Icon: HeartIcon,
-    title: 'Emotion is the metric',
-    description:
-      'Retention and engagement are measurements. What I actually care about is whether someone felt something — relieved, delighted, understood.',
-    reveal: 'The best product feedback I ever received: "It just felt like it got me."',
+      'In early HabitMetric feedback, users begged for gamified badges. When built, less than 5% ever clicked them. I removed them instantly to keep focus.',
   },
 ]
+
 
 // ── Single thought card ───────────────────────────────────────
 interface ThoughtCardProps {
@@ -336,9 +308,9 @@ const HowIThink: React.FC = () => {
               marginBottom: 0,
             }}
           >
-            I don't start with solutions. I start with people — their frustrations, habits, and the
-            small moments where products either earn trust or lose it.
+            I don't believe in perfect product blueprints. I believe in watching how people actually interact with code — studying where they get confused, what features they ignore, and where friction breaks their flow.
           </motion.p>
+
         </div>
 
         {/* ── Part B: Thought cards grid ───────────────────── */}
