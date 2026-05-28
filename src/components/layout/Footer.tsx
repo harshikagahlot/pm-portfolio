@@ -119,7 +119,7 @@ export const Footer: React.FC = () => {
 
             {/* Secondary Button */}
             <motion.a
-              href="/Resume_Harshika_Gahlot.pdf"
+              href="./Resume_Harshika_Gahlot.pdf"
               download="Resume_Harshika_Gahlot.pdf"
               target="_blank"
               rel="noopener noreferrer"
