@@ -90,7 +90,7 @@ export const PROJECTS: Project[] = [
     tagline: 'Unified student ecosystem planning and PM wireframing exploration.',
     tags: ['Product Management', 'Systems Thinking', 'UX Research', 'Ecosystem Planning'],
     accent: '#2dd4a8', // accent.teal
-    liveLink: 'https://productandperspective.blogspot.com/', // link to blog/wireframe hub
+    liveLink: 'https://drive.google.com/file/d/1DxkSeoQFBCydJ-pck48nSOvaIOh40Iev/view?usp=drivesdk', // Google Drive case study link
     caseStudy: {
       whatIBuilt:
         'A structured product exploration and systems planning exercise for "Accredian Orbit" — a unified student ecosystem. This case study deconstructs student friction, mapping out onboarding flows, student segmentation, dashboard wireframes, and feature tradeoffs.',

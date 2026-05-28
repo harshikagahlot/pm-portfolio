@@ -482,7 +482,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                 <ContentSection delay={0.7} shouldReduceMotion={shouldReduceMotion}>
                   <div style={{ display: 'flex', gap: '12px', marginTop: '12px', flexWrap: 'wrap' }}>
                     <motion.a
-                      href="https://productandperspective.blogspot.com/"
+                      href="https://drive.google.com/file/d/1DxkSeoQFBCydJ-pck48nSOvaIOh40Iev/view?usp=drivesdk"
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={shouldReduceMotion ? {} : { scale: 1.02, backgroundColor: project.accent, color: '#ffffff' }}
@@ -502,7 +502,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                       View Full Case Study ↗
                     </motion.a>
                     <motion.a
-                      href="https://productandperspective.blogspot.com/"
+                      href="https://drive.google.com/file/d/1DxkSeoQFBCydJ-pck48nSOvaIOh40Iev/view?usp=drivesdk"
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={shouldReduceMotion ? {} : { scale: 1.02, borderColor: project.accent, color: project.accent }}
@@ -523,6 +523,9 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                     </motion.a>
                   </div>
                 </ContentSection>
+
+                {/* Bottom Spacer to prevent cutoff at downside */}
+                <div style={{ height: '100px', width: '100%' }} />
               </>
             ) : (
               <>
