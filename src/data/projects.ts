@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
     tags: ['Game Design', 'React', 'Socket.IO', 'Node.js', 'Interaction Psychology'],
     accent: '#f47c5a', // accent.coral
     githubLink: 'https://github.com/harshikagahlot/SusWord',
-    liveLink: 'https://susword.vercel.app/',
+    liveLink: 'https://sus-word.vercel.app',
     caseStudy: {
       whatIBuilt:
         'A real-time multiplayer social deduction game. Built with React on the frontend and a Node.js/Socket.IO server on the backend to synchronize game state, timers, voting, and player identities instantly across clients.',
