@@ -3,6 +3,26 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import type { TeardownData } from '../data/teardowns'
 import { lenis } from '../lib/smoothScroll'
+import duolingoLogo from '../assets/duolingo-logo.png'
+import duolingoMap from '../assets/duolingo-map.jpg'
+import duolingoStreak from '../assets/duolingo-streak.jpg'
+import duolingoLeaderboard from '../assets/duolingo-leaderboard.jpg'
+import duolingoNotification from '../assets/duolingo-notification.jpg'
+
+// ── Image map for teardown annotations ───────────────────────
+const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
+  duolingo: {
+    1: duolingoStreak,
+    3: duolingoMap,
+    5: duolingoLeaderboard,
+    6: duolingoNotification,
+  }
+}
+
+// ── Logo image map for teardown headers ──────────────────────
+const TEARDOWN_LOGOS: Record<string, string> = {
+  duolingo: duolingoLogo,
+}
 
 // ── Shared accent ─────────────────────────────────────────────
 const TEAL = '#2dd4a8'
@@ -182,19 +202,28 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
+                  overflow: 'hidden',
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '26px',
-                    fontWeight: 800,
-                    color: teardown.logoColor === '#ffffff' ? '#0a0a0f' : '#ffffff',
-                    lineHeight: 1,
-                  }}
-                >
-                  {teardown.name[0]}
-                </span>
+                {TEARDOWN_LOGOS[teardown.id] ? (
+                  <img
+                    src={TEARDOWN_LOGOS[teardown.id]}
+                    alt={`${teardown.name} logo`}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '26px',
+                      fontWeight: 800,
+                      color: teardown.logoColor === '#ffffff' ? '#0a0a0f' : '#ffffff',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {teardown.name[0]}
+                  </span>
+                )}
               </div>
 
               {/* Name */}
@@ -320,6 +349,34 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                       >
                         {ann.title}
                       </p>
+
+                      {/* Observation screenshot image if available */}
+                      {ANNOTATION_IMAGES[teardown.id]?.[ann.id] && (
+                        <div
+                          style={{
+                            marginBottom: '16px',
+                            borderRadius: '12px',
+                            overflow: 'hidden',
+                            border: '0.5px solid rgba(255,255,255,0.08)',
+                            maxHeight: '280px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'rgba(255,255,255,0.02)',
+                          }}
+                        >
+                          <img
+                            src={ANNOTATION_IMAGES[teardown.id][ann.id]}
+                            alt={ann.title}
+                            style={{
+                              width: '100%',
+                              maxHeight: '280px',
+                              objectFit: 'contain',
+                              display: 'block',
+                            }}
+                          />
+                        </div>
+                      )}
                       
                       {/* Observation */}
                       <p

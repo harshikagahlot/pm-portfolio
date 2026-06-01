@@ -6,6 +6,12 @@ import ParallaxGlow from '../components/ParallaxGlow'
 import { TEARDOWNS } from '../data/teardowns'
 import type { TeardownData } from '../data/teardowns'
 import TeardownOverlay from '../components/TeardownOverlay'
+import duolingoLogo from '../assets/duolingo-logo.png'
+
+// ── Logo image map ───────────────────────────────────────────
+const CARD_LOGOS: Record<string, string> = {
+  duolingo: duolingoLogo,
+}
 
 // ── Shared teal constant ──────────────────────────────────────
 const TEAL = '#2dd4a8'
@@ -95,19 +101,28 @@ const TeardownCard: React.FC<TeardownCardProps> = ({ teardown, onClick, shouldRe
           alignItems: 'center',
           justifyContent: 'center',
           flexShrink: 0,
+          overflow: 'hidden',
         }}
       >
-        <span
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '22px',
-            fontWeight: 800,
-            color: teardown.logoColor === '#ffffff' ? '#0a0a0f' : '#ffffff',
-            lineHeight: 1,
-          }}
-        >
-          {teardown.name[0]}
-        </span>
+        {CARD_LOGOS[teardown.id] ? (
+          <img
+            src={CARD_LOGOS[teardown.id]}
+            alt={`${teardown.name} logo`}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        ) : (
+          <span
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '22px',
+              fontWeight: 800,
+              color: teardown.logoColor === '#ffffff' ? '#0a0a0f' : '#ffffff',
+              lineHeight: 1,
+            }}
+          >
+            {teardown.name[0]}
+          </span>
+        )}
       </div>
 
       {/* 2. Product name */}
