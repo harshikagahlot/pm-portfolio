@@ -79,9 +79,9 @@ export const CustomCursor = () => {
           width: isHovering ? 120 : 100,
           height: isHovering ? 120 : 100,
           background: isHovering
-            ? 'radial-gradient(circle, rgba(45, 212, 168, 0.1) 0%, rgba(45, 212, 168, 0.03) 50%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(124, 111, 247, 0.12) 0%, rgba(80, 60, 180, 0.06) 50%, transparent 70%)',
-          filter: 'blur(20px)',
+            ? 'radial-gradient(circle, rgba(45, 212, 168, 0.45) 0%, rgba(45, 212, 168, 0.18) 50%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(124, 111, 247, 0.45) 0%, rgba(80, 60, 180, 0.2) 50%, transparent 70%)',
+          filter: 'blur(16px)',
           x: nebulaX,
           y: nebulaY,
           zIndex: 9998,
@@ -96,9 +96,9 @@ export const CustomCursor = () => {
           width: isHovering ? 70 : 55,
           height: isHovering ? 70 : 55,
           background: isHovering
-            ? 'radial-gradient(circle, rgba(45, 212, 168, 0.3) 0%, rgba(45, 212, 168, 0.1) 45%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(124, 111, 247, 0.35) 0%, rgba(100, 80, 220, 0.15) 45%, transparent 70%)',
-          filter: 'blur(12px)',
+            ? 'radial-gradient(circle, rgba(45, 212, 168, 0.75) 0%, rgba(45, 212, 168, 0.35) 45%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(124, 111, 247, 0.8) 0%, rgba(100, 80, 220, 0.4) 45%, transparent 70%)',
+          filter: 'blur(8px)',
           x: cloudX,
           y: cloudY,
           zIndex: 9999,
@@ -110,12 +110,12 @@ export const CustomCursor = () => {
       <motion.div
         style={{
           ...baseStyle,
-          width: 14,
-          height: 14,
+          width: 16,
+          height: 16,
           background: isHovering
-            ? 'radial-gradient(circle, rgba(180, 255, 230, 0.9) 0%, rgba(45, 212, 168, 0.6) 40%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(200, 190, 255, 0.9) 0%, rgba(124, 111, 247, 0.6) 40%, transparent 70%)',
-          filter: 'blur(4px)',
+            ? 'radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(45, 212, 168, 0.9) 40%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(124, 111, 247, 0.9) 40%, transparent 70%)',
+          filter: 'blur(2px)',
           x: coreX,
           y: coreY,
           zIndex: 10000,

@@ -1,13 +1,11 @@
 /* ============================================================
-   GLOBAL STYLES — Aditya Portfolio
-   Tailwind v4 uses CSS-first config — no tailwind.config.ts needed.
-   All design tokens are defined here via @theme.
+   GLOBAL STYLES — PM Portfolio
+   Pure CSS — no Tailwind import needed (all styles are inline).
+   Design tokens are defined as native CSS custom properties.
    ============================================================ */
 
-@import "tailwindcss";
-
 /* ── Design Tokens ─────────────────────────────────────────── */
-@theme {
+:root {
   /* Colors */
   --color-bg-primary: #0a0a0f;
   --color-bg-secondary: #111118;
@@ -46,11 +44,11 @@ html, body {
 }
 
 html {
+  font-size: 16px;
   scroll-behavior: auto; /* Lenis handles smooth scroll */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-size: 16px; /* Lock base size — prevents Tailwind v4 preflight from overriding in production */
 }
 
 body {
@@ -60,17 +58,6 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
-}
-
-/* ── Tailwind v4 preflight override — restore natural text sizes ── */
-@layer base {
-  h1, h2, h3, h4, h5, h6 {
-    font-size: revert;
-    font-weight: revert;
-  }
-  p, span, a, li, button, input, textarea, label {
-    font-size: revert;
-  }
 }
 
 /* ── Hero Background Gradient Animation ───────────────────── */
@@ -152,4 +139,3 @@ body {
     cursor: auto !important;
   }
 }
-
