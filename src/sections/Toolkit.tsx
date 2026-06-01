@@ -15,16 +15,15 @@ interface Tool {
 interface ToolCategory {
   title: string
   emoji: string
+  description?: string
   tools: Tool[]
   isLearning?: boolean
-  direction?: 'left' | 'right'
 }
 
 const TOOLKIT_DATA: ToolCategory[] = [
   {
     title: 'Things I Use Regularly',
     emoji: '⚡',
-    direction: 'left',
     tools: [
       { id: 'html', name: 'HTML', context: 'Building websites and interfaces.', howIUseIt: 'I write semantic HTML to ensure accessibility and structure.', brandColor: '#E34F26', monogram: '</>' },
       { id: 'css', name: 'CSS', context: 'Styling, layouts, responsive design.', howIUseIt: 'I love Vanilla CSS, custom properties, and fine-tuning spacing.', brandColor: '#1572B6', monogram: '{ }' },
@@ -37,7 +36,6 @@ const TOOLKIT_DATA: ToolCategory[] = [
   {
     title: 'Product & Design Tools',
     emoji: '🎨',
-    direction: 'right',
     tools: [
       { id: 'figma', name: 'Figma', context: 'Wireframing & interfaces.', howIUseIt: 'I map out product flows before writing a single line of code.', brandColor: '#F24E1E', monogram: 'Fg' },
       { id: 'canva', name: 'Canva', context: 'Visuals & presentations.', howIUseIt: 'Quick graphics, resumes, and content creation workflows.', brandColor: '#00C4CC', monogram: 'Cv' },
@@ -48,7 +46,6 @@ const TOOLKIT_DATA: ToolCategory[] = [
   {
     title: 'AI-Assisted Workflow',
     emoji: '🤖',
-    direction: 'left',
     tools: [
       { id: 'chatgpt', name: 'ChatGPT', context: 'Research & coding assistance.', howIUseIt: 'Bouncing ideas around, debugging weird edge cases, and learning.', brandColor: '#10A37F', monogram: 'GPT' },
       { id: 'claude', name: 'Claude', context: 'Product thinking & writing.', howIUseIt: 'Structuring complex documents and deep product analysis.', brandColor: '#D97757', monogram: 'Cl' },
@@ -60,7 +57,6 @@ const TOOLKIT_DATA: ToolCategory[] = [
     title: 'Currently Learning Through Projects',
     emoji: '🌱',
     isLearning: true,
-    direction: 'right',
     tools: [
       { id: 'react', name: 'React', context: 'Component architecture.', howIUseIt: 'Building modular UIs and managing application state.', brandColor: '#61DAFB', monogram: 'Re' },
       { id: 'tailwind', name: 'Tailwind CSS', context: 'Utility-first styling.', howIUseIt: 'Speeding up prototyping without leaving the TSX file.', brandColor: '#06B6D4', monogram: 'Tw' },
@@ -74,118 +70,42 @@ const TOOLKIT_DATA: ToolCategory[] = [
   }
 ]
 
-// ── Expandable Tool Pill ──
-const ToolPill: React.FC<{
-  tool: Tool
-  isLearning?: boolean
-  isExpanded: boolean
-  onClick: () => void
-}> = ({ tool, isLearning, isExpanded, onClick }) => {
+// ── Individual Tool Card ──
+const ToolCard: React.FC<{ tool: Tool; isLearning?: boolean }> = ({ tool, isLearning }) => {
   const [isHovered, setIsHovered] = useState(false)
   const shouldReduceMotion = useReducedMotion()
 
   return (
     <motion.div
-      layout
-      transition={shouldReduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 150, damping: 20 }}
-      onClick={onClick}
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={!isExpanded && !shouldReduceMotion ? { scale: 1.02 } : {}}
-      whileTap={!shouldReduceMotion ? { scale: 0.98 } : {}}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
+      tabIndex={0}
+      animate={isHovered && !shouldReduceMotion ? { y: -4, scale: 1.02 } : { y: 0, scale: 1 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       style={{
         backgroundColor: isLearning ? 'rgba(22, 22, 31, 0.4)' : 'var(--color-bg-card)',
-        border: `1px solid ${isExpanded || isHovered ? tool.brandColor : 'var(--color-border-subtle)'}`,
-        borderRadius: '100px', // Pill shape
-        padding: '12px 24px',
+        border: `1px solid ${isHovered ? tool.brandColor : 'var(--color-border-subtle)'}`,
+        borderRadius: '12px',
+        padding: '20px',
         display: 'flex',
-        alignItems: 'center',
-        gap: '16px',
-        cursor: 'pointer',
+        flexDirection: 'column',
+        gap: '12px',
+        cursor: 'default',
+        position: 'relative',
         overflow: 'hidden',
-        whiteSpace: 'nowrap',
-        opacity: isLearning && !isHovered && !isExpanded ? 0.8 : 1,
-        transition: 'border-color 0.3s ease, opacity 0.3s ease',
-        flexShrink: 0,
+        transition: 'border-color 0.3s ease',
+        opacity: isLearning && !isHovered ? 0.8 : 1,
+        minWidth: 0,
       }}
     >
-      {/* Icon/Monogram */}
-      <motion.div
-        layout
-        style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          backgroundColor: 'rgba(255,255,255,0.03)',
-          border: '1px solid var(--color-border-subtle)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'var(--font-mono)',
-          fontSize: '15px',
-          fontWeight: 700,
-          color: tool.brandColor,
-          flexShrink: 0,
-        }}
-      >
-        {tool.monogram}
-      </motion.div>
-
-      {/* Name */}
-      <motion.div layout style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <h4 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '18px', fontWeight: 600, color: 'var(--color-text-primary)' }}>
-          {tool.name}
-        </h4>
-      </motion.div>
-
-      {/* Expanded Text */}
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            key="details"
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 'auto', opacity: 1 }}
-            exit={{ width: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}
-          >
-            <div style={{ paddingLeft: '16px', borderLeft: '1px solid var(--color-border-subtle)', marginLeft: '8px' }}>
-              <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: '15px', color: 'var(--color-text-secondary)' }}>
-                {tool.howIUseIt}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  )
-}
-
-// ── Flowing Marquee Track ──
-const FlowingTrack: React.FC<{ category: ToolCategory }> = ({ category }) => {
-  const [activeToolId, setActiveToolId] = useState<string | null>(null)
-  const shouldReduceMotion = useReducedMotion()
-
-  // We duplicate the tools to create a seamless infinite loop
-  const displayTools = [...category.tools, ...category.tools, ...category.tools, ...category.tools]
-
-  const handleToolClick = (id: string) => {
-    // Toggle active state
-    setActiveToolId((prev) => (prev === id ? null : id))
-  }
-
-  const isPaused = activeToolId !== null || shouldReduceMotion
-
-  return (
-    <div style={{ marginBottom: '40px', width: '100%', overflow: 'hidden', position: 'relative' }}>
-      
-      {/* Category Header floating above the track */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingLeft: '24px', marginBottom: '16px', opacity: 0.7 }}>
-        <span style={{ fontSize: '20px' }}>{category.emoji}</span>
-        <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '16px', fontWeight: 600, color: 'var(--color-text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-          {category.title}
-        </h3>
-        {category.isLearning && (
+      {isLearning && (
+        <div style={{ position: 'absolute', top: '12px', right: '12px' }}>
           <span style={{
             fontSize: '10px',
             textTransform: 'uppercase',
@@ -193,48 +113,188 @@ const FlowingTrack: React.FC<{ category: ToolCategory }> = ({ category }) => {
             backgroundColor: 'rgba(255,255,255,0.05)',
             padding: '4px 8px',
             borderRadius: '100px',
-            color: 'var(--color-text-hint)',
-            marginLeft: '8px'
+            color: 'var(--color-text-hint)'
           }}>Exploring</span>
-        )}
+        </div>
+      )}
+
+      {/* Header: Monogram + Name */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div
+          style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '8px',
+            backgroundColor: 'rgba(255,255,255,0.03)',
+            border: '1px solid var(--color-border-subtle)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '15px',
+            fontWeight: 700,
+            color: tool.brandColor,
+            flexShrink: 0,
+          }}
+        >
+          {tool.monogram}
+        </div>
+        <div>
+          <h4 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '18px', fontWeight: 600, color: 'var(--color-text-primary)' }}>
+            {tool.name}
+          </h4>
+        </div>
       </div>
 
-      {/* The Marquee Container */}
-      <div
-        className={`marquee-container ${category.direction === 'right' ? 'marquee-reverse' : ''}`}
+      {/* Content Swap on Hover */}
+      <div style={{ position: 'relative', minHeight: '60px' }}>
+        <AnimatePresence mode="wait">
+          {!isHovered ? (
+            <motion.p
+              key="context"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              style={{
+                margin: 0,
+                fontFamily: 'var(--font-body)',
+                fontSize: '15px',
+                color: 'var(--color-text-secondary)',
+                lineHeight: 1.5,
+              }}
+            >
+              {tool.context}
+            </motion.p>
+          ) : (
+            <motion.div
+              key="howIUseIt"
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '4px'
+              }}
+            >
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: tool.brandColor, textTransform: 'uppercase' }}>How I use it</span>
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  color: 'var(--color-text-primary)',
+                  lineHeight: 1.5,
+                }}
+              >
+                {tool.howIUseIt}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  )
+}
+
+// ── Capsule Component ──
+const Capsule: React.FC<{
+  category: ToolCategory
+  isOpen: boolean
+  onClick: () => void
+}> = ({ category, isOpen, onClick }) => {
+  const shouldReduceMotion = useReducedMotion()
+
+  return (
+    <motion.div
+      layout
+      transition={shouldReduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 100, damping: 20 }}
+      style={{
+        backgroundColor: isOpen ? 'rgba(255,255,255,0.02)' : 'rgba(10,10,15,0.6)',
+        border: `1px solid ${isOpen ? 'var(--color-border-default)' : 'var(--color-border-subtle)'}`,
+        borderRadius: '16px',
+        overflow: 'hidden',
+        cursor: isOpen ? 'default' : 'pointer',
+        width: '100%',
+      }}
+      onClick={() => !isOpen && onClick()}
+      whileHover={!isOpen && !shouldReduceMotion ? { backgroundColor: 'rgba(255,255,255,0.04)' } : {}}
+    >
+      {/* Capsule Header (always visible) */}
+      <motion.div
+        layout
         style={{
+          padding: '24px',
           display: 'flex',
-          gap: '24px',
-          width: 'max-content',
-          animationPlayState: isPaused ? 'paused' : 'running',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '16px',
         }}
       >
-        <LayoutGroup>
-          {displayTools.map((tool, index) => {
-            // Ensure unique key for duplicated items
-            const uniqueKey = `${tool.id}-${index}`
-            // We only match tool.id for expansion, so all duplicates of the same tool expand simultaneously.
-            // This is visually appealing and necessary to avoid jumping layouts when the loop resets.
-            const isExpanded = activeToolId === tool.id
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <span style={{ fontSize: '28px' }}>{category.emoji}</span>
+          <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+            {category.title}
+          </h3>
+        </div>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+          style={{ width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.05)', color: 'var(--color-text-secondary)', cursor: 'pointer' }}
+          onClick={(e) => {
+            if (isOpen) {
+              e.stopPropagation()
+              onClick() // Collapse if already open and arrow is clicked
+            }
+          }}
+        >
+          ↓
+        </motion.div>
+      </motion.div>
 
-            return (
-              <ToolPill
-                key={uniqueKey}
-                tool={tool}
-                isLearning={category.isLearning}
-                isExpanded={isExpanded}
-                onClick={() => handleToolClick(tool.id)}
-              />
-            )
-          })}
-        </LayoutGroup>
-      </div>
-    </div>
+      {/* Expandable Content */}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 100, damping: 20 }}
+            style={{ overflow: 'hidden' }}
+          >
+            <motion.div
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.05, delayChildren: 0.1 } }
+              }}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="toolkit-grid"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                gap: '16px',
+                padding: '0 24px 32px 24px',
+              }}
+            >
+              {category.tools.map((tool) => (
+                <ToolCard key={tool.id} tool={tool} isLearning={category.isLearning} />
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   )
 }
 
 const Toolkit: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
+  const [activeCategory, setActiveCategory] = useState<string | null>(TOOLKIT_DATA[0].title)
 
   return (
     <section
@@ -243,17 +303,17 @@ const Toolkit: React.FC = () => {
         paddingBottom: '120px',
         backgroundColor: '#050508',
         position: 'relative',
-        overflowX: 'hidden'
       }}
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1, marginBottom: '60px' }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
+        
         {/* Section Header */}
         <motion.div
           variants={VARIANTS.staggerChildren}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+          style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '60px' }}
         >
           <motion.div variants={VARIANTS.fadeUp} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ width: '24px', height: '1px', backgroundColor: 'var(--color-accent-teal)' }} />
@@ -276,24 +336,21 @@ const Toolkit: React.FC = () => {
             The tools, workflows, and systems I currently use while building projects, exploring products, and documenting what I learn.
           </motion.p>
         </motion.div>
-      </div>
 
-      {/* Infinite Flowing Tracks */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={{
-          hidden: { opacity: 0 },
-          visible: { opacity: 1, transition: { duration: 1, delay: 0.2 } }
-        }}
-      >
-        {TOOLKIT_DATA.map((category) => (
-          <FlowingTrack key={category.title} category={category} />
-        ))}
-      </motion.div>
+        {/* Interactive Capsules wrapped in LayoutGroup for smooth sibling reflow */}
+        <LayoutGroup>
+          <motion.div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {TOOLKIT_DATA.map((category) => (
+              <Capsule
+                key={category.title}
+                category={category}
+                isOpen={activeCategory === category.title}
+                onClick={() => setActiveCategory(activeCategory === category.title ? null : category.title)}
+              />
+            ))}
+          </motion.div>
+        </LayoutGroup>
 
-      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
         {/* Microcopy & Next Section Connector */}
         <motion.div
           initial="hidden"
@@ -339,29 +396,14 @@ const Toolkit: React.FC = () => {
             </motion.button>
           </div>
         </motion.div>
+        
       </div>
       
       <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-50% - 12px)); } /* Scroll half the duplicated width */
-        }
-        @keyframes marquee-reverse {
-          0% { transform: translateX(calc(-50% - 12px)); }
-          100% { transform: translateX(0); }
-        }
-        
-        .marquee-container {
-          animation: marquee 40s linear infinite;
-        }
-        
-        .marquee-reverse {
-          animation: marquee-reverse 40s linear infinite;
-        }
-        
-        /* Pause on hover for desktop users as an intuitive feature */
-        .marquee-container:hover {
-          animation-play-state: paused !important;
+        @media (max-width: 767px) {
+          .toolkit-grid {
+            grid-template-columns: 1fr !important;
+          }
         }
       `}</style>
     </section>
