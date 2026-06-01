@@ -60,7 +60,7 @@ html, body {
 }
 
 html {
-  font-size: 16px;
+  font-size: 18px;
   scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -71,7 +71,7 @@ body {
   /* Hardcoded font-family so it never falls back silently */
   font-family: "Satoshi", system-ui, sans-serif;
   color: #f0eff8;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
