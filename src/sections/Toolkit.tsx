@@ -239,7 +239,7 @@ const Toolkit: React.FC = () => {
 
         {/* Categories */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
-          {TOOLKIT_DATA.map((category, catIndex) => (
+          {TOOLKIT_DATA.map((category) => (
             <motion.div
               key={category.title}
               initial="hidden"
