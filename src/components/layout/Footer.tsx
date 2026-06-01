@@ -87,7 +87,7 @@ export const Footer: React.FC = () => {
           >
             {/* Primary Button */}
             <motion.a
-              href="mailto:harshikagahlot@gmail.com"
+              href="mailto:harshikagahlot01@gmail.com"
               onMouseEnter={() => setHelloHover(true)}
               onMouseLeave={() => setHelloHover(false)}
               animate={helloHover ? { scale: 1.03 } : { scale: 1 }}
@@ -197,10 +197,49 @@ export const Footer: React.FC = () => {
                 fontFamily: 'var(--font-body)',
                 fontSize: '16px',
                 color: 'var(--color-text-secondary)',
+                marginBottom: '12px'
               }}
             >
               Product thinker & frontend builder
             </span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <a
+                href="mailto:harshikagahlot01@gmail.com"
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '14px',
+                  color: 'var(--color-text-hint)',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s ease',
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.color = 'var(--color-text-primary)'
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.color = 'var(--color-text-hint)'
+                }}
+              >
+                harshikagahlot01@gmail.com
+              </a>
+              <a
+                href="tel:+918279334467"
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '14px',
+                  color: 'var(--color-text-hint)',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s ease',
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.color = 'var(--color-text-primary)'
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.color = 'var(--color-text-hint)'
+                }}
+              >
+                +91 8279 334 467
+              </a>
+            </div>
           </div>
 
           {/* Center Social Links */}
