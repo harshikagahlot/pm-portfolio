@@ -1,11 +1,12 @@
 /* ============================================================
    GLOBAL STYLES — PM Portfolio
-   Pure CSS — no Tailwind import needed (all styles are inline).
-   Design tokens are defined as native CSS custom properties.
+   Tailwind v4 uses CSS-first config — @tailwindcss/vite plugin active.
    ============================================================ */
 
+@import "tailwindcss";
+
 /* ── Design Tokens ─────────────────────────────────────────── */
-:root {
+@theme {
   /* Colors */
   --color-bg-primary: #0a0a0f;
   --color-bg-secondary: #111118;
@@ -58,6 +59,15 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* ── Override Tailwind v4 preflight heading reset ───────────── */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: revert;
+    font-weight: revert;
+    line-height: revert;
+  }
 }
 
 /* ── Hero Background Gradient Animation ───────────────────── */
