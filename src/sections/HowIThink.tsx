@@ -364,12 +364,12 @@ const HowIThink: React.FC = () => {
               margin: 0,
             }}
           >
-            Want to see this thinking in action?
+            Want to see what I build with?
           </p>
 
           <motion.button
             id="connector-work-cta"
-            onClick={() => scrollTo('#work')}
+            onClick={() => scrollTo('#toolkit')}
             whileHover={
               shouldReduceMotion
                 ? {}
@@ -391,7 +391,7 @@ const HowIThink: React.FC = () => {
               cursor: 'pointer',
             }}
           >
-            Explore my work →
+            See my toolkit →
           </motion.button>
         </motion.div>
       </div>

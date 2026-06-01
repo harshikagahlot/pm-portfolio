@@ -12,6 +12,7 @@ import Timeline from './sections/Timeline'
 import SectionVignette from './components/SectionVignette'
 import { WorldCanvas } from './components/three/WorldCanvas'
 import { useDeviceCapability } from './hooks/useDeviceCapability'
+import Toolkit from './sections/Toolkit'
 import Blog from './sections/Blog'
 import CurrentlyExploring from './sections/CurrentlyExploring'
 import Footer from './components/layout/Footer'
@@ -49,6 +50,11 @@ const App: React.FC = () => {
           {/* id="thinking" — scroll target for Hero "How I think →" CTA */}
           <div id="thinking" style={{ backgroundColor: 'transparent' }}>
             <HowIThink />
+          </div>
+
+          {/* id="toolkit" — scroll target from HowIThink */}
+          <div id="toolkit" style={{ backgroundColor: 'transparent' }}>
+            <Toolkit />
           </div>
 
           {/* id="work" — scroll target for Hero "See my work →" CTA */}
