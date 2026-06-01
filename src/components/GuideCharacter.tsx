@@ -132,7 +132,7 @@ export const GuideCharacter: React.FC = () => {
             borderRadius: '8px',
             padding: '8px 12px',
             fontFamily: 'var(--font-body)',
-            fontSize: '12px',
+            fontSize: '15px',
             color: 'var(--color-text-secondary)',
             whiteSpace: 'nowrap',
             transformOrigin: 'bottom right',

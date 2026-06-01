@@ -86,7 +86,7 @@ const CurrentlyExploring: React.FC = () => {
             variants={VARIANTS.fadeUp}
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
+              fontSize: '14px',
               color: 'var(--color-text-hint)',
               marginTop: '12px',
             }}
@@ -122,7 +122,7 @@ const CurrentlyExploring: React.FC = () => {
               <span
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '14px',
+                  fontSize: '17px',
                   color: 'var(--color-accent-purple)',
                   flexShrink: 0,
                   marginTop: '4px',
@@ -146,7 +146,7 @@ const CurrentlyExploring: React.FC = () => {
                 <span
                   style={{
                     fontFamily: 'var(--font-body)',
-                    fontSize: '13px',
+                    fontSize: '16px',
                     color: 'var(--color-text-secondary)',
                     lineHeight: 1.4,
                   }}

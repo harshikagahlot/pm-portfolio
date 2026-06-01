@@ -114,7 +114,7 @@ const TeardownCard: React.FC<TeardownCardProps> = ({ teardown, onClick, shouldRe
           <span
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: '22px',
+              fontSize: '25px',
               fontWeight: 800,
               color: teardown.logoColor === '#ffffff' ? '#0a0a0f' : '#ffffff',
               lineHeight: 1,
@@ -129,7 +129,7 @@ const TeardownCard: React.FC<TeardownCardProps> = ({ teardown, onClick, shouldRe
       <p
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: '22px',
+          fontSize: '25px',
           fontWeight: 700,
           color: 'var(--color-text-primary)',
           marginTop: '16px',
@@ -143,7 +143,7 @@ const TeardownCard: React.FC<TeardownCardProps> = ({ teardown, onClick, shouldRe
       <p
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: '13px',
+          fontSize: '16px',
           color: 'var(--color-text-hint)',
           marginTop: '4px',
           marginBottom: 0,
@@ -156,7 +156,7 @@ const TeardownCard: React.FC<TeardownCardProps> = ({ teardown, onClick, shouldRe
       <p
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: '14px',
+          fontSize: '17px',
           color: 'var(--color-text-secondary)',
           lineHeight: 1.6,
           marginTop: '12px',
@@ -185,7 +185,7 @@ const TeardownCard: React.FC<TeardownCardProps> = ({ teardown, onClick, shouldRe
           transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '13px',
+            fontSize: '16px',
             color: TEAL,
           }}
         >
@@ -195,7 +195,7 @@ const TeardownCard: React.FC<TeardownCardProps> = ({ teardown, onClick, shouldRe
         <span
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '11px',
+            fontSize: '14px',
             color: 'var(--color-text-hint)',
             backgroundColor: 'rgba(255,255,255,0.04)',
             border: '0.5px solid var(--color-border-subtle)',
@@ -283,7 +283,7 @@ const ProductTeardown: React.FC = () => {
               <span
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '12px',
+                  fontSize: '15px',
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
                   color: 'var(--color-text-hint)',
@@ -340,7 +340,7 @@ const ProductTeardown: React.FC = () => {
               transition={{ ...TRANSITIONS.slow, delay: 0.35 }}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '17px',
+                fontSize: '20px',
                 color: 'var(--color-text-secondary)',
                 lineHeight: 1.7,
                 maxWidth: '500px',
@@ -399,7 +399,7 @@ const ProductTeardown: React.FC = () => {
             <p
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 color: 'var(--color-text-secondary)',
                 margin: 0,
               }}
@@ -411,7 +411,7 @@ const ProductTeardown: React.FC = () => {
               <p
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '14px',
+                  fontSize: '17px',
                   color: 'var(--color-text-hint)',
                   margin: 0,
                 }}
@@ -439,7 +439,7 @@ const ProductTeardown: React.FC = () => {
             <p
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 color: 'var(--color-text-secondary)',
                 textAlign: 'center',
                 margin: 0,
@@ -463,7 +463,7 @@ const ProductTeardown: React.FC = () => {
               transition={TRANSITIONS.fast}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 color: 'var(--color-text-primary)',
                 backgroundColor: 'transparent',
                 padding: '12px 28px',

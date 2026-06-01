@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
             style={{
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
-              fontSize: '18px',
+              fontSize: '21px',
               color: 'var(--color-text-primary)',
               textDecoration: 'none',
               letterSpacing: '-0.02em',
@@ -156,7 +156,7 @@ const Navbar: React.FC = () => {
                 onClick={(e) => handleLinkClick(e, link)}
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '14px',
+                  fontSize: '17px',
                   color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
                   textDecoration: 'none',
                   position: 'relative',
@@ -201,7 +201,7 @@ const Navbar: React.FC = () => {
             transition={TRANSITIONS.fast}
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '14px',
+              fontSize: '17px',
               color: 'var(--color-text-primary)',
               textDecoration: 'none',
               padding: '6px 16px',
@@ -315,7 +315,7 @@ const Navbar: React.FC = () => {
                   onClick={(e) => handleLinkClick(e, link)}
                   style={{
                     fontFamily: 'var(--font-body)',
-                    fontSize: '16px',
+                    fontSize: '19px',
                     color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
                     textDecoration: 'none',
                     padding: '8px 0',
@@ -344,7 +344,7 @@ const Navbar: React.FC = () => {
               onClick={handleSayHelloClick}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '14px',
+                fontSize: '17px',
                 color: 'var(--color-text-primary)',
                 textDecoration: 'none',
                 padding: '10px 16px',

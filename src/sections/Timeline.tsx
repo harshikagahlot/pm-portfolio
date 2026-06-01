@@ -194,12 +194,12 @@ const MilestoneNode: React.FC<NodeProps> = ({ milestone, isLast, shouldReduceMot
         }}
       >
 
-        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--color-text-hint)', margin: '0 0 6px' }}>
+        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--color-text-hint)', margin: '0 0 6px' }}>
           {milestone.date}
         </p>
         <p style={{
           fontFamily: 'var(--font-display)',
-          fontSize: '15px',
+          fontSize: '18px',
           fontWeight: 700,
           color: isLast ? PURPLE : 'var(--color-text-primary)',
           lineHeight: 1.3,
@@ -209,7 +209,7 @@ const MilestoneNode: React.FC<NodeProps> = ({ milestone, isLast, shouldReduceMot
         </p>
         <p style={{
           fontFamily: 'var(--font-body)',
-          fontSize: '13px',
+          fontSize: '16px',
           color: 'var(--color-text-secondary)',
           lineHeight: 1.5,
           marginTop: '6px',
@@ -307,7 +307,7 @@ const Timeline: React.FC = () => {
             <div style={{ width: '24px', height: '1px', backgroundColor: PURPLE, flexShrink: 0 }} />
             <span style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '12px',
+              fontSize: '15px',
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
               color: 'var(--color-text-hint)',
@@ -364,7 +364,7 @@ const Timeline: React.FC = () => {
               className="timeline-drag-hint"
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '12px',
+                fontSize: '15px',
                 color: 'var(--color-text-hint)',
                 letterSpacing: '0.06em',
                 margin: '0 0 8px',
@@ -383,7 +383,7 @@ const Timeline: React.FC = () => {
             transition={{ ...TRANSITIONS.slow, delay: 0.35 }}
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '17px',
+              fontSize: '20px',
               color: 'var(--color-text-secondary)',
               lineHeight: 1.7,
               maxWidth: '460px',
@@ -478,7 +478,7 @@ const Timeline: React.FC = () => {
         >
           <p style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '15px',
+            fontSize: '18px',
             color: 'var(--color-text-secondary)',
             textAlign: 'center',
             margin: 0,
@@ -497,7 +497,7 @@ const Timeline: React.FC = () => {
             transition={TRANSITIONS.fast}
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '15px',
+              fontSize: '18px',
               color: 'var(--color-text-primary)',
               backgroundColor: 'transparent',
               padding: '12px 28px',

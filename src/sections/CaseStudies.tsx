@@ -86,7 +86,7 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({ project, onClick, shouldRed
         <p
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
+            fontSize: '15px',
             color: 'var(--color-text-hint)',
             marginBottom: '12px',
             marginTop: 0,
@@ -120,7 +120,7 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({ project, onClick, shouldRed
         <p
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '16px',
+            fontSize: '19px',
             color: 'var(--color-text-secondary)',
             marginTop: '8px',
             marginBottom: 0,
@@ -143,7 +143,7 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({ project, onClick, shouldRed
               key={tag}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '12px',
+                fontSize: '15px',
                 color: 'var(--color-text-hint)',
                 padding: '4px 12px',
                 borderRadius: '999px',
@@ -169,7 +169,7 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({ project, onClick, shouldRed
           transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '14px',
+            fontSize: '17px',
             marginTop: '24px',
             marginBottom: 0,
             textDecoration: hovered ? 'underline' : 'none',
@@ -332,7 +332,7 @@ const CaseStudies: React.FC = () => {
               <span
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '12px',
+                  fontSize: '15px',
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
                   color: 'var(--color-text-hint)',
@@ -389,7 +389,7 @@ const CaseStudies: React.FC = () => {
               transition={{ ...TRANSITIONS.slow, delay: 0.35 }}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '17px',
+                fontSize: '20px',
                 color: 'var(--color-text-secondary)',
                 lineHeight: 1.7,
                 maxWidth: '480px',
@@ -449,7 +449,7 @@ const CaseStudies: React.FC = () => {
             <p
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 color: 'var(--color-text-secondary)',
                 margin: 0,
               }}
@@ -467,7 +467,7 @@ const CaseStudies: React.FC = () => {
               <p
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '14px',
+                  fontSize: '17px',
                   color: 'var(--color-text-hint)',
                   margin: 0,
                 }}
@@ -495,7 +495,7 @@ const CaseStudies: React.FC = () => {
             <p
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 color: 'var(--color-text-secondary)',
                 textAlign: 'center',
                 margin: 0,
@@ -519,7 +519,7 @@ const CaseStudies: React.FC = () => {
               transition={TRANSITIONS.fast}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 color: 'var(--color-text-primary)',
                 backgroundColor: 'transparent',
                 padding: '12px 28px',

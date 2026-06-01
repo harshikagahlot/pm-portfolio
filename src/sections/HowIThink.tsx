@@ -118,7 +118,7 @@ const ThoughtCardItem: React.FC<ThoughtCardProps> = ({ card, shouldReduceMotion 
       <p
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: '18px',
+          fontSize: '21px',
           fontWeight: 700,
           color: 'var(--color-text-primary)',
           marginTop: '16px',
@@ -133,7 +133,7 @@ const ThoughtCardItem: React.FC<ThoughtCardProps> = ({ card, shouldReduceMotion 
       <p
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: '14px',
+          fontSize: '17px',
           color: 'var(--color-text-secondary)',
           lineHeight: 1.65,
           marginTop: '8px',
@@ -166,7 +166,7 @@ const ThoughtCardItem: React.FC<ThoughtCardProps> = ({ card, shouldReduceMotion 
             <p
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '13px',
+                fontSize: '16px',
                 fontStyle: 'italic',
                 color: 'var(--color-text-hint)',
                 margin: 0,
@@ -241,7 +241,7 @@ const HowIThink: React.FC = () => {
             <span
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '12px',
+                fontSize: '15px',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: 'var(--color-text-hint)',
@@ -300,7 +300,7 @@ const HowIThink: React.FC = () => {
             transition={{ ...headingTransition, delay: 0.35 }}
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '17px',
+              fontSize: '20px',
               color: 'var(--color-text-secondary)',
               lineHeight: 1.7,
               maxWidth: '520px',
@@ -358,7 +358,7 @@ const HowIThink: React.FC = () => {
           <p
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '15px',
+              fontSize: '18px',
               color: 'var(--color-text-secondary)',
               textAlign: 'center',
               margin: 0,
@@ -382,7 +382,7 @@ const HowIThink: React.FC = () => {
             transition={TRANSITIONS.fast}
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '15px',
+              fontSize: '18px',
               color: 'var(--color-text-primary)',
               backgroundColor: 'transparent',
               padding: '12px 28px',

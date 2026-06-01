@@ -63,7 +63,7 @@ export const Footer: React.FC = () => {
             variants={VARIANTS.fadeUp}
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '16px',
+              fontSize: '19px',
               color: 'var(--color-text-secondary)',
               marginTop: '16px',
               maxWidth: '440px',
@@ -94,7 +94,7 @@ export const Footer: React.FC = () => {
               transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 fontWeight: 500,
                 color: '#ffffff',
                 backgroundColor: 'var(--color-accent-purple)',
@@ -129,7 +129,7 @@ export const Footer: React.FC = () => {
               transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 fontWeight: 500,
                 color: 'var(--color-text-primary)',
                 padding: '14px 32px',
@@ -185,7 +185,7 @@ export const Footer: React.FC = () => {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 700,
-                fontSize: '16px',
+                fontSize: '19px',
                 color: 'var(--color-text-primary)',
                 letterSpacing: '-0.01em',
               }}
@@ -195,7 +195,7 @@ export const Footer: React.FC = () => {
             <span
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '13px',
+                fontSize: '16px',
                 color: 'var(--color-text-secondary)',
               }}
             >
@@ -217,7 +217,7 @@ export const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '13px',
+                  fontSize: '16px',
                   color: 'var(--color-text-secondary)',
                   textDecoration: 'none',
                   transition: 'color 0.2s ease',
@@ -247,7 +247,7 @@ export const Footer: React.FC = () => {
             <span
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '12px',
+                fontSize: '15px',
                 color: 'var(--color-text-hint)',
               }}
             >
@@ -256,7 +256,7 @@ export const Footer: React.FC = () => {
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
+                fontSize: '14px',
                 color: 'var(--color-text-hint)',
               }}
             >

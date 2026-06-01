@@ -126,7 +126,7 @@ const Hero: React.FC = () => {
                 border: '1px solid var(--color-border-default)',
                 backgroundColor: 'var(--color-bg-secondary)',
                 fontFamily: 'var(--font-body)',
-                fontSize: '13px',
+                fontSize: '16px',
                 color: 'var(--color-text-secondary)',
               }}
             >
@@ -183,7 +183,7 @@ const Hero: React.FC = () => {
             {...getItemAnimation(2)}
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '18px',
+              fontSize: '21px',
               fontWeight: 500,
               color: 'var(--color-accent-purple)',
               lineHeight: 1.4,
@@ -199,7 +199,7 @@ const Hero: React.FC = () => {
             {...getItemAnimation(3)}
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '16px',
+              fontSize: '19px',
               color: 'var(--color-text-secondary)',
               maxWidth: '420px',
               lineHeight: 1.7,
@@ -228,7 +228,7 @@ const Hero: React.FC = () => {
               style={{
                 display: 'inline-block',
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 fontWeight: 500,
                 color: '#ffffff',
                 backgroundColor: 'var(--color-accent-purple)',
@@ -254,7 +254,7 @@ const Hero: React.FC = () => {
               transition={TRANSITIONS.fast}
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '15px',
+                fontSize: '18px',
                 fontWeight: 500,
                 color: 'var(--color-text-primary)',
                 backgroundColor: 'transparent',
@@ -299,7 +299,7 @@ const Hero: React.FC = () => {
             <span
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '12px',
+                fontSize: '15px',
                 color: 'var(--color-text-hint)',
                 letterSpacing: '0.04em',
               }}
@@ -342,7 +342,7 @@ const Hero: React.FC = () => {
                 <span
                   style={{
                     fontFamily: 'var(--font-display)',
-                    fontSize: '22px',
+                    fontSize: '25px',
                     fontWeight: 700,
                     color: 'var(--color-text-primary)',
                     lineHeight: 1.2,
@@ -353,7 +353,7 @@ const Hero: React.FC = () => {
                 <span
                   style={{
                     fontFamily: 'var(--font-body)',
-                    fontSize: '13px',
+                    fontSize: '16px',
                     color: 'var(--color-text-secondary)',
                   }}
                 >

@@ -28,7 +28,7 @@ const SectionLabel: React.FC<{ text: string; accent: string }> = ({ text, accent
   <p
     style={{
       fontFamily: 'var(--font-body)',
-      fontSize: '12px',
+      fontSize: '15px',
       textTransform: 'uppercase',
       letterSpacing: '0.1em',
       color: accent,
@@ -178,7 +178,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
               <p
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '12px',
+                  fontSize: '15px',
                   color: 'var(--color-text-hint)',
                   marginBottom: '12px',
                   marginTop: 0,
@@ -202,7 +202,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
               <p
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '18px',
+                  fontSize: '21px',
                   color: 'var(--color-text-secondary)',
                   marginTop: '8px',
                   marginBottom: 0,
@@ -213,7 +213,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
               <p
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '14px',
+                  fontSize: '17px',
                   color: 'var(--color-text-hint)',
                   marginTop: '16px',
                   marginBottom: 0,
@@ -234,7 +234,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                       whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                       style={{
                         fontFamily: 'var(--font-body)',
-                        fontSize: '14px',
+                        fontSize: '17px',
                         fontWeight: 600,
                         color: '#0d0d14',
                         backgroundColor: '#f0eff8',
@@ -256,7 +256,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                       whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                       style={{
                         fontFamily: 'var(--font-body)',
-                        fontSize: '14px',
+                        fontSize: '17px',
                         fontWeight: 600,
                         color: '#f0eff8',
                         border: '1px solid var(--color-border-default)',
@@ -301,7 +301,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                     <p
                       style={{
                         fontFamily: 'var(--font-body)',
-                        fontSize: '17px',
+                        fontSize: '20px',
                         color: 'var(--color-text-primary)',
                         lineHeight: 1.75,
                         margin: 0,
@@ -333,10 +333,10 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                           padding: '20px',
                         }}
                       >
-                        <p style={{ fontFamily: 'var(--font-display)', fontSize: '15px', fontWeight: 700, color: 'var(--color-accent-coral)', margin: '0 0 12px' }}>
+                        <p style={{ fontFamily: 'var(--font-display)', fontSize: '18px', fontWeight: 700, color: 'var(--color-accent-coral)', margin: '0 0 12px' }}>
                           User Pain Points
                         </p>
-                        <ul style={{ paddingLeft: '18px', margin: 0, fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.65 }}>
+                        <ul style={{ paddingLeft: '18px', margin: 0, fontFamily: 'var(--font-body)', fontSize: '17px', color: 'var(--color-text-secondary)', lineHeight: 1.65 }}>
                           <li style={{ marginBottom: '8px' }}><strong>Fragmentation:</strong> Tab overload checking assignments, grades, and community threads.</li>
                           <li style={{ marginBottom: '8px' }}><strong>Isolation:</strong> High drop-out rates due to self-paced fatigue and lack of peer pressure.</li>
                           <li><strong>Friction:</strong> Complex onboarding paths that defer actual learning.</li>
@@ -350,10 +350,10 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                           padding: '20px',
                         }}
                       >
-                        <p style={{ fontFamily: 'var(--font-display)', fontSize: '15px', fontWeight: 700, color: 'var(--color-accent-teal)', margin: '0 0 12px' }}>
+                        <p style={{ fontFamily: 'var(--font-display)', fontSize: '18px', fontWeight: 700, color: 'var(--color-accent-teal)', margin: '0 0 12px' }}>
                           Ecosystem Solution
                         </p>
-                        <ul style={{ paddingLeft: '18px', margin: 0, fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.65 }}>
+                        <ul style={{ paddingLeft: '18px', margin: 0, fontFamily: 'var(--font-body)', fontSize: '17px', color: 'var(--color-text-secondary)', lineHeight: 1.65 }}>
                           <li style={{ marginBottom: '8px' }}><strong>Unified Feed:</strong> One dashboard consolidating class schedules, submissions, and feedback.</li>
                           <li style={{ marginBottom: '8px' }}><strong>Accountability Lobbies:</strong> Quiet coworking circles syncing progress in real time.</li>
                           <li><strong>3-Step Onboarding:</strong> Goal capture to customized workspace setup in under 90 seconds.</li>
@@ -369,16 +369,16 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                     <SectionLabel text="Student Segmentation" accent={project.accent} />
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '16px' }} className="pm-grid-2">
                       <div style={{ backgroundColor: 'var(--color-bg-card)', border: '0.5px solid var(--color-border-subtle)', borderRadius: '12px', padding: '20px' }}>
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--color-text-hint)', textTransform: 'uppercase' }}>Segment A</span>
-                        <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '16px', fontWeight: 700, margin: '4px 0 8px', color: 'var(--color-text-primary)' }}>The Guided Switcher</h4>
-                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--color-text-hint)', textTransform: 'uppercase' }}>Segment A</span>
+                        <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '19px', fontWeight: 700, margin: '4px 0 8px', color: 'var(--color-text-primary)' }}>The Guided Switcher</h4>
+                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
                           Upskilling for a career change. Needs step-by-step roadmap clarity, explicit milestones, progress visualizations, and structural accountability hooks.
                         </p>
                       </div>
                       <div style={{ backgroundColor: 'var(--color-bg-card)', border: '0.5px solid var(--color-border-subtle)', borderRadius: '12px', padding: '20px' }}>
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--color-text-hint)', textTransform: 'uppercase' }}>Segment B</span>
-                        <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '16px', fontWeight: 700, margin: '4px 0 8px', color: 'var(--color-text-primary)' }}>The Swift Upskiller</h4>
-                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--color-text-hint)', textTransform: 'uppercase' }}>Segment B</span>
+                        <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '19px', fontWeight: 700, margin: '4px 0 8px', color: 'var(--color-text-primary)' }}>The Swift Upskiller</h4>
+                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
                           Actively working, short on time. Needs frictionless dashboards, high-flexibility shortcuts, keyboard navigations, and third-party calendar syncs.
                         </p>
                       </div>
@@ -392,18 +392,18 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                     <SectionLabel text="Key Decisions & Tradeoffs" accent={project.accent} />
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginTop: '16px' }}>
                       <div style={{ borderLeft: `2px solid ${project.accent}`, paddingLeft: '16px' }}>
-                        <p style={{ fontFamily: 'var(--font-display)', fontSize: '15px', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 6px' }}>
+                        <p style={{ fontFamily: 'var(--font-display)', fontSize: '18px', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 6px' }}>
                           Central Notification Center vs. Gamified Forum
                         </p>
-                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
+                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '17px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
                           <strong>Decision:</strong> Centralized notifications first. <em>Tradeoff:</em> Delayed gamified leaderboards to prioritize relieving daily schedule anxiety for busy students.
                         </p>
                       </div>
                       <div style={{ borderLeft: `2px solid ${project.accent}`, paddingLeft: '16px' }}>
-                        <p style={{ fontFamily: 'var(--font-display)', fontSize: '15px', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 6px' }}>
+                        <p style={{ fontFamily: 'var(--font-display)', fontSize: '18px', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 6px' }}>
                           Coworking study lobbies vs. Open message boards
                         </p>
-                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
+                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '17px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
                           <strong>Decision:</strong> Accountability cowriting hubs. <em>Tradeoff:</em> Deferring open chat boards to emphasize quiet, structured peer-study intervals, minimizing social distractions.
                         </p>
                       </div>
@@ -423,7 +423,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                         border: '0.5px solid var(--color-border-subtle)',
                         padding: '16px',
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '11px',
+                        fontSize: '14px',
                         color: 'var(--color-text-secondary)',
                         overflowX: 'auto',
                         boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
@@ -471,7 +471,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                               <br />
                               (4 online)
                             </div>
-                            <div style={{ fontSize: '10px' }}>
+                            <div style={{ fontSize: '13px' }}>
                               - Harshika G.<br />
                               - Rohan S.<br />
                               - Priya M.<br />
@@ -495,7 +495,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                       whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                       style={{
                         fontFamily: 'var(--font-body)',
-                        fontSize: '14px',
+                        fontSize: '17px',
                         fontWeight: 600,
                         color: '#0d0d14',
                         backgroundColor: '#f0eff8',
@@ -515,7 +515,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                       whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                       style={{
                         fontFamily: 'var(--font-body)',
-                        fontSize: '14px',
+                        fontSize: '17px',
                         fontWeight: 600,
                         color: '#f0eff8',
                         border: '1px solid var(--color-border-default)',
@@ -542,7 +542,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                     <p
                       style={{
                         fontFamily: 'var(--font-body)',
-                        fontSize: '17px',
+                        fontSize: '20px',
                         color: 'var(--color-text-primary)',
                         lineHeight: 1.75,
                         margin: 0,
@@ -560,7 +560,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                     <p
                       style={{
                         fontFamily: 'var(--font-body)',
-                        fontSize: '16px',
+                        fontSize: '19px',
                         color: 'var(--color-text-primary)',
                         lineHeight: 1.75,
                         margin: 0,
@@ -580,7 +580,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                         key={i}
                         style={{
                           fontFamily: 'var(--font-body)',
-                          fontSize: '15px',
+                          fontSize: '18px',
                           color: 'var(--color-text-primary)',
                           lineHeight: 1.7,
                           margin: 0,
@@ -600,7 +600,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                     <p
                       style={{
                         fontFamily: 'var(--font-body)',
-                        fontSize: '15px',
+                        fontSize: '18px',
                         color: 'var(--color-text-secondary)',
                         lineHeight: 1.7,
                         margin: 0,
@@ -629,7 +629,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                           <span
                             style={{
                               fontFamily: 'var(--font-mono)',
-                              fontSize: '12px',
+                              fontSize: '15px',
                               color: project.accent,
                               flexShrink: 0,
                               marginTop: '3px',
@@ -641,7 +641,7 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                           <p
                             style={{
                               fontFamily: 'var(--font-body)',
-                              fontSize: '15px',
+                              fontSize: '18px',
                               color: 'var(--color-text-secondary)',
                               lineHeight: 1.65,
                               fontStyle: 'italic',

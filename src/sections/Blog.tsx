@@ -67,7 +67,7 @@ const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
         <span
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
+            fontSize: '14px',
             color: 'var(--color-text-hint)',
           }}
         >
@@ -76,7 +76,7 @@ const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
         <span
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '11px',
+            fontSize: '14px',
             color: 'var(--color-text-hint)',
           }}
         >
@@ -88,7 +88,7 @@ const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
       <h3
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: '20px',
+          fontSize: '23px',
           fontWeight: 700,
           color: 'var(--color-text-primary)',
           lineHeight: 1.3,
@@ -102,7 +102,7 @@ const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
       <p
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: '14px',
+          fontSize: '17px',
           color: 'var(--color-text-secondary)',
           lineHeight: 1.65,
           marginTop: '10px',
@@ -132,7 +132,7 @@ const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
                 padding: '4px 10px',
                 color: 'var(--color-text-secondary)',
                 fontFamily: 'var(--font-body)',
-                fontSize: '11px',
+                fontSize: '14px',
                 whiteSpace: 'nowrap',
                 zIndex: 10,
                 boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
@@ -154,7 +154,7 @@ const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
           }}
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '13px',
+            fontSize: '16px',
             fontWeight: 500,
             color: 'var(--color-accent-teal)',
             textDecoration: 'none',
@@ -210,7 +210,7 @@ const Blog: React.FC = () => {
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: '12px',
+                fontSize: '15px',
                 textTransform: 'uppercase',
                 letterSpacing: '0.12em',
                 color: 'var(--color-text-hint)',
@@ -243,7 +243,7 @@ const Blog: React.FC = () => {
             variants={VARIANTS.fadeUp}
             style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '17px',
+              fontSize: '20px',
               color: 'var(--color-text-secondary)',
               lineHeight: 1.6,
               maxWidth: '460px',

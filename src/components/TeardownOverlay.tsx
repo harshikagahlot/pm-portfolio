@@ -51,7 +51,7 @@ const SectionLabel: React.FC<{ text: string }> = ({ text }) => (
   <p
     style={{
       fontFamily: 'var(--font-body)',
-      fontSize: '12px',
+      fontSize: '15px',
       textTransform: 'uppercase',
       letterSpacing: '0.1em',
       color: TEAL,
@@ -215,7 +215,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                   <span
                     style={{
                       fontFamily: 'var(--font-display)',
-                      fontSize: '26px',
+                      fontSize: '29px',
                       fontWeight: 800,
                       color: teardown.logoColor === '#ffffff' ? '#0a0a0f' : '#ffffff',
                       lineHeight: 1,
@@ -245,7 +245,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
               <p
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '15px',
+                  fontSize: '18px',
                   color: 'var(--color-text-hint)',
                   marginTop: '6px',
                   marginBottom: 0,
@@ -258,7 +258,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
               <p
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '18px',
+                  fontSize: '21px',
                   color: 'var(--color-text-secondary)',
                   lineHeight: 1.7,
                   marginTop: '20px',
@@ -273,7 +273,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
               <p
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: '15px',
+                  fontSize: '18px',
                   color: 'var(--color-text-secondary)',
                   lineHeight: 1.7,
                   marginTop: '12px',
@@ -327,7 +327,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                       <span
                         style={{
                           fontFamily: 'var(--font-mono)',
-                          fontSize: '11px',
+                          fontSize: '14px',
                           color: TEAL,
                           lineHeight: 1,
                         }}
@@ -341,7 +341,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                       <p
                         style={{
                           fontFamily: 'var(--font-display)',
-                          fontSize: '17px',
+                          fontSize: '20px',
                           fontWeight: 700,
                           color: 'var(--color-text-primary)',
                           margin: '0 0 12px',
@@ -382,7 +382,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                       <p
                         style={{
                           fontFamily: 'var(--font-body)',
-                          fontSize: '15px',
+                          fontSize: '18px',
                           color: 'var(--color-text-primary)',
                           lineHeight: 1.7,
                           margin: '0 0 12px',
@@ -395,7 +395,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                       <p
                         style={{
                           fontFamily: 'var(--font-body)',
-                          fontSize: '15px',
+                          fontSize: '18px',
                           color: 'var(--color-text-primary)',
                           lineHeight: 1.7,
                           margin: '0 0 16px',
@@ -411,7 +411,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                           paddingLeft: '14px',
                           borderLeft: `2px solid rgba(45,212,168,0.4)`,
                           fontFamily: 'var(--font-body)',
-                          fontSize: '14px',
+                          fontSize: '17px',
                           fontStyle: 'italic',
                           color: 'var(--color-text-secondary)',
                           lineHeight: 1.65,
@@ -441,7 +441,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                   <p
                     style={{
                       fontFamily: 'var(--font-body)',
-                      fontSize: '16px',
+                      fontSize: '19px',
                       color: 'var(--color-text-primary)',
                       lineHeight: 1.75,
                       fontStyle: 'italic',
@@ -461,7 +461,7 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                 <p
                   style={{
                     fontFamily: 'var(--font-body)',
-                    fontSize: '15px',
+                    fontSize: '18px',
                     color: 'var(--color-text-secondary)',
                     lineHeight: 1.7,
                     margin: 0,
