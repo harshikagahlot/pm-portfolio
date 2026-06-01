@@ -13,6 +13,14 @@ interface BlogPost {
 
 const BLOG_POSTS: BlogPost[] = [
   {
+    id: 4,
+    date: 'Jun 2026',
+    readTime: '5 min read',
+    title: "Duolingo Isn't Teaching Language. It's Teaching Consistency.",
+    excerpt: "I explored Duolingo from a product perspective and discovered that its real strength is not language learning but habit formation. From streaks and XP to the angry red bird icon that appears after missing a lesson, every feature is designed around one goal: making users come back tomorrow.",
+    href: 'https://productandperspective.blogspot.com/2026/06/duolingo-isnt-teaching-language-its.html',
+  },
+  {
     id: 1,
     date: 'Apr 2026',
     readTime: '6 min read',
