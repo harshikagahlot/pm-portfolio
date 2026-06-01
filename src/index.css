@@ -1,13 +1,11 @@
 /* ============================================================
    GLOBAL STYLES — PM Portfolio
-   Tailwind v4 uses CSS-first config — @tailwindcss/vite plugin active.
    ============================================================ */
 
 @import "tailwindcss";
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 @theme {
-  /* Colors */
   --color-bg-primary: #0a0a0f;
   --color-bg-secondary: #111118;
   --color-bg-card: #16161f;
@@ -23,10 +21,27 @@
   --color-border-subtle: rgba(255, 255, 255, 0.06);
   --color-border-default: rgba(255, 255, 255, 0.1);
 
-  /* Typography */
   --font-display: "Cabinet Grotesk", system-ui, sans-serif;
   --font-body: "Satoshi", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
+}
+
+/* ── Hardcoded font fallbacks (in case @theme vars don't resolve) */
+:root {
+  --font-display: "Cabinet Grotesk", system-ui, sans-serif;
+  --font-body: "Satoshi", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --color-bg-primary: #0a0a0f;
+  --color-bg-secondary: #111118;
+  --color-bg-card: #16161f;
+  --color-accent-purple: #7c6ff7;
+  --color-accent-teal: #2dd4a8;
+  --color-accent-coral: #f47c5a;
+  --color-text-primary: #f0eff8;
+  --color-text-secondary: #8b8a9a;
+  --color-text-hint: #4a4958;
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-default: rgba(255, 255, 255, 0.1);
 }
 
 /* ── Global Reset & Base ───────────────────────────────────── */
@@ -46,22 +61,24 @@ html, body {
 
 html {
   font-size: 16px;
-  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
 body {
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
+  /* Hardcoded font-family so it never falls back silently */
+  font-family: "Satoshi", system-ui, sans-serif;
+  color: #f0eff8;
   font-size: 16px;
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  background-color: #0a0a0f;
 }
 
-/* ── Override Tailwind v4 preflight heading reset ───────────── */
+/* ── Tailwind preflight heading reset ───────────────────────── */
 @layer base {
   h1, h2, h3, h4, h5, h6 {
     font-size: revert;
@@ -72,22 +89,10 @@ body {
 
 /* ── Hero Background Gradient Animation ───────────────────── */
 @keyframes gradientDrift {
-  0% {
-    transform: translate(0%, 0%) scale(1);
-    opacity: 0.08;
-  }
-  33% {
-    transform: translate(8%, -12%) scale(1.1);
-    opacity: 0.12;
-  }
-  66% {
-    transform: translate(-6%, 8%) scale(0.95);
-    opacity: 0.07;
-  }
-  100% {
-    transform: translate(0%, 0%) scale(1);
-    opacity: 0.08;
-  }
+  0% { transform: translate(0%, 0%) scale(1); opacity: 0.08; }
+  33% { transform: translate(8%, -12%) scale(1.1); opacity: 0.12; }
+  66% { transform: translate(-6%, 8%) scale(0.95); opacity: 0.07; }
+  100% { transform: translate(0%, 0%) scale(1); opacity: 0.08; }
 }
 
 .hero-gradient-orb {
@@ -96,11 +101,7 @@ body {
   left: -10%;
   width: 60%;
   height: 70%;
-  background: radial-gradient(
-    ellipse at center,
-    var(--color-accent-purple) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(ellipse at center, #7c6ff7 0%, transparent 70%);
   animation: gradientDrift 18s ease-in-out infinite;
   pointer-events: none;
   will-change: transform, opacity;
@@ -108,44 +109,24 @@ body {
 
 /* ── Gradient Text Utility ─────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(
-    135deg,
-    var(--color-accent-purple) 0%,
-    var(--color-accent-teal) 100%
-  );
+  background: linear-gradient(135deg, #7c6ff7 0%, #2dd4a8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* ── Scrollbar Styling ─────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-bg-primary);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-border-default);
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-hint);
-}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #4a4958; }
 
 /* ── Selection ─────────────────────────────────────────────── */
 ::selection {
   background: rgba(124, 111, 247, 0.3);
-  color: var(--color-text-primary);
+  color: #f0eff8;
 }
 
-/* ── Custom Cursor overrides ────────────────────────────────── */
-* {
-  cursor: none !important;
-}
-
-@media (pointer: coarse) {
-  * {
-    cursor: auto !important;
-  }
-}
+/* ── Custom Cursor ──────────────────────────────────────────── */
+* { cursor: none !important; }
+@media (pointer: coarse) { * { cursor: auto !important; } }
