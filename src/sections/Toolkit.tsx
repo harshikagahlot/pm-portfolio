@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion, LayoutGroup } from 'framer-motion'
 import { TRANSITIONS, VARIANTS } from '../lib/motion'
 import { scrollTo } from '../lib/smoothScroll'
 
@@ -70,12 +70,17 @@ const TOOLKIT_DATA: ToolCategory[] = [
   }
 ]
 
+// ── Individual Tool Card ──
 const ToolCard: React.FC<{ tool: Tool; isLearning?: boolean }> = ({ tool, isLearning }) => {
   const [isHovered, setIsHovered] = useState(false)
   const shouldReduceMotion = useReducedMotion()
 
   return (
     <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsHovered(true)}
@@ -96,6 +101,7 @@ const ToolCard: React.FC<{ tool: Tool; isLearning?: boolean }> = ({ tool, isLear
         overflow: 'hidden',
         transition: 'border-color 0.3s ease',
         opacity: isLearning && !isHovered ? 0.8 : 1,
+        minWidth: 0,
       }}
     >
       {isLearning && (
@@ -128,6 +134,7 @@ const ToolCard: React.FC<{ tool: Tool; isLearning?: boolean }> = ({ tool, isLear
             fontSize: '15px',
             fontWeight: 700,
             color: tool.brandColor,
+            flexShrink: 0,
           }}
         >
           {tool.monogram}
@@ -192,19 +199,113 @@ const ToolCard: React.FC<{ tool: Tool; isLearning?: boolean }> = ({ tool, isLear
   )
 }
 
+// ── Capsule Component ──
+const Capsule: React.FC<{
+  category: ToolCategory
+  isOpen: boolean
+  onClick: () => void
+}> = ({ category, isOpen, onClick }) => {
+  const shouldReduceMotion = useReducedMotion()
+
+  return (
+    <motion.div
+      layout
+      transition={shouldReduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 100, damping: 20 }}
+      style={{
+        backgroundColor: isOpen ? 'rgba(255,255,255,0.02)' : 'rgba(10,10,15,0.6)',
+        border: `1px solid ${isOpen ? 'var(--color-border-default)' : 'var(--color-border-subtle)'}`,
+        borderRadius: '16px',
+        overflow: 'hidden',
+        cursor: isOpen ? 'default' : 'pointer',
+        width: '100%',
+      }}
+      onClick={() => !isOpen && onClick()}
+      whileHover={!isOpen && !shouldReduceMotion ? { backgroundColor: 'rgba(255,255,255,0.04)' } : {}}
+    >
+      {/* Capsule Header (always visible) */}
+      <motion.div
+        layout
+        style={{
+          padding: '24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '16px',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <span style={{ fontSize: '28px' }}>{category.emoji}</span>
+          <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+            {category.title}
+          </h3>
+        </div>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+          style={{ width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.05)', color: 'var(--color-text-secondary)', cursor: 'pointer' }}
+          onClick={(e) => {
+            if (isOpen) {
+              e.stopPropagation()
+              onClick() // Collapse if already open and arrow is clicked
+            }
+          }}
+        >
+          ↓
+        </motion.div>
+      </motion.div>
+
+      {/* Expandable Content */}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 100, damping: 20 }}
+            style={{ overflow: 'hidden' }}
+          >
+            <motion.div
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.05, delayChildren: 0.1 } }
+              }}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="toolkit-grid"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                gap: '16px',
+                padding: '0 24px 32px 24px',
+              }}
+            >
+              {category.tools.map((tool) => (
+                <ToolCard key={tool.id} tool={tool} isLearning={category.isLearning} />
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
+
 const Toolkit: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
+  const [activeCategory, setActiveCategory] = useState<string | null>(TOOLKIT_DATA[0].title)
 
   return (
     <section
       style={{
         paddingTop: '120px',
         paddingBottom: '120px',
-        backgroundColor: '#050508', // Slightly darker to feel immersive
+        backgroundColor: '#050508',
         position: 'relative',
       }}
     >
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
         
         {/* Section Header */}
         <motion.div
@@ -212,9 +313,8 @@ const Toolkit: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '80px' }}
+          style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '60px' }}
         >
-          {/* Overline */}
           <motion.div variants={VARIANTS.fadeUp} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ width: '24px', height: '1px', backgroundColor: 'var(--color-accent-teal)' }} />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--color-text-hint)' }}>
@@ -237,43 +337,19 @@ const Toolkit: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        {/* Categories */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
-          {TOOLKIT_DATA.map((category) => (
-            <motion.div
-              key={category.title}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-40px' }}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut', staggerChildren: 0.05 } }
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                <span style={{ fontSize: '24px' }}>{category.emoji}</span>
-                <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '24px', fontWeight: 700, color: 'var(--color-text-primary)' }}>
-                  {category.title}
-                </h3>
-              </div>
-              
-              <div
-                className="toolkit-grid"
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                  gap: '20px'
-                }}
-              >
-                {category.tools.map((tool) => (
-                  <motion.div key={tool.id} variants={VARIANTS.fadeUp}>
-                    <ToolCard tool={tool} isLearning={category.isLearning} />
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {/* Interactive Capsules wrapped in LayoutGroup for smooth sibling reflow */}
+        <LayoutGroup>
+          <motion.div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {TOOLKIT_DATA.map((category) => (
+              <Capsule
+                key={category.title}
+                category={category}
+                isOpen={activeCategory === category.title}
+                onClick={() => setActiveCategory(activeCategory === category.title ? null : category.title)}
+              />
+            ))}
+          </motion.div>
+        </LayoutGroup>
 
         {/* Microcopy & Next Section Connector */}
         <motion.div
