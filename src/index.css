@@ -50,6 +50,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-size: 16px; /* Lock base size — prevents Tailwind v4 preflight from overriding in production */
 }
 
 body {
@@ -59,6 +60,17 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+/* ── Tailwind v4 preflight override — restore natural text sizes ── */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: revert;
+    font-weight: revert;
+  }
+  p, span, a, li, button, input, textarea, label {
+    font-size: revert;
+  }
 }
 
 /* ── Hero Background Gradient Animation ───────────────────── */
