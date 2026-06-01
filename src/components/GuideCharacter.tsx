@@ -10,17 +10,19 @@ interface SectionState {
 }
 
 const getSectionState = (progress: number): SectionState => {
-  if (progress < 0.15) {
+  if (progress < 0.12) {
     return { mouth: 'idle', tooltip: "Hi! I'm your guide." }
-  } else if (progress >= 0.15 && progress < 0.30) {
+  } else if (progress >= 0.12 && progress < 0.25) {
     return { mouth: 'curious', tooltip: 'These are my principles.' }
-  } else if (progress >= 0.30 && progress < 0.45) {
+  } else if (progress >= 0.25 && progress < 0.38) {
+    return { mouth: 'open', tooltip: '🧰 Welcome to the workshop. These are the tools helping me turn ideas into products.' }
+  } else if (progress >= 0.38 && progress < 0.52) {
     return { mouth: 'pointing', tooltip: 'Real products I shipped.' }
-  } else if (progress >= 0.45 && progress < 0.60) {
+  } else if (progress >= 0.52 && progress < 0.65) {
     return { mouth: 'curious', tooltip: 'Products I study obsessively.' }
-  } else if (progress >= 0.60 && progress < 0.75) {
+  } else if (progress >= 0.65 && progress < 0.80) {
     return { mouth: 'happy', tooltip: 'The journey so far.' }
-  } else if (progress >= 0.75 && progress < 0.90) {
+  } else if (progress >= 0.80 && progress < 0.92) {
     return { mouth: 'idle', tooltip: 'Still curious. Always.' }
   } else {
     return { mouth: 'open', tooltip: "Let's work together?" }
