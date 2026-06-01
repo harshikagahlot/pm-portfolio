@@ -1,0 +1,125 @@
+/* ============================================================
+   RESPONSIVE OVERRIDES
+   ============================================================ */
+
+/* ── Global Layout Resets ── */
+@media (max-width: 767px) {
+  /* Prevent horizontal overflow strictly */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100vw !important;
+    max-width: 100% !important;
+  }
+
+  /* Make sure main layout containers don't push past the screen */
+  section > div {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* ── Hero Section ── */
+  /* Make headline scale better */
+  h1 {
+    font-size: clamp(32px, 10vw, 56px) !important;
+  }
+  /* Ensure Hero Flex wraps */
+  #hero > div {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 32px !important;
+  }
+  #hero .hero-stat-card {
+    display: none !important;
+  }
+
+  /* ── General Grids & Flex Row Resets ── */
+  /* Force grids to stack vertically */
+  .thought-grid, .blog-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* ── Modals / Overlays ── */
+  /* Ensure Case Study & Teardown Modals use full screen on mobile */
+  div[role="dialog"] > div {
+    max-width: 100% !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  div[role="dialog"] button[aria-label="Close case study"],
+  div[role="dialog"] button[aria-label="Close teardown"] {
+    width: 44px !important;
+    height: 44px !important;
+    top: 16px !important;
+    right: 16px !important;
+    background-color: rgba(20, 20, 30, 0.8) !important;
+    backdrop-filter: blur(8px) !important;
+  }
+  
+  /* Stack grid layouts inside overlays */
+  div[style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  
+  /* ── Case Studies List ── */
+  .project-entry-left {
+    max-width: 100% !important;
+  }
+  .project-entry-right {
+    display: none !important;
+  }
+
+  /* ── Teardowns ── */
+  /* Stack Teardown Cards inside the flex row if any */
+  #teardown > div > div:nth-child(2) {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  /* Make teardown images fluid */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* ── Timeline ── */
+  .timeline-track > div {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    height: 480px !important;
+  }
+
+  /* ── Navbar ── */
+  nav {
+    gap: 12px !important;
+  }
+  nav a {
+    font-size: 14px !important;
+  }
+  a[href="#footer"] {
+    font-size: 14px !important;
+    padding: 6px 12px !important;
+  }
+
+  /* ── Footer ── */
+  footer h2 {
+    font-size: 36px !important;
+  }
+  footer > div > div > div {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  footer > div > div > div > a {
+    width: 100% !important;
+  }
+}
+
+/* ── Tablet Adjustments ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .thought-grid, .blog-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}

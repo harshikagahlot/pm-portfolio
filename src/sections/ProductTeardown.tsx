@@ -363,6 +363,7 @@ const ProductTeardown: React.FC = () => {
             }}
             style={{
               display: 'flex',
+              flexWrap: 'wrap',
               justifyContent: 'center',
               width: '100%',
               gap: '20px',
