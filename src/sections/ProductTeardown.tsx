@@ -7,10 +7,12 @@ import { TEARDOWNS } from '../data/teardowns'
 import type { TeardownData } from '../data/teardowns'
 import TeardownOverlay from '../components/TeardownOverlay'
 import duolingoLogo from '../assets/duolingo-logo.png'
+import blinkitLogo from '../assets/blinkit-logo.png'
 
 // ── Logo image map ───────────────────────────────────────────
 const CARD_LOGOS: Record<string, string> = {
   duolingo: duolingoLogo,
+  blinkit: blinkitLogo,
 }
 
 // ── Shared teal constant ──────────────────────────────────────

@@ -8,6 +8,11 @@ import duolingoMap from '../assets/duolingo-map.jpg'
 import duolingoStreak from '../assets/duolingo-streak.jpg'
 import duolingoLeaderboard from '../assets/duolingo-leaderboard.jpg'
 import duolingoNotification from '../assets/duolingo-notification.jpg'
+import blinkitLogo from '../assets/blinkit-logo.png'
+import blinkitCheckoutInstructions from '../assets/blinkit-checkout-instructions.jpg'
+import blinkitCheckoutThreshold from '../assets/blinkit-checkout-threshold.jpg'
+import blinkitOrderAgain from '../assets/blinkit-order-again.jpg'
+import blinkitPrintStore from '../assets/blinkit-print-store.jpg'
 
 // ── Image map for teardown annotations ───────────────────────
 const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
@@ -16,12 +21,19 @@ const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
     3: duolingoMap,
     5: duolingoLeaderboard,
     6: duolingoNotification,
+  },
+  blinkit: {
+    2: blinkitOrderAgain,
+    4: blinkitCheckoutThreshold,
+    7: blinkitPrintStore,
+    8: blinkitCheckoutInstructions,
   }
 }
 
 // ── Logo image map for teardown headers ──────────────────────
 const TEARDOWN_LOGOS: Record<string, string> = {
   duolingo: duolingoLogo,
+  blinkit: blinkitLogo,
 }
 
 // ── Shared accent ─────────────────────────────────────────────
@@ -386,39 +398,44 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
                           color: 'var(--color-text-primary)',
                           lineHeight: 1.7,
                           margin: '0 0 12px',
+                          whiteSpace: 'pre-wrap',
                         }}
                       >
-                        <strong>My Observation:</strong> {ann.observation}
+                        {ann.whyItMatters ? <strong>My Observation: </strong> : null}{ann.observation}
                       </p>
 
                       {/* Why it matters */}
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-body)',
-                          fontSize: '18px',
-                          color: 'var(--color-text-primary)',
-                          lineHeight: 1.7,
-                          margin: '0 0 16px',
-                        }}
-                      >
-                        <strong>Why It Matters:</strong> {ann.whyItMatters}
-                      </p>
+                      {ann.whyItMatters && (
+                        <p
+                          style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '18px',
+                            color: 'var(--color-text-primary)',
+                            lineHeight: 1.7,
+                            margin: '0 0 16px',
+                          }}
+                        >
+                          <strong>Why It Matters:</strong> {ann.whyItMatters}
+                        </p>
+                      )}
 
                       {/* How I'd Test This */}
-                      <blockquote
-                        style={{
-                          margin: 0,
-                          paddingLeft: '14px',
-                          borderLeft: `2px solid rgba(45,212,168,0.4)`,
-                          fontFamily: 'var(--font-body)',
-                          fontSize: '17px',
-                          fontStyle: 'italic',
-                          color: 'var(--color-text-secondary)',
-                          lineHeight: 1.65,
-                        }}
-                      >
-                        <strong>How I'd Test This:</strong> {ann.howIdTestThis}
-                      </blockquote>
+                      {ann.howIdTestThis && (
+                        <blockquote
+                          style={{
+                            margin: 0,
+                            paddingLeft: '14px',
+                            borderLeft: `2px solid rgba(45,212,168,0.4)`,
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '17px',
+                            fontStyle: 'italic',
+                            color: 'var(--color-text-secondary)',
+                            lineHeight: 1.65,
+                          }}
+                        >
+                          <strong>How I'd Test This:</strong> {ann.howIdTestThis}
+                        </blockquote>
+                      )}
 
                     </div>
                   </div>

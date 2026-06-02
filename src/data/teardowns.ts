@@ -8,9 +8,11 @@ export interface Annotation {
   /** 2–3 sentences describing my actual observation */
   observation: string
   /** Why it matters to the user experience */
-  whyItMatters: string
+  whyItMatters?: string
   /** How I would test this hypothesis practically */
-  howIdTestThis: string
+  howIdTestThis?: string
+  /** Optional image for the observation */
+  image?: string
 }
 
 export interface TeardownContent {
@@ -156,101 +158,65 @@ export const TEARDOWNS: TeardownData[] = [
           id: 1,
           marker: '01',
           title: 'The 10-Minute Promise',
-          observation:
-            'The first thing Blinkit highlights is delivery time. Before products, before categories, before offers.',
-          whyItMatters:
-            'Users immediately understand what the product stands for: Speed. Even the name "Blinkit" reinforces this idea. The product identity is built around convenience and urgency.',
-          howIdTestThis: ''
+          observation: 'The first thing Blinkit highlights is delivery time.\n\nBefore products, before categories, before offers.\n\nUsers immediately understand what the product stands for:\nSpeed.\n\nEven the name "Blinkit" reinforces this idea.\nThe product identity is built around convenience and urgency.',
         },
         {
           id: 2,
           marker: '02',
           title: 'Convenience Is Everywhere',
-          observation:
-            'Features like "Order Again" seem simple at first. But most grocery purchases are repetitive. Users buy the same products again and again.',
-          whyItMatters:
-            'Instead of making users search repeatedly, Blinkit remembers previous purchases. This reduces effort and makes repeat ordering extremely easy.',
-          howIdTestThis: ''
+          observation: 'Features like "Order Again" seem simple at first.\n\nBut most grocery purchases are repetitive.\nUsers buy the same products again and again.\n\nInstead of making users search repeatedly, Blinkit remembers previous purchases.\n\nThis reduces effort and makes repeat ordering extremely easy.',
+          image: 'blinkit-order-again',
         },
         {
           id: 3,
           marker: '03',
           title: 'Live Delivery Tracking Reduces Anxiety',
-          observation:
-            'One of the most useful features is real-time tracking. Users can see exactly where their delivery partner is. Even after closing the app, Blinkit continues showing updates through notifications.',
-          whyItMatters:
-            'Users don\'t need to keep reopening the app. This creates transparency and reduces uncertainty while waiting.',
-          howIdTestThis: ''
+          observation: 'One of the most useful features is real-time tracking.\n\nUsers can see exactly where their delivery partner is.\n\nEven after closing the app, Blinkit continues showing updates through notifications.\n\nUsers don\'t need to keep reopening the app.\nThis creates transparency and reduces uncertainty while waiting.',
         },
         {
           id: 4,
           marker: '04',
           title: 'The ₹199 Threshold Strategy',
-          observation:
-            'When the order value is low, delivery charges appear relatively expensive. As users get closer to the threshold, they are encouraged to add extra products.',
-          whyItMatters:
-            'The interesting part is that users feel like they are saving money while Blinkit increases average order value. This benefits both the user and the business.',
-          howIdTestThis: ''
+          observation: 'One of the smartest business strategies I noticed was the delivery charge threshold.\n\nWhen the order value is low, delivery charges appear relatively expensive.\n\nAs users get closer to the threshold, they are encouraged to add extra products.\n\nThe interesting part is that users feel like they are saving money while Blinkit increases average order value.\n\nThis benefits both the user and the business.',
+          image: 'blinkit-checkout-threshold',
         },
         {
           id: 5,
           marker: '05',
           title: 'Marketing That Feels Like Entertainment',
-          observation:
-            'Blinkit regularly launches creative campaigns. One example was the ice cream discount campaign where users could shout into their phones to unlock larger discounts.',
-          whyItMatters:
-            'The campaign was fun, shareable, and highly memorable. People made reels and shared their experiences online. The marketing became entertainment.',
-          howIdTestThis: ''
+          observation: 'Blinkit regularly launches creative campaigns.\n\nOne example was the ice cream discount campaign where users could shout into their phones to unlock larger discounts.\n\nThe campaign was fun, shareable, and highly memorable.\nPeople made reels and shared their experiences online.\n\nThe marketing became entertainment.',
         },
         {
           id: 6,
           marker: '06',
           title: 'Product Discovery Through Free Samples',
-          observation:
-            'During larger orders, Blinkit sometimes includes free samples from smaller brands. Examples include shampoo samples, laundry liquid, or sanitary pad samples.',
-          whyItMatters:
-            'Users receive free surprises. Brands gain exposure. Blinkit strengthens partner relationships. A simple feature creates value for all sides.',
-          howIdTestThis: ''
+          observation: 'During larger orders, Blinkit sometimes includes free samples from smaller brands.\n\nExamples:\n* shampoo samples\n* laundry liquid\n* sanitary pad samples\n\nUsers receive free surprises.\nBrands gain exposure.\nBlinkit strengthens partner relationships.\n\nA simple feature creates value for all sides.',
         },
         {
           id: 7,
           marker: '07',
           title: 'Printouts Reveal A Bigger Vision',
-          observation:
-            'Initially, Blinkit appeared to be focused on groceries. Then I noticed the printout service. As a student, I immediately understood its usefulness.',
-          whyItMatters:
-            'This made me realize Blinkit is slowly evolving into a convenience platform rather than just a grocery platform. The company is expanding into urgent everyday needs.',
-          howIdTestThis: ''
+          observation: 'Initially, Blinkit appeared to be focused on groceries.\n\nThen I noticed the printout service.\nAs a student, I immediately understood its usefulness.\n\nThis made me realize Blinkit is slowly evolving into a convenience platform rather than just a grocery platform.\n\nThe company is expanding into urgent everyday needs.',
+          image: 'blinkit-print-store',
         },
         {
           id: 8,
           marker: '08',
           title: 'Small Details Matter',
-          observation:
-            'Blinkit allows delivery instructions such as "Don\'t call" or "Don\'t ring the bell". These seem like small features.',
-          whyItMatters:
-            'But they become extremely valuable in real-life situations: hostel environments, late-night orders, sleeping family members, meetings, and classes. This reflects strong attention to user experience.',
-          howIdTestThis: ''
+          observation: 'Blinkit allows delivery instructions such as:\n* Don\'t call\n* Don\'t ring the bell\n\nThese seem like small features.\nBut they become extremely valuable in real-life situations:\n* hostel environments\n* late-night orders\n* sleeping family members\n* meetings and classes\n\nThis reflects strong attention to user experience.',
+          image: 'blinkit-checkout-instructions',
         },
         {
           id: 9,
           marker: '09',
           title: 'Packaging As Part Of The Product',
-          observation:
-            'Most delivery packaging gets thrown away immediately. Blinkit\'s packaging often includes games, artwork, coloring activities, seasonal themes, and creative designs.',
-          whyItMatters:
-            'I\'ve seen students reuse these bags rather than throw them away. The product experience continues even after delivery is completed. This is one of the most unique branding decisions I observed.',
-          howIdTestThis: ''
+          observation: 'This was the most unexpected observation.\n\nMost delivery packaging gets thrown away immediately.\nBlinkit\'s packaging often includes:\n* games\n* artwork\n* coloring activities\n* seasonal themes\n* creative designs\n\nI\'ve seen students reuse these bags rather than throw them away.\n\nThe product experience continues even after delivery is completed.\nThis is one of the most unique branding decisions I observed.',
         },
         {
           id: 10,
           marker: '10',
           title: 'Customer Service Builds Trust',
-          observation:
-            'I have personally experienced situations where products were not satisfactory. In those cases, replacements were provided or refunds were processed smoothly.',
-          whyItMatters:
-            'Fast delivery attracts users. Trust keeps them coming back.',
-          howIdTestThis: ''
+          observation: 'I have personally experienced situations where products were not satisfactory.\n\nIn those cases:\n* replacements were provided\nor\n* refunds were processed smoothly\n\nFast delivery attracts users.\nTrust keeps them coming back.',
         }
       ],
       bigIdea:
