@@ -13,6 +13,14 @@ interface BlogPost {
 
 const BLOG_POSTS: BlogPost[] = [
   {
+    id: 5,
+    date: 'Jun 2026',
+    readTime: '4 min read',
+    title: "Blinkit: A Convenience Machine Disguised as a Grocery App",
+    excerpt: "A product teardown exploring how Blinkit uses speed, convenience, psychology, packaging, and customer experience to become much more than a grocery delivery app.",
+    href: 'https://productandperspective.blogspot.com/2026/06/blinkit-isnt-selling-groceries-its.html',
+  },
+  {
     id: 4,
     date: 'Jun 2026',
     readTime: '5 min read',
