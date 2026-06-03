@@ -13,6 +13,14 @@ interface BlogPost {
 
 const BLOG_POSTS: BlogPost[] = [
   {
+    id: 6,
+    date: 'Jun 2026',
+    readTime: '5 min read',
+    title: "Spotify Doesn't Just Play Music. It Understands Me.",
+    excerpt: "While observing Spotify, I realized its biggest strength isn't music—it's personalization. The platform continuously learns user preferences, moods, listening habits, and behaviors to create an experience that feels deeply personal. This teardown explores how Spotify transforms music streaming into a product that feels like it truly understands its users.",
+    href: 'https://productandperspective.blogspot.com/2026/06/spotify-doesnt-just-play-music-it.html',
+  },
+  {
     id: 5,
     date: 'Jun 2026',
     readTime: '4 min read',
