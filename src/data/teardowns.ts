@@ -224,5 +224,86 @@ export const TEARDOWNS: TeardownData[] = [
       whatIWouldChange:
         "Blinkit already knows a lot about user behavior: repeat purchases, favorite categories, and buying patterns. I would explore more intelligent personalization that helps users complete purchases faster rather than simply promoting more products."
     }
+  },
+  {
+    id: 'spotify',
+    name: 'Spotify',
+    category: 'Audio · Personalization · Discovery',
+    logoColor: '#1ED760',
+    teaser:
+      "A product teardown exploring how Spotify uses personalization, discovery, identity, and emotional connection to create a deeply personal music experience.",
+    observationCount: 10,
+    fullTeardown: {
+      hook: "Before observing Spotify closely, I thought it was simply a music streaming app. But after using it regularly and paying attention to how it works, I realized something interesting.\n\nSpotify's biggest strength is not music. Music already exists everywhere. Spotify's real strength is understanding users and helping them find the right music with the least effort possible.",
+      context: "The more I use Spotify, the more it feels like the app understands my taste, my mood, and the kind of music I enjoy.",
+      annotations: [
+        {
+          id: 1,
+          marker: '01',
+          title: 'First Impression',
+          observation: 'The Spotify icon is simple but recognizable.\n\nA green circle with curved black lines that resemble sound waves.\n\nThe design immediately communicates music and audio.\nThe app itself follows a dark theme which feels modern, aesthetic, and comfortable to use.'
+        },
+        {
+          id: 2,
+          marker: '02',
+          title: 'Spotify Feels Personal',
+          observation: 'One thing I noticed repeatedly is that Spotify rarely feels generic.\n\nAlmost every section feels tailored to the user.\n\nExamples:\n* Made For You\n* Jump Back In\n* Based On Recent Listening\n* Recommendation Stations\n* Artist Recommendations\n\nThe app constantly adapts itself around user behavior.\nInstead of showing random content, it creates a personalized experience.',
+          image: 'spotify-homepage'
+        },
+        {
+          id: 3,
+          marker: '03',
+          title: 'The Real Product Is Personalization',
+          observation: 'The most valuable thing Spotify offers is not access to songs.\n\nIt\'s helping users discover music they are likely to enjoy.\n\nSpotify observes:\n* listening habits\n* favorite artists\n* replayed songs\n* genres\n* playlists\n\nThen it builds recommendations around those preferences.\nThe result is an experience that feels uniquely personal.'
+        },
+        {
+          id: 4,
+          marker: '04',
+          title: 'It Feels Like My Music Space',
+          observation: 'Most apps feel like products built by a company.\n\nSpotify often feels like my own music space.\nThe more I use it, the more it reflects my taste.\n\nThis creates emotional attachment.\nUsers don\'t just use Spotify.\nThey feel understood by Spotify.'
+        },
+        {
+          id: 5,
+          marker: '05',
+          title: 'Playlists Reduce Effort',
+          observation: 'At first glance, playlists seem like a simple feature.\nBut they solve an important problem.\n\nMost users know the mood they want.\nThey don\'t always know the exact song they want.\n\nExamples:\n* Study mood\n* Travel mood\n* Workout mood\n* Relaxing mood\n\nPlaylists remove decision fatigue and help users start listening immediately.',
+          image: 'spotify-search'
+        },
+        {
+          id: 6,
+          marker: '06',
+          title: 'Music Discovery Without Friction',
+          observation: 'Spotify introduces users to new songs without overwhelming them.\n\nThe recommendations usually remain close to the user\'s existing taste.\nThis balance is important.\n\nUsers want discovery. But they also want familiarity.\nSpotify handles that balance extremely well.'
+        },
+        {
+          id: 7,
+          marker: '07',
+          title: 'Music Becomes Social',
+          observation: 'Spotify is not only about listening.\n\nIt also creates opportunities for people to connect through music.\n\nFeatures include:\n* Collaborative Playlists\n* Blend\n* Jam\n* Song Sharing\n\nThese features transform music from an individual activity into a shared experience.',
+          image: 'spotify-library'
+        },
+        {
+          id: 8,
+          marker: '08',
+          title: 'Spotify Wrapped Is Genius',
+          observation: 'Spotify Wrapped is one of the most fascinating features.\n\nEvery year users eagerly wait for it.\nWrapped tells users:\n* top songs\n* favorite artists\n* listening habits\n* yearly music summary\n\nThe reason people share Wrapped is not because they want to share Spotify.\nThey want to share themselves.\n\nMusic is part of personal identity.\nWrapped turns listening behavior into a story users want to show others.\nThis creates free marketing for Spotify while also creating value for users.',
+          image: 'spotify-wrapped'
+        },
+        {
+          id: 9,
+          marker: '09',
+          title: 'Premium Strategy',
+          observation: 'One thing I noticed is that Spotify frequently promotes Premium plans.\n\nAs a user, this can sometimes feel repetitive because I usually open Spotify to listen to music.\n\nWhile Premium clearly improves the experience by removing ads and restrictions, I think Spotify could explore more creative ways of presenting upgrades.'
+        },
+        {
+          id: 10,
+          marker: '10',
+          title: 'Beyond Music: Podcasts',
+          observation: 'Spotify has expanded beyond music through podcasts.\n\nUsers can now:\n* learn\n* listen to interviews\n* consume long-form content\n* multitask while listening\n\nThis shows Spotify\'s evolution from a music platform into a broader audio platform.'
+        }
+      ],
+      bigIdea: "Before studying Spotify, I thought it was simply a platform for listening to music. After observing it closely, I think Spotify is doing something much more interesting.\n\nSpotify doesn't just organize songs. It organizes music around individual users. The more time users spend on the platform, the more personal the experience becomes.\n\nMusic is the content. Understanding users is the product.\n\nKey Lessons:\n1. Personalization creates attachment.\n2. Users often know the mood they want, not the exact content they want.\n3. Discovery works best when it feels relevant.\n4. Products become stronger when users feel understood.\n5. Identity can be more powerful than functionality.",
+      whatIWouldChange: "I would explore more engaging and less intrusive methods for promoting Premium subscriptions. The upgrade experience should feel like discovering value rather than repeatedly seeing upgrade prompts."
+    }
   }
 ]

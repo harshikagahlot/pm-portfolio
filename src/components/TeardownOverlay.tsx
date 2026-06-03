@@ -13,6 +13,11 @@ import blinkitCheckoutInstructions from '../assets/blinkit-checkout-instructions
 import blinkitCheckoutThreshold from '../assets/blinkit-checkout-threshold.jpg'
 import blinkitOrderAgain from '../assets/blinkit-order-again.jpg'
 import blinkitPrintStore from '../assets/blinkit-print-store.jpg'
+import spotifyLogo from '../assets/spotify-logo.jpg'
+import spotifyHomepage from '../assets/spotify-homepage.jpg'
+import spotifySearch from '../assets/spotify-search.jpg'
+import spotifyWrapped from '../assets/spotify-wrapped.jpg'
+import spotifyLibrary from '../assets/spotify-library.jpg'
 
 // ── Image map for teardown annotations ───────────────────────
 const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
@@ -27,6 +32,12 @@ const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
     4: blinkitCheckoutThreshold,
     7: blinkitPrintStore,
     8: blinkitCheckoutInstructions,
+  },
+  spotify: {
+    2: spotifyHomepage,
+    5: spotifySearch,
+    7: spotifyLibrary,
+    8: spotifyWrapped,
   }
 }
 
@@ -34,6 +45,7 @@ const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
 const TEARDOWN_LOGOS: Record<string, string> = {
   duolingo: duolingoLogo,
   blinkit: blinkitLogo,
+  spotify: spotifyLogo,
 }
 
 // ── Shared accent ─────────────────────────────────────────────
