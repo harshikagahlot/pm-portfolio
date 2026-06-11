@@ -18,6 +18,7 @@ import spotifyHomepage from '../assets/spotify-homepage.jpg'
 import spotifySearch from '../assets/spotify-search.jpg'
 import spotifyWrapped from '../assets/spotify-wrapped.jpg'
 import spotifyLibrary from '../assets/spotify-library.jpg'
+import earbudsLogos from '../assets/boat-noise-boult-logos.jpg'
 
 // ── Image map for teardown annotations ───────────────────────
 const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
@@ -38,6 +39,9 @@ const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
     5: spotifySearch,
     7: spotifyLibrary,
     8: spotifyWrapped,
+  },
+  'earbuds-comparison': {
+    2: earbudsLogos,
   }
 }
 
@@ -46,6 +50,7 @@ const TEARDOWN_LOGOS: Record<string, string> = {
   duolingo: duolingoLogo,
   blinkit: blinkitLogo,
   spotify: spotifyLogo,
+  'earbuds-comparison': earbudsLogos,
 }
 
 // ── Shared accent ─────────────────────────────────────────────
@@ -455,7 +460,108 @@ const TeardownOverlay: React.FC<TeardownOverlayProps> = ({ teardown, onClose }) 
               </div>
             </ContentSection>
 
-            {/* Section 3 — The big idea */}
+            {/* Section 2b — Comparison Table (for multi-brand teardowns) */}
+            {teardown.fullTeardown.comparisonTable && (
+              <ContentSection delay={0.5} shouldReduceMotion={shouldReduceMotion}>
+                <div style={{ marginBottom: '48px' }}>
+                  <SectionLabel text="Brand vs Core Emotion" />
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '36px' }}>
+                    {teardown.fullTeardown.comparisonTable.map((row) => (
+                      <div
+                        key={row.brand}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '20px',
+                          backgroundColor: 'rgba(255,255,255,0.03)',
+                          border: `0.5px solid ${row.accentColor}33`,
+                          borderRadius: '10px',
+                          padding: '16px 20px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '15px',
+                            fontWeight: 700,
+                            color: row.accentColor,
+                            minWidth: '80px',
+                          }}
+                        >
+                          {row.brand}
+                        </span>
+                        <div style={{ width: '1px', height: '24px', backgroundColor: `${row.accentColor}40` }} />
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '17px',
+                            color: 'var(--color-text-primary)',
+                          }}
+                        >
+                          {row.coreEmotion}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {teardown.fullTeardown.positioningCards && (
+                    <>
+                      <SectionLabel text="Brand Positioning" />
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+                        {teardown.fullTeardown.positioningCards.map((card) => (
+                          <div
+                            key={card.brand}
+                            style={{
+                              backgroundColor: `${card.accentColor}0d`,
+                              border: `1px solid ${card.accentColor}40`,
+                              borderRadius: '12px',
+                              padding: '20px 18px',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '8px',
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '13px',
+                                fontWeight: 700,
+                                color: card.accentColor,
+                                textTransform: 'uppercase' as const,
+                                letterSpacing: '0.08em',
+                              }}
+                            >
+                              {card.brand}
+                            </span>
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-display)',
+                                fontSize: '18px',
+                                fontWeight: 700,
+                                color: 'var(--color-text-primary)',
+                              }}
+                            >
+                              {card.label}
+                            </span>
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-body)',
+                                fontSize: '15px',
+                                color: 'var(--color-text-secondary)',
+                                lineHeight: 1.6,
+                              }}
+                            >
+                              {card.description}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </ContentSection>
+            )}
+
             <ContentSection delay={0.55} shouldReduceMotion={shouldReduceMotion}>
               <div style={{ marginBottom: '48px' }}>
                 <SectionLabel text="The big idea" />

@@ -15,6 +15,19 @@ export interface Annotation {
   image?: string
 }
 
+export interface ComparisonRow {
+  brand: string
+  coreEmotion: string
+  accentColor: string
+}
+
+export interface PositioningCard {
+  brand: string
+  label: string
+  description: string
+  accentColor: string
+}
+
 export interface TeardownContent {
   /** Opening 1–2 sentences that frame the teardown */
   hook: string
@@ -22,6 +35,10 @@ export interface TeardownContent {
   context: string
   /** The annotated observations */
   annotations: Annotation[]
+  /** Optional comparison table for multi-brand teardowns */
+  comparisonTable?: ComparisonRow[]
+  /** Optional positioning cards for multi-brand teardowns */
+  positioningCards?: PositioningCard[]
   /** The single most important insight from this teardown */
   bigIdea: string
   /** One honest critique */
@@ -223,6 +240,82 @@ export const TEARDOWNS: TeardownData[] = [
         "Before studying Blinkit, I thought it was a grocery delivery app. After observing it closely, I think it is something more interesting. Blinkit is a convenience machine. Groceries are what users buy. Convenience is what Blinkit actually sells.\n\nKey Lessons:\n1. Convenience is not one feature. It is dozens of small decisions working together.\n2. Great products reduce effort repeatedly. Order Again, tracking, delivery instructions, and printouts all reduce friction.\n3. Branding can continue after delivery. The packaging experience proved that product experience does not need to end when the order arrives.",
       whatIWouldChange:
         "Blinkit already knows a lot about user behavior: repeat purchases, favorite categories, and buying patterns. I would explore more intelligent personalization that helps users complete purchases faster rather than simply promoting more products."
+    }
+  },
+  {
+    id: 'earbuds-comparison',
+    name: 'boAt vs Noise vs Boult',
+    category: 'Comparison Teardown · Brand Positioning',
+    logoColor: '#E63946',
+    teaser:
+      "Three affordable earbuds brands. Same market. Very different customers. This teardown explores why the best specs don't always win — and why customer psychology matters more than a comparison table.",
+    observationCount: 8,
+    fullTeardown: {
+      hook: "At first glance, boAt, Noise, and Boult seem like they are selling the same thing: affordable TWS earbuds for Indian consumers. Initially, I thought this teardown would be about comparing battery life, Bluetooth versions, driver sizes, ANC, and pricing. But after spending time exploring their websites, comparing products, and reflecting on my own purchase decisions as a customer, I realized something more interesting.",
+      context: "These brands are not just competing on earbuds. They are competing for different types of customers and different ways of making decisions.",
+      annotations: [
+        {
+          id: 1,
+          marker: '01',
+          title: 'Why I Chose This Teardown',
+          observation: 'At first glance, boAt, Noise, and Boult seem like they are selling the same thing: affordable TWS earbuds for Indian consumers.\n\nInitially, I thought this teardown would be about comparing battery life, Bluetooth versions, driver sizes, ANC, and pricing.\n\nBut after spending time exploring their websites, comparing products, and reflecting on my own purchase decisions as a customer, I realized something more interesting.\n\nThese brands are not just competing on earbuds. They are competing for different types of customers and different ways of making decisions.',
+        },
+        {
+          id: 2,
+          marker: '02',
+          title: 'My Initial Observation',
+          observation: 'To start, I compared some of the most affordable earbuds offered by the three brands.\n\nOn paper, Boult looked surprisingly strong.\n\nIt offered:\n* Lower pricing\n* Higher battery life\n* Larger drivers\n* Latest Bluetooth version\n* Good charging speed\n\nIf someone only looked at the comparison table, Boult looked like the obvious winner.\n\nThis made me wonder:\n\nIf Boult offers so much value, why is boAt still the first brand most people think about?\n\nThat question became the center of this teardown.',
+          image: 'earbuds-logos',
+        },
+        {
+          id: 3,
+          marker: '03',
+          title: 'boAt: Selling Confidence, Not Just Earbuds',
+          observation: 'When I opened boAt\'s website, the first feeling I got was not "technology."\n\nIt was "youth."\n\nEverything about the brand feels energetic, trendy, and highly visible.\n\nThe website talks about products for:\n* Work\n* Fitness\n* Parties\n* Lifestyle\n\nThe marketing is everywhere. Influencers, celebrities, sports sponsorships, social media campaigns — boAt has built a very strong presence.\n\nInitially, I thought boAt was winning because of marketing. But after thinking deeper, I realized marketing is only the visible part.\n\nWhat boAt is actually selling is confidence.\n\nA customer buying boAt is often thinking:\n"I know this brand."\n"My friends know this brand."\n"I\'ve seen this brand everywhere."\n"This feels like a safe choice."\n\nThe biggest value boAt provides is reducing decision anxiety. The customer does not need to spend hours researching.\n\nboAt has already done the work of becoming familiar. That familiarity becomes trust. And trust becomes sales.',
+        },
+        {
+          id: 4,
+          marker: '04',
+          title: 'Noise: The Brand That Feels More Grown Up',
+          observation: 'Noise gave me a completely different feeling.\n\nCompared to boAt, it felt calmer, cleaner, and more premium.\n\nOne thing I noticed was that the website felt less dependent on celebrity culture and more focused on creating a premium experience. The overall visual language felt more mature.\n\nIf boAt feels like a brand talking to a college fresher, Noise feels like a brand talking to a young professional.\n\nIt is not trying to be the cheapest.\nIt is not trying to be the loudest.\nInstead, it seems to position itself as a balanced choice.\n\nThe customer buying Noise might be thinking:\n"I want something that feels upgraded."\n"I want something premium without paying premium-brand prices."\n\nThis makes Noise interesting because it is not competing directly with boAt\'s visibility or Boult\'s value-for-money strategy. It appears to compete on perception.',
+        },
+        {
+          id: 5,
+          marker: '05',
+          title: 'Boult: Rewarding the Customer Who Researches',
+          observation: 'Boult was the most interesting brand for me.\n\nInitially, I assumed it was simply the budget brand. But after spending time on its website, I noticed lines such as:\n"Shop the trends everyone\'s talking about."\nand\n"You are paying for an experience."\n\nThis surprised me. A purely budget-focused brand usually talks only about specifications and pricing. Boult was trying to do something else. It was trying to make value feel premium.\n\nAs someone who has personally used Boult products, I can relate to the customer journey.\n\nBefore purchasing, I already knew boAt. I trusted boAt. I had seen boAt everywhere. But after spending time comparing products and specifications, I discovered Boult.\n\nThe more I researched, the more attractive Boult became.\n\nThis led me to an important realization:\n\nboAt reduces research effort.\nBoult rewards research effort.\n\nA Boult customer is often thinking:\n"I spent time comparing products."\n"I found a better deal."\n"I am getting more for my money."\n\nThe emotional reward is different. The customer feels clever. Not because the product is cheap. Because they believe they found hidden value.',
+        },
+        {
+          id: 6,
+          marker: '06',
+          title: 'The Biggest Insight From This Teardown',
+          observation: 'At the beginning, I was trying to figure out which brand was the winner.\n\nBy the end, I realized that was the wrong question.\n\nThe real question is: Winner for whom?\n\nEach brand appears to solve a different customer anxiety.\n\nboAt → Reduces the fear of making a bad purchase.\nNoise → Reduces the fear of settling for something basic.\nBoult → Reduces the fear of overpaying.\n\nThis explains why all three brands can exist in the same market while still attracting different users.',
+        },
+        {
+          id: 7,
+          marker: '07',
+          title: 'If I Were PM of Boult',
+          observation: 'One question I kept asking myself was:\n\nIf I had a large budget, would I invest in improving the product or improving awareness?\n\nMy answer would be awareness.\n\nThe reason is simple. Boult\'s products already appear competitive. The bigger challenge is that many people still discover the brand only after researching.\n\nThe product gap seems smaller than the awareness gap.\n\nIf more people knew about Boult, it could become a much stronger competitor.',
+        },
+        {
+          id: 8,
+          marker: '08',
+          title: 'Final Conclusion',
+          observation: 'My biggest takeaway is that these brands are not fighting the same battle.\n\nboAt wins through familiarity and trust.\nNoise wins through premium perception and balance.\nBoult wins through value and research-driven purchases.\n\nAt first, I thought this teardown would be about earbuds.\n\nIn reality, it became a teardown about customer psychology.\n\nBecause in many cases, customers are not buying the product with the best specifications. They are buying the product that best matches how they make decisions.',
+        },
+      ],
+      comparisonTable: [
+        { brand: 'boAt', coreEmotion: 'Confidence & Familiarity', accentColor: '#E63946' },
+        { brand: 'Noise', coreEmotion: 'Premium & Balance', accentColor: '#7B5EA7' },
+        { brand: 'Boult', coreEmotion: 'Smart Value', accentColor: '#2dd4a8' },
+      ],
+      positioningCards: [
+        { brand: 'boAt', label: 'Safe Choice', description: 'Reduces decision anxiety through familiarity and omnipresence.', accentColor: '#E63946' },
+        { brand: 'Noise', label: 'Premium Choice', description: 'Competes on perception of maturity and premium experience.', accentColor: '#7B5EA7' },
+        { brand: 'Boult', label: "Researcher's Choice", description: 'Rewards users who invest time in comparing and researching.', accentColor: '#2dd4a8' },
+      ],
+      bigIdea: "Customers do not always buy the product with the best specifications.\n\nThey buy the product that best matches how they make decisions.\n\nKey Lessons:\n1. boAt's moat is trust, familiarity, and visibility.\n2. Boult's biggest challenge is awareness, not product quality.\n3. Different brands solve different customer anxieties.\n4. In a crowded market, how a brand makes the customer feel about themselves can matter more than product specs.\n5. Being the obvious choice is often more powerful than being the best choice.",
+      whatIWouldChange: "If I were working on Boult's product strategy, I would focus on building awareness without losing the brand's identity as the researcher's pick. Boult doesn't need to become boAt. It needs more people to discover what those who research already know. The product gap is smaller than the awareness gap."
     }
   },
   {

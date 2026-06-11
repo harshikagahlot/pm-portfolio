@@ -9,12 +9,14 @@ import TeardownOverlay from '../components/TeardownOverlay'
 import duolingoLogo from '../assets/duolingo-logo.png'
 import blinkitLogo from '../assets/blinkit-logo.png'
 import spotifyLogo from '../assets/spotify-logo.jpg'
+import earbudsLogos from '../assets/boat-noise-boult-logos.jpg'
 
 // ── Logo image map ───────────────────────────────────────────
 const CARD_LOGOS: Record<string, string> = {
   duolingo: duolingoLogo,
   blinkit: blinkitLogo,
   spotify: spotifyLogo,
+  'earbuds-comparison': earbudsLogos,
 }
 
 // ── Shared teal constant ──────────────────────────────────────
