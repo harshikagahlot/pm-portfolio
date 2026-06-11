@@ -13,6 +13,14 @@ interface BlogPost {
 
 const BLOG_POSTS: BlogPost[] = [
   {
+    id: 7,
+    date: 'Jun 2026',
+    readTime: '5 min read',
+    title: 'What Comparing boAt, Noise, and Boult Taught Me About Customer Psychology',
+    excerpt: "I started comparing earbuds, but ended up learning something much more interesting: customers don't always buy the product with the best specifications. This teardown explores how boAt, Noise, and Boult compete through trust, perception, and decision-making styles rather than just features.",
+    href: 'https://productandperspective.blogspot.com/2026/06/what-comparing-boat-noise-and-boult.html',
+  },
+  {
     id: 6,
     date: 'Jun 2026',
     readTime: '5 min read',
