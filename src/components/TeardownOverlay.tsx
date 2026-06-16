@@ -19,6 +19,7 @@ import spotifySearch from '../assets/spotify-search.jpg'
 import spotifyWrapped from '../assets/spotify-wrapped.jpg'
 import spotifyLibrary from '../assets/spotify-library.jpg'
 import earbudsLogos from '../assets/boat-noise-boult-logos.jpg'
+import instagramLogo from '../assets/instagram-logo.jpg'
 
 // ── Image map for teardown annotations ───────────────────────
 const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
@@ -51,6 +52,7 @@ const TEARDOWN_LOGOS: Record<string, string> = {
   blinkit: blinkitLogo,
   spotify: spotifyLogo,
   'earbuds-comparison': earbudsLogos,
+  'instagram-stories': instagramLogo,
 }
 
 // ── Shared accent ─────────────────────────────────────────────

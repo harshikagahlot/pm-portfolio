@@ -10,6 +10,7 @@ import duolingoLogo from '../assets/duolingo-logo.png'
 import blinkitLogo from '../assets/blinkit-logo.png'
 import spotifyLogo from '../assets/spotify-logo.jpg'
 import earbudsLogos from '../assets/boat-noise-boult-logos.jpg'
+import instagramLogo from '../assets/instagram-logo.jpg'
 
 // ── Logo image map ───────────────────────────────────────────
 const CARD_LOGOS: Record<string, string> = {
@@ -17,6 +18,7 @@ const CARD_LOGOS: Record<string, string> = {
   blinkit: blinkitLogo,
   spotify: spotifyLogo,
   'earbuds-comparison': earbudsLogos,
+  'instagram-stories': instagramLogo,
 }
 
 // ── Shared teal constant ──────────────────────────────────────

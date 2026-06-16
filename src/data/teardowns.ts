@@ -319,6 +319,85 @@ export const TEARDOWNS: TeardownData[] = [
     }
   },
   {
+    id: 'instagram-stories',
+    name: 'Instagram Stories',
+    category: 'Social Media · Creator Psychology · Retention',
+    logoColor: '#E1306C',
+    teaser:
+      "Millions watch Stories every day but rarely post. This teardown explores why viewing and creating are completely different behaviors — and what that gap reveals about human psychology.",
+    observationCount: 7,
+    fullTeardown: {
+      hook: "When I started observing Instagram Stories, I thought the interesting question was why people watch so many of them. But after thinking about it more carefully, I realized the far more interesting question is: why do so few people post?",
+      context:
+        "Stories disappear after 24 hours. That single design decision changes everything. It transforms sharing from a permanent act into a temporary one — and that psychological shift is the entire foundation of what makes Stories work.",
+      annotations: [
+        {
+          id: 1,
+          marker: '01',
+          title: 'The Core Product Goal: Sharing Without Permanence',
+          observation:
+            'Instagram Stories helps users share real-time moments without the pressure of creating permanent content.\n\nUnlike feed posts, Stories are temporary.\n\nThis simple design choice changes user behavior dramatically. People are willing to share:\n* daily experiences\n* random thoughts\n* moods\n* songs\n* scenery\n* updates\n\nThings they would never publish as a permanent post.',
+        },
+        {
+          id: 2,
+          marker: '02',
+          title: 'Four User Segments — One Very Interesting Gap',
+          observation:
+            'I see four major user groups:\n\n* Casual users sharing moments from daily life.\n* Creators using Stories to stay connected with their audience.\n* Brands promoting updates, products, and offers.\n* Passive viewers who consume Stories but rarely create them.\n\nThe last segment is particularly interesting.\n\nIt represents a large portion of Instagram\'s user base — and they consume everything without contributing anything.',
+        },
+        {
+          id: 3,
+          marker: '03',
+          title: 'Viewing vs. Posting: Completely Different Behaviors',
+          observation:
+            'The most interesting thing about Stories is that viewing and posting are completely different behaviors.\n\nWatching a Story requires almost no effort.\n\nPosting a Story requires:\n* Choosing content\n* Deciding who can see it\n* Selecting music or edits\n* Feeling comfortable sharing publicly\n\nThis creates a natural imbalance where many more users consume Stories than create them.\n\nThe platform depends on creators. But the majority of users are viewers.',
+          whyItMatters:
+            'If the gap between viewers and creators grows too wide, the content ecosystem becomes thin. Fewer creators means fewer Stories means fewer reasons to open the app. Instagram\'s long-term engagement depends on converting passive viewers into occasional creators.',
+          howIdTestThis:
+            'I would track the ratio of Story views to Story posts per user cohort over time. If the creator-to-viewer ratio is declining quarter-over-quarter, it signals a compounding problem worth solving before it becomes visible in engagement metrics.',
+        },
+        {
+          id: 4,
+          marker: '04',
+          title: 'Why Stories Work: Three User Needs Solved',
+          observation:
+            'Stories solve three major user needs:\n\n1. Low-Pressure Sharing — Feed posts feel permanent. Stories feel temporary. The 24-hour disappearance removes the pressure to be perfect.\n\n2. Social Presence — Many users don\'t want attention. They simply want to stay visible within their social circle. Stories let them communicate "This is what I\'m doing today" without a permanent post.\n\n3. Staying Connected — For viewers, Stories provide lightweight social updates. Many users watch not because they want content, but because they want context about people they know.',
+        },
+        {
+          id: 5,
+          marker: '05',
+          title: 'The Creation Gap: Psychological Barriers',
+          observation:
+            'Many users watch Stories regularly but rarely post.\n\nMy hypothesis is that the biggest barriers are not technical. They are psychological.\n\nUsers often:\n* Don\'t know what to post\n* Feel their content isn\'t interesting enough\n* Worry about judgment\n* Prefer privacy\n* Don\'t enjoy content creation\n\nInterestingly, "I don\'t know what to post" may not be the real problem.\n\nIt is often a symptom of deeper concerns around confidence, privacy, or social validation.',
+          whyItMatters:
+            'If Instagram treats the creation gap as a feature problem (better camera tools, more stickers), they will keep missing the real issue. The barriers are emotional, not functional. Solutions need to address psychological friction, not just interface friction.',
+          howIdTestThis:
+            'I would run a qualitative study with long-term viewers who rarely post. Ask them to describe the last time they almost posted a Story but decided not to. The language they use to explain that moment would reveal whether the barrier is content uncertainty, social anxiety, or something else entirely.',
+        },
+        {
+          id: 6,
+          marker: '06',
+          title: 'North Star Metric: Daily Active Story Creators',
+          observation:
+            'If I had to choose one metric to track the health of Instagram Stories, I would focus on:\n\nDaily Active Story Creators\n\nMy reasoning is simple:\n\nStories are a creator-driven ecosystem. Without content creation, there is nothing for viewers to consume.\n\nHowever, I would closely monitor Story Views and Story Engagement as supporting metrics — to ensure created content is actually providing value, not just being posted and ignored.',
+          whyItMatters:
+            'Tracking views alone creates a false sense of health. A platform where the same 10% of users create everything and 90% only watch is fragile. Tracking creators as a separate metric surfaces the structural dependency before it becomes a crisis.',
+        },
+        {
+          id: 7,
+          marker: '07',
+          title: 'The Biggest Opportunity: Reducing Creation Friction',
+          observation:
+            'The biggest opportunity for Instagram Stories is not increasing Story consumption.\n\nIt is reducing creation friction.\n\nThe platform already has strong demand from viewers.\n\nThe next challenge is helping more consumers become creators — without removing the casual and low-pressure nature that makes Stories successful in the first place.\n\nThis is a delicate balance:\n* Push too hard → feels performative, loses authenticity\n* Do nothing → viewer-to-creator ratio keeps widening',
+        },
+      ],
+      bigIdea:
+        "Instagram Stories succeeded because it transformed sharing from a permanent decision into a temporary one.\n\nIts biggest strength is not the camera, stickers, or music library.\n\nIts biggest strength is psychological:\n\nIt gives users a space to share moments without demanding perfection.\n\nKey Lessons:\n1. Removing permanence removes pressure — and that changes behavior dramatically.\n2. The viewer-creator gap is not a UX problem. It is a psychological one.\n3. North Star metrics must track creation, not just consumption.\n4. The most dangerous ecosystem problem is one that looks healthy in engagement data but is quietly concentrating all content creation in fewer and fewer hands.",
+      whatIWouldChange:
+        "I would focus on reducing psychological creation friction, not technical friction. Instagram already has great camera tools. What it lacks is a lower-stakes entry point for irregular or anxious creators. I would explore a 'Close Friends Only' default for first-time posters, nudges that normalise imperfect sharing ('Your friends posted casual Stories today'), and lightweight posting modes that skip editing entirely. The goal is not to make everyone a content creator — it is to make occasional sharing feel safe enough that more users try it at least once."
+    }
+  },
+  {
     id: 'spotify',
     name: 'Spotify',
     category: 'Audio · Personalization · Discovery',
