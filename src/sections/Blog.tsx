@@ -13,6 +13,14 @@ interface BlogPost {
 
 const BLOG_POSTS: BlogPost[] = [
   {
+    id: 8,
+    date: 'Jun 2026',
+    readTime: '5 min read',
+    title: 'Instagram Stories Teardown: Why Millions Watch but Few Create',
+    excerpt: "Instagram Stories has become one of the most widely used features on social media, enabling users to share moments without the pressure of permanence. This teardown explores the product through a product management lens, focusing on user behavior, creator-consumer dynamics, and the psychology behind temporary sharing.",
+    href: 'https://productandperspective.blogspot.com/2026/06/instagram-stories-teardown-why-millions.html',
+  },
+  {
     id: 7,
     date: 'Jun 2026',
     readTime: '5 min read',
