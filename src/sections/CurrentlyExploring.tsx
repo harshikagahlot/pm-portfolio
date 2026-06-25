@@ -12,32 +12,32 @@ const EXPLORING_ITEMS: ExploringItem[] = [
   {
     id: 1,
     title: 'AI-assisted product workflows',
-    note: 'How LLMs change the way PMs and designers make decisions — not just developers.',
+    note: 'How AI changes product discovery, documentation and decision-making — not just software development.',
   },
   {
     id: 2,
-    title: 'Recommendation system design',
-    note: 'The UX of surfaces that decide what you see next. Spotify, YouTube, TikTok — why they feel different.',
+    title: 'Recommendation systems',
+    note: 'Why Spotify, YouTube and TikTok recommend content so differently even when they solve the same problem.',
   },
   {
     id: 3,
-    title: 'Interaction design at 120fps',
-    note: 'What becomes possible when you stop thinking in 60fps constraints. Spring physics, gesture continuity.',
+    title: 'Marketplace trust',
+    note: 'How products like Airbnb reduce uncertainty without standardising the entire customer experience.',
   },
   {
     id: 4,
-    title: 'Onboarding as product strategy',
-    note: "The first 3 minutes of a product determine everything. Most companies treat it as a tutorial. It's actually a promise.",
+    title: 'Onboarding strategy',
+    note: 'Why the first few minutes inside a product often decide whether users ever come back.',
   },
   {
     id: 5,
-    title: 'Design systems that scale',
-    note: 'Not the components — the decisions behind them. Token architecture, component APIs, team conventions.',
+    title: 'PRDs as thinking tools',
+    note: 'How writing product requirements before building uncovers assumptions that would otherwise become expensive mistakes.',
   },
   {
     id: 6,
-    title: 'The psychology of empty states',
-    note: 'Empty states are the most honest moment in a product. They reveal exactly what the team was thinking when no one was watching.',
+    title: 'Retention psychology',
+    note: "Why users who survive the first week behave completely differently from those who leave after the first session.",
   },
 ]
 
@@ -91,7 +91,7 @@ const CurrentlyExploring: React.FC = () => {
               marginTop: '12px',
             }}
           >
-            Last updated · May 2024
+            Last updated · Jun 2026
           </motion.div>
         </motion.div>
 

@@ -23,27 +23,27 @@ const THOUGHT_CARDS: ThoughtCard[] = [
     Icon: LayersIcon,
     title: 'Friction is the default',
     description:
-      'If you don\'t actively fight user confusion, the UI will build it for you. Simplicity isn\'t accidental — it\'s a hard-won series of structural cuts.',
+      "If users have to stop and think, the product has already lost momentum.",
     reveal:
-      'SusWord originally had complex voting states. In early tests, players were paralyzed. I cut 3 entire gameplay mechanics to find the fun.',
+      'Building SusWord taught me how small interaction delays affect the entire experience. While analysing Airbnb, I noticed something similar from a different angle — the platform spends enormous effort reducing uncertainty, yet one of its biggest trust signals, listing photos, remains largely controlled by hosts. That reminded me that every unnoticed friction eventually becomes a user problem.',
   },
   {
     id: 'iteration',
     Icon: BoltIcon,
     title: 'Iteration over perfection',
     description:
-      'Shipping a rough draft that solves a core pain teaches you more than delayed polish ever will. Polish is easy; validating the real problem is hard.',
+      'The first version should answer questions — not try to answer everything.',
     reveal:
-      'HabitMetric\'s rolling rhythm score calculation took three major database revisions to feel right based on how beta testers actually logged habits.',
+      'Before building HabitMetric, I documented the feature flow in a PRD. Once real feedback arrived, that document changed multiple times. The biggest lesson wasn\'t that the original plan was wrong — it was that writing things down made it much easier to understand what actually needed to change.',
   },
   {
     id: 'behavior',
     Icon: UserIcon,
     title: 'Behavior beats intentions',
     description:
-      'Users will promise they\'ll use a feature during research, but ignore it once shipped. Trust their active click streams, never their hypothetical statements.',
+      "What users do is more valuable than what they say they'll do.",
     reveal:
-      'In early HabitMetric feedback, users begged for gamified badges. When built, less than 5% ever clicked them. I removed them instantly to keep focus.',
+      'Whether I\'m studying Spotify, Blinkit, Airbnb or my own projects, I keep coming back to the same observation: user behaviour reveals product truth. Reviews, clicks, drop-offs and repeat actions consistently teach more than assumptions or survey answers.',
   },
 ]
 
@@ -308,7 +308,7 @@ const HowIThink: React.FC = () => {
               marginBottom: 0,
             }}
           >
-            I don't believe in perfect product blueprints. I believe in watching how people actually interact with code — studying where they get confused, what features they ignore, and where friction breaks their flow.
+            I don't believe great products appear from great ideas alone. I believe they come from paying attention — watching how people actually use products, noticing where they hesitate, what they ignore, and what quietly pushes them away. Every project, teardown, and experiment teaches me something I try to carry into the next one.
           </motion.p>
 
         </div>

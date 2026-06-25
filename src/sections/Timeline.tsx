@@ -28,54 +28,55 @@ interface Milestone {
 
 const MILESTONES: Milestone[] = [
   {
-    id: 1, emoji: '🌱', date: '2022 · Early',
-    title: 'First line of code',
-    description: "Started learning HTML/CSS basics to build simple, custom static layouts.",
+    id: 1, emoji: '🌱', date: '2022',
+    title: 'Started learning to build',
+    description: 'I began learning HTML, CSS and JavaScript because I wanted to understand how websites and digital products were actually made.',
     position: 'above',
   },
   {
-    id: 2, emoji: '⚡', date: '2022 · Mid',
-    title: 'JavaScript core logic',
-    description: 'Began writing dynamic browser scripts, DOM manipulations, and local storage caches.',
+    id: 2, emoji: '⚡', date: '2023',
+    title: 'Exploring frontend development',
+    description: 'As I learned modern frontend tools, I realised that writing code was only one part of creating a good product. I became curious about why some experiences felt intuitive while others didn\'t.',
     position: 'below',
   },
   {
-    id: 3, emoji: '🚀', date: '2022 · Late',
-    title: 'First live deployment',
-    description: 'Shared my first static landing pages with real users on the web.',
+    id: 3, emoji: '🔧', date: '2024',
+    title: 'Building technical foundations',
+    description: 'I continued strengthening my development skills while exploring UI, UX and interaction design. Building projects slowly shifted my attention from implementation to user experience.',
     position: 'above',
   },
   {
-    id: 4, emoji: '🎮', date: '2023 · Early',
-    title: 'Built SusWord',
-    description: 'Engineered a real-time multiplayer social game using Node.js and Socket.IO for lobby syncing.',
+    id: 4, emoji: '🚀', date: 'Early 2025',
+    title: 'Building real products',
+    description: 'I started building HabitMetric and SusWord. This was the first time I experienced how different building for myself is from building for actual users.',
     position: 'below',
   },
   {
-    id: 5, emoji: '📊', date: '2023 · Mid',
-    title: 'Built HabitMetric',
-    description: 'Launched a forgivable productivity habit tracker focusing on rolling averages over streaks.',
+    id: 5, emoji: '🔍', date: 'Mid 2025',
+    title: 'Discovering product thinking',
+    description: 'While improving my own projects, I found myself spending more time asking why features existed than simply implementing them. That curiosity introduced me to Product Management.',
     position: 'above',
   },
   {
-    id: 6, emoji: '🔍', date: '2023 · Late',
-    title: 'Discovered teardowns',
-    description: 'Began analyzing UX mechanics, micro-interactions, and behavioral design in daily apps.',
+    id: 6, emoji: '📊', date: 'Late 2025',
+    title: 'Learning through teardowns',
+    description: 'I began analysing products like Duolingo, Blinkit, Spotify, Instagram Stories and Airbnb to understand the decisions behind their growth, retention, onboarding and user experience.',
     position: 'below',
   },
   {
-    id: 7, emoji: '🤖', date: '2024',
-    title: 'Advanced AI workflows',
-    description: 'Integrating LLMs, prompt engineering, and model-driven code systems to speed up delivery.',
+    id: 7, emoji: '📝', date: '2026',
+    title: 'Thinking beyond features',
+    description: 'Instead of only building, I started writing PRDs, creating growth strategies, documenting product decisions and studying how user behaviour influences successful products.',
     position: 'above',
   },
   {
     id: 8, emoji: '📍', date: 'Now',
-    title: 'Internship Ready',
-    description: 'Looking to join a product-focused frontend team to build high-impact user experiences.',
+    title: 'Product Thinker & Builder',
+    description: 'Today I\'m combining engineering with product thinking — building projects, writing teardowns, documenting ideas and continuously learning how thoughtful product decisions create better user experiences. Looking for product, operations or founder\'s office roles.',
     position: 'below',
   },
 ]
+
 
 
 // ── Single milestone node ─────────────────────────────────────

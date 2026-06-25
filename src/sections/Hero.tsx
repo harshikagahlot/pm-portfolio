@@ -170,10 +170,10 @@ const Hero: React.FC = () => {
                 margin: 0,
               }}
             >
-              I build things
+              I ask why products work.
               <br />
-              people{' '}
-              <span className="gradient-text">feel.</span>
+              {'Then I build '}
+              <span className="gradient-text">better ones.</span>
             </h1>
           </motion.div>
 
@@ -190,7 +190,7 @@ const Hero: React.FC = () => {
               margin: 0,
             }}
           >
-            Frontend developer obsessed with how products work.
+            Computer Science student exploring product thinking through research, documentation, observation, and building.
           </motion.div>
 
 
@@ -206,7 +206,7 @@ const Hero: React.FC = () => {
               margin: 0,
             }}
           >
-            I design and build digital experiences that are thoughtful, fast, and worth remembering.
+            I enjoy understanding why products work before thinking about how they're built. Through teardowns, product research, PRDs, growth strategy, and building real projects, I'm learning how thoughtful decisions create better user experiences.
           </motion.p>
 
           {/* 5. CTA buttons */}
@@ -334,8 +334,8 @@ const Hero: React.FC = () => {
             }}
           >
             {[
-              { value: '3', label: 'products shipped' },
-              { value: '2 yrs', label: 'building' },
+              { value: '6+', label: 'product teardowns' },
+              { value: '2', label: 'products built' },
               { value: '∞', label: 'curiosity' },
             ].map((stat, i) => (
               <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>

@@ -397,7 +397,7 @@ const CaseStudies: React.FC = () => {
                 marginBottom: 0,
               }}
             >
-              Two products. Real problems. Decisions I'd make again — and a few I wouldn't.
+              Two products built from scratch. Every iteration taught me something different about users, product decisions, and the gap between what people say they need and what actually improves their experience.
             </motion.p>
           </div>
 
