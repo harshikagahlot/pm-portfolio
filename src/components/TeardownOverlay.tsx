@@ -20,6 +20,11 @@ import spotifyWrapped from '../assets/spotify-wrapped.jpg'
 import spotifyLibrary from '../assets/spotify-library.jpg'
 import earbudsLogos from '../assets/boat-noise-boult-logos.jpg'
 import instagramLogo from '../assets/instagram-logo.jpg'
+import airbnbLogo from '../assets/airbnb-logo.png'
+import airbnbHomepage from '../assets/airbnb-homepage.png'
+import airbnbSearchMap from '../assets/airbnb-search-map.png'
+import airbnbReviews from '../assets/airbnb-reviews.png'
+import airbnbHost from '../assets/airbnb-host.png'
 
 // ── Image map for teardown annotations ───────────────────────
 const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
@@ -43,7 +48,13 @@ const ANNOTATION_IMAGES: Record<string, Record<number, string>> = {
   },
   'earbuds-comparison': {
     2: earbudsLogos,
-  }
+  },
+  airbnb: {
+    1: airbnbHomepage,
+    2: airbnbReviews,
+    3: airbnbHost,
+    4: airbnbSearchMap,
+  },
 }
 
 // ── Logo image map for teardown headers ──────────────────────
@@ -53,6 +64,7 @@ const TEARDOWN_LOGOS: Record<string, string> = {
   spotify: spotifyLogo,
   'earbuds-comparison': earbudsLogos,
   'instagram-stories': instagramLogo,
+  airbnb: airbnbLogo,
 }
 
 // ── Shared accent ─────────────────────────────────────────────

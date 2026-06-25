@@ -398,6 +398,82 @@ export const TEARDOWNS: TeardownData[] = [
     }
   },
   {
+    id: 'airbnb',
+    name: 'Airbnb',
+    category: 'Two-Sided Marketplace · Trust · UX · Growth',
+    logoColor: '#FF5A5F',
+    teaser:
+      "Airbnb isn't just helping users find accommodation — it's helping them feel confident enough to book a stranger's home. Every product decision quietly removes uncertainty from the booking journey.",
+    observationCount: 6,
+    fullTeardown: {
+      hook: "Before exploring Airbnb, I expected it to be another hotel-booking platform similar to MakeMyTrip. After spending time with the product, I realised Airbnb is solving a different problem. It isn't just helping users find accommodation — it is helping them feel confident enough to book a stranger's home.",
+      context:
+        "That observation became the hypothesis for this teardown: Airbnb's strongest product decisions reduce uncertainty throughout the booking journey. The clean interface immediately stood out, but what impressed me more was how quickly the product answered the questions I naturally had. Large images, reviews, host details, and maps were visible before I even searched for a property.",
+      annotations: [
+        {
+          id: 1,
+          marker: '01',
+          title: 'Large Property Photos — Selling a Feeling, Not a Room',
+          observation:
+            'Accommodation is an emotional purchase. Large images help users imagine themselves in the space before they compare price or amenities. The first photo almost always shows the living area or the view — not the bedroom. That\'s deliberate. You\'re being shown the feeling of being there, not just the property itself.',
+          whyItMatters:
+            'Most booking platforms lead with price. Airbnb leads with emotion. By the time a user sees the price, they\'ve already imagined themselves in the space — which means the price is being evaluated against an emotional attachment, not just a number.',
+          howIdTestThis:
+            'A/B test two listing page variants: one leading with the photo gallery at full width, another leading with price and availability prominently above the fold. Measure booking conversion rate and time-to-book across both groups over a 30-day window.'
+        },
+        {
+          id: 2,
+          marker: '02',
+          title: 'Reviews — Social Proof From Real Guests',
+          observation:
+            'Users can\'t physically inspect a property before booking. Reviews act as social proof from previous guests — people naturally trust real experiences over anything the platform says about itself. The review system captures not just star ratings but paragraph-length qualitative feedback across multiple dimensions: cleanliness, communication, location, and value.',
+          whyItMatters:
+            'Unlike hotel star ratings which are standardised and abstract, Airbnb reviews are personal and specific. A review that says "the host left a handwritten note and fresh flowers" creates trust at a level no algorithm can replicate.',
+        },
+        {
+          id: 3,
+          marker: '03',
+          title: 'Host Profiles — Trusting a Person, Not Just a Property',
+          observation:
+            'Guests aren\'t just trusting a property. They\'re trusting a person. Visible host credibility — experience, response rate, superhost status, and reviews — reduces the psychological hesitation that prevents bookings. The "Meet Your Host" section goes further: response rate, years hosting, and a bio that humanises the transaction.',
+          whyItMatters:
+            'This is the feature that most directly addresses the core user fear: "I\'ve never met this person." Host profiles transform an anonymous transaction into something closer to staying with someone you\'ve been introduced to.'
+        },
+        {
+          id: 4,
+          marker: '04',
+          title: 'Persistent Map — Evaluate Location and Price Simultaneously',
+          observation:
+            'Users evaluate location and price simultaneously without switching screens. The map persists alongside the listing grid, updating in real time as filters change. Price pins on the map let users understand location-value trade-offs immediately without opening individual listings.',
+          whyItMatters:
+            'Reducing the number of screens a user must navigate to answer a single question is one of the most underrated UX decisions. The persistent map means "how far is this from where I want to be?" is never more than a glance away.'
+        },
+        {
+          id: 5,
+          marker: '05',
+          title: 'Amenities and Cancellation Policies — Pre-emptive Answers',
+          observation:
+            'Every detail that appears on a listing page exists to answer a question the user hasn\'t asked yet. Amenities remove surprise after arrival. Cancellation policies reduce commitment anxiety before booking. The product anticipates hesitation and resolves it before the user consciously notices it.',
+          whyItMatters:
+            'The best UX decisions are invisible. When users don\'t feel friction, they rarely notice why — but the absence of anxiety is itself a product outcome. Airbnb has designed the listing page around user questions, not just property attributes.',
+        },
+        {
+          id: 6,
+          marker: '06',
+          title: 'Opportunity: Recent Guest Photos',
+          observation:
+            'Listing photos are uploaded by hosts — often with wide-angle lenses, often years ago. The platform does almost nothing to verify that current photos match current reality. For a product whose entire promise is reducing uncertainty, the emotional anchor of every listing is also its least verified piece of information. Proposed solution: after checkout, guests can optionally upload a few timestamped photos that appear alongside host images — not to replace them, but to complement them with something more honest and current.',
+          whyItMatters:
+            'Higher booking confidence, fewer post-arrival disappointments, reduced cancellations. I would validate through A/B testing — measuring whether listings with recent guest photos convert at a higher rate — before any wider rollout. Additional verification improves trust but increases operational complexity, so careful moderation would be essential.',
+        },
+      ],
+      bigIdea:
+        "Initially I thought reviews, maps, and host profiles were separate features solving separate problems.\n\nAfter completing this teardown, I realised they all support one objective: helping users feel confident enough to book.\n\nAirbnb's biggest product insight isn't a feature. It's a philosophy — identify every moment where a user might hesitate, and quietly remove it before they get there.\n\nNorth Star Metric: Completed Stays — not just completed bookings. A booking that gets cancelled doesn't count. A completed stay reflects whether the entire journey worked: discovery, trust, payment, and delivery.\n\nCompetitor contrast: Booking.com reduces uncertainty through standardisation. Airbnb reduces uncertainty through transparency. That distinction explains every major product decision Airbnb has made.",
+      whatIWouldChange:
+        "The listing photo problem is the most important thing I would address. Hosts control their images, and there is no mechanism for the platform to surface whether photos are current or accurate. I would introduce optional timestamped guest photo uploads post-checkout — displayed as a 'Recent guest photos' section alongside the host's gallery. This directly addresses the largest remaining trust gap in the booking experience without removing host control over their primary listing presentation."
+    }
+  },
+  {
     id: 'spotify',
     name: 'Spotify',
     category: 'Audio · Personalization · Discovery',
