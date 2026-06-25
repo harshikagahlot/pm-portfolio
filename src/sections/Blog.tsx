@@ -13,6 +13,14 @@ interface BlogPost {
 
 const BLOG_POSTS: BlogPost[] = [
   {
+    id: 9,
+    date: 'Jun 2026',
+    readTime: '6 min read',
+    title: "The Product Isn't the Stay. It's Trust.",
+    excerpt: "What Exploring Airbnb Taught Me About Product Management. I expected a hotel-booking platform. I found a product built entirely around one thing: reducing uncertainty. This teardown unpacks how Airbnb quietly removes hesitation at every step of the booking journey.",
+    href: 'https://productandperspective.blogspot.com/2026/06/the-product-isnt-stay-its-trust.html',
+  },
+  {
     id: 8,
     date: 'Jun 2026',
     readTime: '5 min read',
