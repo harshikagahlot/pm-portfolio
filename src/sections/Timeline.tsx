@@ -9,11 +9,11 @@ const PURPLE = '#7c6ff7'
 const CIRCLE_D = 44
 const LAST_CIRCLE_D = 52
 const STEM_H = 40
-const NODE_W = 260
-const NODE_W_MOBILE = 200
-const CARD_W = 225
-const CARD_W_MOBILE = 178
-const TRACK_H = 720 // px — height of the scrollable track
+const NODE_W = 270
+const NODE_W_MOBILE = 210
+const CARD_W = 250
+const CARD_W_MOBILE = 190
+const TRACK_H = 920 // px — height of the scrollable track
 
 
 // ── Milestone data ────────────────────────────────────────────
@@ -285,7 +285,7 @@ const Timeline: React.FC = () => {
         paddingBottom: '120px',
         backgroundColor: 'rgba(10, 10, 15, 0.75)',
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'clip',
       }}
     >
       {/* Parallax glow background layer */}
