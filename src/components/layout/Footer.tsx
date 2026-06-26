@@ -117,14 +117,27 @@ export const Footer: React.FC = () => {
               Say hello →
             </motion.a>
 
-            {/* Secondary Button */}
+            {/* Secondary Button — Download Resume */}
             <motion.a
-              href="./Resume_Harshika_Gahlot.pdf"
-              download="Resume_Harshika_Gahlot.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/Harshika_Gahlot_Resume.pdf"
+              download="Harshika_Gahlot_Resume.pdf"
               onMouseEnter={() => setResumeHover(true)}
               onMouseLeave={() => setResumeHover(false)}
+              onClick={(e) => {
+                e.preventDefault()
+                fetch('/Harshika_Gahlot_Resume.pdf')
+                  .then((res) => res.blob())
+                  .then((blob) => {
+                    const url = URL.createObjectURL(blob)
+                    const a = document.createElement('a')
+                    a.href = url
+                    a.download = 'Harshika_Gahlot_Resume.pdf'
+                    document.body.appendChild(a)
+                    a.click()
+                    a.remove()
+                    URL.revokeObjectURL(url)
+                  })
+              }}
               animate={resumeHover ? { scale: 1.03 } : { scale: 1 }}
               transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
               style={{
