@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { VARIANTS, TRANSITIONS } from '../../lib/motion'
+import SayHelloOverlay from '../SayHelloOverlay'
 
 export const Footer: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
   const [helloHover, setHelloHover] = useState(false)
   const [resumeHover, setResumeHover] = useState(false)
+  const [helloOpen, setHelloOpen] = useState(false)
 
   return (
     <footer
@@ -86,8 +88,8 @@ export const Footer: React.FC = () => {
             }}
           >
             {/* Primary Button */}
-            <motion.a
-              href="mailto:harshikagahlot01@gmail.com"
+            <motion.button
+              onClick={() => setHelloOpen(true)}
               onMouseEnter={() => setHelloHover(true)}
               onMouseLeave={() => setHelloHover(false)}
               animate={helloHover ? { scale: 1.03 } : { scale: 1 }}
@@ -106,6 +108,7 @@ export const Footer: React.FC = () => {
                 justifyContent: 'center',
                 cursor: 'pointer',
                 transition: 'background-color 0.2s ease',
+                border: 'none',
               }}
               onMouseOver={(e) => {
                 e.currentTarget.style.backgroundColor = '#8c80f8' // lighter purple
@@ -115,7 +118,10 @@ export const Footer: React.FC = () => {
               }}
             >
               Say hello →
-            </motion.a>
+            </motion.button>
+
+            {/* Easter egg overlay */}
+            {helloOpen && <SayHelloOverlay onClose={() => setHelloOpen(false)} />}
 
             {/* Secondary Button — Download Resume */}
             <motion.a
