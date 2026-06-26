@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { lenis } from '../lib/smoothScroll'
 
 // ── Types ─────────────────────────────────────────────────────
 type Stage =
@@ -10,9 +11,6 @@ type Stage =
   | 'confetti'
   | 'final'
 
-// Refined click-flow within 'question' stage:
-//   'showing-question'  → question text visible, waiting for click
-//   'showing-answer'    → answer visible, waiting for click to advance
 type QSubStage = 'showing-question' | 'showing-answer'
 
 interface Question {
@@ -112,7 +110,11 @@ function useConfetti(active: boolean) {
   return particles
 }
 
-// ── Avatar SVG ────────────────────────────────────────────────
+// ── Avatar SVG — recolored to blue portfolio theme ────────────
+// Face bg:   #0f1729 (deep navy)
+// Hair/body: #1d3461 (mid blue)
+// Pupils:    #2563eb (blue-600)
+// Arm:       #0f1729 inner, #1d3461 outer
 const Avatar: React.FC<{ waving?: boolean }> = ({ waving }) => (
   <motion.div
     style={{ position: 'relative', width: 96, height: 96 }}
@@ -120,21 +122,29 @@ const Avatar: React.FC<{ waving?: boolean }> = ({ waving }) => (
     transition={waving ? {} : { duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
   >
     <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Soft blue glow background */}
       <circle cx="48" cy="48" r="46" fill="url(#avatarGrad)" />
-      <circle cx="48" cy="44" r="24" fill="#1e1b2e" />
-      <ellipse cx="48" cy="23" rx="22" ry="10" fill="#2a1f5e" />
-      <ellipse cx="28" cy="30" rx="8" ry="12" fill="#2a1f5e" />
-      <ellipse cx="68" cy="30" rx="8" ry="12" fill="#2a1f5e" />
+      {/* Face */}
+      <circle cx="48" cy="44" r="24" fill="#0f1729" />
+      {/* Hair */}
+      <ellipse cx="48" cy="23" rx="22" ry="10" fill="#1d3461" />
+      <ellipse cx="28" cy="30" rx="8" ry="12" fill="#1d3461" />
+      <ellipse cx="68" cy="30" rx="8" ry="12" fill="#1d3461" />
+      {/* Eyes */}
       <ellipse cx="40" cy="44" rx="4" ry="4.5" fill="white" />
       <ellipse cx="56" cy="44" rx="4" ry="4.5" fill="white" />
-      <circle cx="41" cy="45" r="2.2" fill="#3b2dbf" />
-      <circle cx="57" cy="45" r="2.2" fill="#3b2dbf" />
+      <circle cx="41" cy="45" r="2.2" fill="#2563eb" />
+      <circle cx="57" cy="45" r="2.2" fill="#2563eb" />
       <circle cx="42" cy="44" r="0.9" fill="white" />
       <circle cx="58" cy="44" r="0.9" fill="white" />
+      {/* Smile */}
       <path d="M40 54 Q48 61 56 54" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none" />
-      <ellipse cx="35" cy="52" rx="5" ry="3" fill="#f9a8d4" opacity="0.45" />
-      <ellipse cx="61" cy="52" rx="5" ry="3" fill="#f9a8d4" opacity="0.45" />
-      <ellipse cx="48" cy="80" rx="20" ry="14" fill="#2a1f5e" />
+      {/* Blush — kept soft pink for warmth */}
+      <ellipse cx="35" cy="52" rx="5" ry="3" fill="#93c5fd" opacity="0.4" />
+      <ellipse cx="61" cy="52" rx="5" ry="3" fill="#93c5fd" opacity="0.4" />
+      {/* Body */}
+      <ellipse cx="48" cy="80" rx="20" ry="14" fill="#1d3461" />
+      {/* Waving arm */}
       <motion.g
         animate={waving
           ? { rotate: [0, -25, 0, -20, 0] }
@@ -144,16 +154,16 @@ const Avatar: React.FC<{ waving?: boolean }> = ({ waving }) => (
           : { duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
         style={{ transformOrigin: '68px 65px' }}
       >
-        <ellipse cx="72" cy="64" rx="5" ry="10" fill="#1e1b2e" transform="rotate(30 72 64)" />
-        <circle cx="76" cy="57" r="5" fill="#2a1f5e" />
-        <ellipse cx="74" cy="53" rx="2" ry="3" fill="#2a1f5e" />
-        <ellipse cx="78" cy="52" rx="2" ry="3" fill="#2a1f5e" />
-        <ellipse cx="79" cy="56" rx="2" ry="3" fill="#2a1f5e" />
+        <ellipse cx="72" cy="64" rx="5" ry="10" fill="#0f1729" transform="rotate(30 72 64)" />
+        <circle cx="76" cy="57" r="5" fill="#1d3461" />
+        <ellipse cx="74" cy="53" rx="2" ry="3" fill="#1d3461" />
+        <ellipse cx="78" cy="52" rx="2" ry="3" fill="#1d3461" />
+        <ellipse cx="79" cy="56" rx="2" ry="3" fill="#1d3461" />
       </motion.g>
       <defs>
         <radialGradient id="avatarGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#3b2dbf" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="#7c6ff7" stopOpacity="0.12" />
+          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="#7c6ff7" stopOpacity="0.14" />
         </radialGradient>
       </defs>
     </svg>
@@ -163,7 +173,7 @@ const Avatar: React.FC<{ waving?: boolean }> = ({ waving }) => (
 // ── Intro text ────────────────────────────────────────────────
 const INTRO_FULL = `Psst... you actually clicked it! 👀\n\nMost people stop after the projects.\n\nBut you made it all the way down here...\n\nSo, as a tiny reward, you just unlocked Bonus Content™ ✨\n\nNo more professional summaries.\nNo more polished bullet points.\n\nJust a few random questions.`
 
-// ── mailto href ───────────────────────────────────────────────
+// ── mailto with prefilled subject + body ─────────────────────
 const MAILTO_HREF = `mailto:harshikagahlot01@gmail.com?subject=Hello%20Harshika!&body=Hi%20Harshika%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20really%20enjoyed%20it.%0A%0AI%27d%20love%20to%20connect.%0A%0ABest%2C`
 
 // ── Main component ─────────────────────────────────────────────
@@ -182,13 +192,12 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
   const { displayed: introText, done: introDone } = useTypewriter(INTRO_FULL, 22, introActive)
   const confettiParticles = useConfetti(stage === 'confetti')
   const overlayRef = useRef<HTMLDivElement>(null)
-  // Tracks whether the answer stagger animations have had time to show (~longest answer * 0.1s delay + 0.35s)
   const answerReadyRef = useRef(false)
 
   const PURPLE = '#7c6ff7'
   const TEAL = '#2dd4a8'
 
-  // Avatar enters → after 650ms show intro
+  // Avatar enters → show intro after 650ms
   useEffect(() => {
     if (stage === 'avatar-enter') {
       const t = setTimeout(() => setStage('intro'), 650)
@@ -196,7 +205,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
     }
   }, [stage])
 
-  // After confetti → show final after 1.8s
+  // Confetti → final after 1.8s
   useEffect(() => {
     if (stage === 'confetti') {
       const t = setTimeout(() => setStage('final'), 1800)
@@ -204,42 +213,34 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
     }
   }, [stage])
 
-  // When answer becomes visible, mark it as ready after stagger completes
+  // Guard rapid clicks while answer lines are still staggering in
   useEffect(() => {
     if (qSubStage === 'showing-answer') {
       answerReadyRef.current = false
-      const longestDelay = QUESTIONS[qIndex].answer.length * 0.1 + 0.5
-      const t = setTimeout(() => { answerReadyRef.current = true }, longestDelay * 1000)
+      const delay = QUESTIONS[qIndex].answer.length * 0.1 + 0.5
+      const t = setTimeout(() => { answerReadyRef.current = true }, delay * 1000)
       return () => clearTimeout(t)
     } else {
       answerReadyRef.current = false
     }
   }, [qSubStage, qIndex])
 
-  // ── Card-level click handler (advances the whole flow) ────────
+  // ── Card click advances the story ────────────────────────────
   const handleCardClick = useCallback(() => {
-    if (stage === 'final') return // final buttons handle their own clicks
-    if (stage === 'confetti') return
+    if (stage === 'final' || stage === 'confetti') return
 
     if (stage === 'question') {
-      // First click ever in question stage dismisses disclaimer
       if (!disclaimerDismissed) {
         setDisclaimerDismissed(true)
         return
       }
-
       if (qSubStage === 'showing-question') {
-        // Reveal the answer
         setQSubStage('showing-answer')
         return
       }
-
       if (qSubStage === 'showing-answer') {
-        // Only advance after answer has had time to animate in
         if (!answerReadyRef.current) return
-
         if (qIndex >= QUESTIONS.length - 1) {
-          // Last answer seen — go to confetti
           setQVisible(false)
           setTimeout(() => setStage('confetti'), 380)
         } else {
@@ -251,11 +252,10 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
           }, 380)
         }
       }
-      return
     }
   }, [stage, disclaimerDismissed, qSubStage, qIndex])
 
-  // ── Keyboard: Escape closes; Enter/Space advances ─────────────
+  // ── Keyboard ──────────────────────────────────────────────────
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') { onClose(); return }
     if (e.key === 'Enter' || e.key === ' ') {
@@ -279,32 +279,29 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
     setDisclaimerDismissed(false)
   }
 
-  // ── "Explore Again" — full restart from the top ───────────────
-  function handleRestart() {
-    setStage('avatar-enter')
-    setQIndex(0)
-    setQSubStage('showing-question')
-    setQVisible(true)
-    setDisclaimerDismissed(false)
-    setShowEmailFallback(false)
-    setCopied(false)
+  // ── "Explore Again" — close modal and scroll to top ───────────
+  // State resets automatically on next open because the component re-mounts fresh.
+  function handleExploreAgain() {
+    onClose()
+    // Scroll to hero/top using Lenis if available, otherwise native
+    setTimeout(() => {
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.4, easing: (t: number) => 1 - Math.pow(1 - t, 3) })
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    }, 200)
   }
 
-  // ── "Let's Talk" — mailto with prefilled body ─────────────────
-  function handleLetsTalk(e: React.MouseEvent<HTMLAnchorElement>) {
-    // Try to detect if mailto failed (no email client set up)
+  // ── "Let's Talk" — mailto with prefilled content ──────────────
+  function handleLetsTalk() {
     const start = Date.now()
-    window.addEventListener('blur', () => {
-      // blur = email app opened → success, do nothing
-    }, { once: true })
+    window.addEventListener('blur', () => { /* email app opened — success */ }, { once: true })
     setTimeout(() => {
       if (Date.now() - start < 1500) {
-        // Page didn't blur → mailto probably failed
         setShowEmailFallback(true)
       }
     }, 1200)
-    // Let the default link behavior proceed
-    void e
   }
 
   async function handleCopyEmail() {
@@ -312,12 +309,9 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
       await navigator.clipboard.writeText('harshikagahlot01@gmail.com')
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
-    } catch {
-      // fallback: select text
-    }
+    } catch { /* silent */ }
   }
 
-  // ── Cursor hint for question stage ───────────────────────────
   const showClickHint = stage === 'question' && qSubStage === 'showing-answer' && disclaimerDismissed
 
   const btnBase: React.CSSProperties = {
@@ -356,9 +350,9 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
           justifyContent: 'center',
           padding: '20px',
         }}
-        aria-label="Close Easter Egg"
+        aria-label="Close"
       >
-        {/* Modal card — click here advances the story */}
+        {/* Modal card */}
         <motion.div
           key="modal"
           initial={{ opacity: 0, scale: 0.9, y: 24 }}
@@ -367,7 +361,6 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           onClick={e => {
             e.stopPropagation()
-            // During question stage, card click = advance
             if (stage === 'question') handleCardClick()
           }}
           ref={overlayRef}
@@ -395,7 +388,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
             userSelect: 'none',
           }}
         >
-          {/* Close button — stopPropagation so it doesn't trigger card click */}
+          {/* Close × */}
           <button
             onClick={e => { e.stopPropagation(); onClose() }}
             aria-label="Close"
@@ -404,8 +397,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
               background: 'none', border: 'none', cursor: 'pointer',
               color: 'var(--color-text-hint)', fontSize: '22px', lineHeight: 1,
               padding: '4px 8px', borderRadius: '6px',
-              transition: 'color 0.15s',
-              zIndex: 10,
+              transition: 'color 0.15s', zIndex: 10,
             }}
             onMouseOver={e => { (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-primary)' }}
             onMouseOut={e => { (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-hint)' }}
@@ -455,7 +447,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
             </motion.div>
           )}
 
-          {/* ── INTRO — typewriter ── */}
+          {/* ── INTRO ── */}
           {(stage === 'intro' || stage === 'start') && (
             <motion.div
               key="intro-block"
@@ -464,7 +456,6 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
               style={{ width: '100%', position: 'relative', zIndex: 2 }}
             >
               <div style={{ fontSize: '28px', marginBottom: '14px' }}>👋</div>
-
               <div
                 style={{
                   fontFamily: 'var(--font-body)',
@@ -542,7 +533,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                     ))}
                   </div>
 
-                  {/* Question counter */}
+                  {/* Counter */}
                   <p style={{
                     fontFamily: 'var(--font-mono)', fontSize: '12px',
                     color: TEAL, textTransform: 'uppercase',
@@ -551,7 +542,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                     Question {qIndex + 1} of {QUESTIONS.length}
                   </p>
 
-                  {/* Question text */}
+                  {/* Question */}
                   <h3 style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: 'clamp(18px, 3.5vw, 22px)',
@@ -563,7 +554,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                     {QUESTIONS[qIndex].question}
                   </h3>
 
-                  {/* ── DISCLAIMER sticky note (first visit, before first click) ── */}
+                  {/* Disclaimer sticky note */}
                   <AnimatePresence>
                     {!disclaimerDismissed && (
                       <motion.div
@@ -593,7 +584,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                     )}
                   </AnimatePresence>
 
-                  {/* Answer bubble */}
+                  {/* Answer bubble with "💭 My answer:" label */}
                   <AnimatePresence>
                     {qSubStage === 'showing-answer' && (
                       <motion.div
@@ -610,6 +601,25 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                           textAlign: 'left',
                         }}
                       >
+                        {/* Answer label */}
+                        <motion.p
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.2 }}
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            color: PURPLE,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.08em',
+                            margin: '0 0 10px',
+                          }}
+                        >
+                          💭 My answer:
+                        </motion.p>
+
+                        {/* Answer lines */}
                         {QUESTIONS[qIndex].answer.map((line, i) => (
                           <motion.p
                             key={i}
@@ -631,7 +641,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                     )}
                   </AnimatePresence>
 
-                  {/* Subtle "click to continue" hint — only when answer is shown */}
+                  {/* "Click to continue" hint — fades in after answer */}
                   <AnimatePresence>
                     {showClickHint && (
                       <motion.p
@@ -704,8 +714,9 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                 </strong>
               </div>
 
-              {/* Buttons */}
+              {/* Final buttons */}
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: showEmailFallback ? '16px' : '0' }}>
+                {/* Let's Talk — mailto with prefill */}
                 <a
                   href={MAILTO_HREF}
                   onClick={handleLetsTalk}
@@ -720,8 +731,10 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                 >
                   📧 Let's Talk
                 </a>
+
+                {/* Explore Again — close and scroll to top */}
                 <button
-                  onClick={handleRestart}
+                  onClick={handleExploreAgain}
                   style={{
                     ...btnBase,
                     backgroundColor: 'transparent',
