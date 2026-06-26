@@ -10,6 +10,11 @@ type Stage =
   | 'confetti'
   | 'final'
 
+// Refined click-flow within 'question' stage:
+//   'showing-question'  → question text visible, waiting for click
+//   'showing-answer'    → answer visible, waiting for click to advance
+type QSubStage = 'showing-question' | 'showing-answer'
+
 interface Question {
   question: string
   answer: string[]
@@ -65,7 +70,7 @@ const QUESTIONS: Question[] = [
 ]
 
 // ── Typewriter hook ───────────────────────────────────────────
-function useTypewriter(text: string, speed = 28, active = true) {
+function useTypewriter(text: string, speed = 22, active = true) {
   const [displayed, setDisplayed] = useState('')
   const [done, setDone] = useState(false)
 
@@ -85,7 +90,7 @@ function useTypewriter(text: string, speed = 28, active = true) {
   return { displayed, done }
 }
 
-// ── Confetti particle ─────────────────────────────────────────
+// ── Confetti ──────────────────────────────────────────────────
 interface Particle { id: number; x: number; color: string; delay: number; duration: number; size: number }
 
 function useConfetti(active: boolean) {
@@ -93,20 +98,21 @@ function useConfetti(active: boolean) {
   useEffect(() => {
     if (!active) { setParticles([]); return }
     const colors = ['#7c6ff7', '#2dd4a8', '#f472b6', '#fbbf24', '#60a5fa', '#a78bfa']
-    const items: Particle[] = Array.from({ length: 48 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      color: colors[i % colors.length],
-      delay: Math.random() * 0.6,
-      duration: 1.8 + Math.random() * 1.2,
-      size: 6 + Math.random() * 6,
-    }))
-    setParticles(items)
+    setParticles(
+      Array.from({ length: 52 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        color: colors[i % colors.length],
+        delay: Math.random() * 0.7,
+        duration: 1.8 + Math.random() * 1.2,
+        size: 6 + Math.random() * 6,
+      }))
+    )
   }, [active])
   return particles
 }
 
-// ── Animated Avatar SVG ───────────────────────────────────────
+// ── Avatar SVG ────────────────────────────────────────────────
 const Avatar: React.FC<{ waving?: boolean }> = ({ waving }) => (
   <motion.div
     style={{ position: 'relative', width: 96, height: 96 }}
@@ -114,40 +120,31 @@ const Avatar: React.FC<{ waving?: boolean }> = ({ waving }) => (
     transition={waving ? {} : { duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
   >
     <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      {/* Glow background */}
       <circle cx="48" cy="48" r="46" fill="url(#avatarGrad)" />
-      {/* Face */}
       <circle cx="48" cy="44" r="24" fill="#1e1b2e" />
-      {/* Hair */}
       <ellipse cx="48" cy="23" rx="22" ry="10" fill="#2a1f5e" />
       <ellipse cx="28" cy="30" rx="8" ry="12" fill="#2a1f5e" />
       <ellipse cx="68" cy="30" rx="8" ry="12" fill="#2a1f5e" />
-      {/* Eyes */}
       <ellipse cx="40" cy="44" rx="4" ry="4.5" fill="white" />
       <ellipse cx="56" cy="44" rx="4" ry="4.5" fill="white" />
       <circle cx="41" cy="45" r="2.2" fill="#3b2dbf" />
       <circle cx="57" cy="45" r="2.2" fill="#3b2dbf" />
       <circle cx="42" cy="44" r="0.9" fill="white" />
       <circle cx="58" cy="44" r="0.9" fill="white" />
-      {/* Smile */}
       <path d="M40 54 Q48 61 56 54" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none" />
-      {/* Blush */}
       <ellipse cx="35" cy="52" rx="5" ry="3" fill="#f9a8d4" opacity="0.45" />
       <ellipse cx="61" cy="52" rx="5" ry="3" fill="#f9a8d4" opacity="0.45" />
-      {/* Body */}
       <ellipse cx="48" cy="80" rx="20" ry="14" fill="#2a1f5e" />
-      {/* Waving arm */}
       <motion.g
         animate={waving
-          ? { rotate: [0, -25, 0, -20, 0], originX: '68px', originY: '65px' }
-          : { rotate: [0, -8, 0], originX: '68px', originY: '65px' }}
+          ? { rotate: [0, -25, 0, -20, 0] }
+          : { rotate: [0, -8, 0] }}
         transition={waving
           ? { duration: 0.9, times: [0, 0.25, 0.5, 0.75, 1], ease: 'easeInOut' }
           : { duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
         style={{ transformOrigin: '68px 65px' }}
       >
         <ellipse cx="72" cy="64" rx="5" ry="10" fill="#1e1b2e" transform="rotate(30 72 64)" />
-        {/* Hand */}
         <circle cx="76" cy="57" r="5" fill="#2a1f5e" />
         <ellipse cx="74" cy="53" rx="2" ry="3" fill="#2a1f5e" />
         <ellipse cx="78" cy="52" rx="2" ry="3" fill="#2a1f5e" />
@@ -163,24 +160,35 @@ const Avatar: React.FC<{ waving?: boolean }> = ({ waving }) => (
   </motion.div>
 )
 
-// ── Intro text lines ──────────────────────────────────────────
-const INTRO_FULL = `Psst... you actually clicked it! 👀\n\nMost people stop after the projects.\n\nBut you made it all the way down here...\n\nSo, as a tiny reward, you just unlocked Bonus Content™ ✨\n\nNo more professional summaries.\nNo more polished bullet points.\n\nJust a few random questions about me.`
+// ── Intro text ────────────────────────────────────────────────
+const INTRO_FULL = `Psst... you actually clicked it! 👀\n\nMost people stop after the projects.\n\nBut you made it all the way down here...\n\nSo, as a tiny reward, you just unlocked Bonus Content™ ✨\n\nNo more professional summaries.\nNo more polished bullet points.\n\nJust a few random questions.`
 
-// ── Main Component ─────────────────────────────────────────────
+// ── mailto href ───────────────────────────────────────────────
+const MAILTO_HREF = `mailto:harshikagahlot01@gmail.com?subject=Hello%20Harshika!&body=Hi%20Harshika%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20really%20enjoyed%20it.%0A%0AI%27d%20love%20to%20connect.%0A%0ABest%2C`
+
+// ── Main component ─────────────────────────────────────────────
 interface Props { onClose: () => void }
 
 const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
   const [stage, setStage] = useState<Stage>('avatar-enter')
   const [qIndex, setQIndex] = useState(0)
-  const [showAnswer, setShowAnswer] = useState(false)
+  const [qSubStage, setQSubStage] = useState<QSubStage>('showing-question')
   const [qVisible, setQVisible] = useState(true)
+  const [disclaimerDismissed, setDisclaimerDismissed] = useState(false)
+  const [showEmailFallback, setShowEmailFallback] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const introActive = stage === 'intro'
   const { displayed: introText, done: introDone } = useTypewriter(INTRO_FULL, 22, introActive)
   const confettiParticles = useConfetti(stage === 'confetti')
   const overlayRef = useRef<HTMLDivElement>(null)
+  // Tracks whether the answer stagger animations have had time to show (~longest answer * 0.1s delay + 0.35s)
+  const answerReadyRef = useRef(false)
 
-  // Avatar enters → after 600ms show intro
+  const PURPLE = '#7c6ff7'
+  const TEAL = '#2dd4a8'
+
+  // Avatar enters → after 650ms show intro
   useEffect(() => {
     if (stage === 'avatar-enter') {
       const t = setTimeout(() => setStage('intro'), 650)
@@ -196,58 +204,122 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
     }
   }, [stage])
 
+  // When answer becomes visible, mark it as ready after stagger completes
+  useEffect(() => {
+    if (qSubStage === 'showing-answer') {
+      answerReadyRef.current = false
+      const longestDelay = QUESTIONS[qIndex].answer.length * 0.1 + 0.5
+      const t = setTimeout(() => { answerReadyRef.current = true }, longestDelay * 1000)
+      return () => clearTimeout(t)
+    } else {
+      answerReadyRef.current = false
+    }
+  }, [qSubStage, qIndex])
+
+  // ── Card-level click handler (advances the whole flow) ────────
+  const handleCardClick = useCallback(() => {
+    if (stage === 'final') return // final buttons handle their own clicks
+    if (stage === 'confetti') return
+
+    if (stage === 'question') {
+      // First click ever in question stage dismisses disclaimer
+      if (!disclaimerDismissed) {
+        setDisclaimerDismissed(true)
+        return
+      }
+
+      if (qSubStage === 'showing-question') {
+        // Reveal the answer
+        setQSubStage('showing-answer')
+        return
+      }
+
+      if (qSubStage === 'showing-answer') {
+        // Only advance after answer has had time to animate in
+        if (!answerReadyRef.current) return
+
+        if (qIndex >= QUESTIONS.length - 1) {
+          // Last answer seen — go to confetti
+          setQVisible(false)
+          setTimeout(() => setStage('confetti'), 380)
+        } else {
+          setQVisible(false)
+          setTimeout(() => {
+            setQIndex(i => i + 1)
+            setQSubStage('showing-question')
+            setQVisible(true)
+          }, 380)
+        }
+      }
+      return
+    }
+  }, [stage, disclaimerDismissed, qSubStage, qIndex])
+
+  // ── Keyboard: Escape closes; Enter/Space advances ─────────────
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') onClose()
-    if ((e.key === 'Enter' || e.key === ' ') && stage === 'start') handleStart()
-    if ((e.key === 'Enter' || e.key === ' ') && stage === 'question' && showAnswer) handleNext()
-  }, [stage, showAnswer, onClose]) // eslint-disable-line
+    if (e.key === 'Escape') { onClose(); return }
+    if (e.key === 'Enter' || e.key === ' ') {
+      if (stage === 'start') { handleStart(); return }
+      if (stage === 'question') { handleCardClick(); return }
+    }
+  }, [stage, handleCardClick, onClose]) // eslint-disable-line
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [handleKeyDown])
 
-  // Focus trap
-  useEffect(() => {
-    overlayRef.current?.focus()
-  }, [])
+  useEffect(() => { overlayRef.current?.focus() }, [])
 
   function handleStart() {
     setStage('question')
     setQIndex(0)
-    setShowAnswer(false)
+    setQSubStage('showing-question')
     setQVisible(true)
+    setDisclaimerDismissed(false)
   }
 
-  function handleShowAnswer() {
-    setShowAnswer(true)
-  }
-
-  function handleNext() {
-    if (qIndex >= QUESTIONS.length - 1) {
-      // Last question done → confetti
-      setQVisible(false)
-      setTimeout(() => setStage('confetti'), 400)
-    } else {
-      setQVisible(false)
-      setTimeout(() => {
-        setQIndex(i => i + 1)
-        setShowAnswer(false)
-        setQVisible(true)
-      }, 380)
-    }
-  }
-
+  // ── "Explore Again" — full restart from the top ───────────────
   function handleRestart() {
     setStage('avatar-enter')
     setQIndex(0)
-    setShowAnswer(false)
+    setQSubStage('showing-question')
     setQVisible(true)
+    setDisclaimerDismissed(false)
+    setShowEmailFallback(false)
+    setCopied(false)
   }
 
-  // ── Styles ───────────────────────────────────────────────────
-  const PURPLE = '#7c6ff7'
-  const TEAL = '#2dd4a8'
+  // ── "Let's Talk" — mailto with prefilled body ─────────────────
+  function handleLetsTalk(e: React.MouseEvent<HTMLAnchorElement>) {
+    // Try to detect if mailto failed (no email client set up)
+    const start = Date.now()
+    window.addEventListener('blur', () => {
+      // blur = email app opened → success, do nothing
+    }, { once: true })
+    setTimeout(() => {
+      if (Date.now() - start < 1500) {
+        // Page didn't blur → mailto probably failed
+        setShowEmailFallback(true)
+      }
+    }, 1200)
+    // Let the default link behavior proceed
+    void e
+  }
+
+  async function handleCopyEmail() {
+    try {
+      await navigator.clipboard.writeText('harshikagahlot01@gmail.com')
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // fallback: select text
+    }
+  }
+
+  // ── Cursor hint for question stage ───────────────────────────
+  const showClickHint = stage === 'question' && qSubStage === 'showing-answer' && disclaimerDismissed
+
   const btnBase: React.CSSProperties = {
     fontFamily: 'var(--font-body)',
     fontSize: '17px',
@@ -256,7 +328,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
     borderRadius: '10px',
     border: 'none',
     cursor: 'pointer',
-    transition: 'transform 0.15s ease, opacity 0.15s ease',
+    transition: 'opacity 0.15s ease',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -265,7 +337,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
 
   return (
     <AnimatePresence>
-      {/* Backdrop */}
+      {/* Backdrop — click closes */}
       <motion.div
         key="backdrop"
         initial={{ opacity: 0 }}
@@ -286,14 +358,18 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
         }}
         aria-label="Close Easter Egg"
       >
-        {/* Modal card */}
+        {/* Modal card — click here advances the story */}
         <motion.div
           key="modal"
           initial={{ opacity: 0, scale: 0.9, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 16 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          onClick={e => e.stopPropagation()}
+          onClick={e => {
+            e.stopPropagation()
+            // During question stage, card click = advance
+            if (stage === 'question') handleCardClick()
+          }}
           ref={overlayRef}
           tabIndex={-1}
           role="dialog"
@@ -312,15 +388,16 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            gap: '0',
             outline: 'none',
             maxHeight: '90vh',
             overflowY: 'auto',
+            cursor: stage === 'question' ? 'pointer' : 'default',
+            userSelect: 'none',
           }}
         >
-          {/* Close button */}
+          {/* Close button — stopPropagation so it doesn't trigger card click */}
           <button
-            onClick={onClose}
+            onClick={e => { e.stopPropagation(); onClose() }}
             aria-label="Close"
             style={{
               position: 'absolute', top: '16px', right: '16px',
@@ -328,6 +405,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
               color: 'var(--color-text-hint)', fontSize: '22px', lineHeight: 1,
               padding: '4px 8px', borderRadius: '6px',
               transition: 'color 0.15s',
+              zIndex: 10,
             }}
             onMouseOver={e => { (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-primary)' }}
             onMouseOut={e => { (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-hint)' }}
@@ -341,16 +419,14 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
               {confettiParticles.map(p => (
                 <motion.div
                   key={p.id}
-                  initial={{ y: -20, x: `${p.x}vw`, opacity: 1, rotate: 0 }}
-                  animate={{ y: '110vh', opacity: [1, 1, 0], rotate: 360 * 3 }}
+                  initial={{ y: -20, x: `${p.x}%`, opacity: 1, rotate: 0 }}
+                  animate={{ y: 600, opacity: [1, 1, 0], rotate: 360 * 3 }}
                   transition={{ duration: p.duration, delay: p.delay, ease: 'easeIn' }}
                   style={{
-                    position: 'absolute',
-                    top: 0, left: 0,
+                    position: 'absolute', top: 0, left: 0,
                     width: p.size, height: p.size,
-                    borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+                    borderRadius: p.id % 2 === 0 ? '50%' : '2px',
                     backgroundColor: p.color,
-                    opacity: 0.85,
                   }}
                 />
               ))}
@@ -367,7 +443,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
             <Avatar waving={stage === 'avatar-enter' || stage === 'intro'} />
           </motion.div>
 
-          {/* ── AVATAR ENTERING (just avatar + pulse) ── */}
+          {/* ── AVATAR ENTERING ── */}
           {stage === 'avatar-enter' && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -387,10 +463,8 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
               animate={{ opacity: 1 }}
               style={{ width: '100%', position: 'relative', zIndex: 2 }}
             >
-              {/* Wave emoji */}
               <div style={{ fontSize: '28px', marginBottom: '14px' }}>👋</div>
 
-              {/* Typewriter text */}
               <div
                 style={{
                   fontFamily: 'var(--font-body)',
@@ -406,20 +480,22 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                 {stage === 'intro' ? introText : INTRO_FULL}
               </div>
 
-              {/* Click to begin hint */}
               <AnimatePresence>
                 {(introDone || stage === 'start') && (
                   <motion.div
-                    key="hint"
+                    key="start-area"
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--color-text-hint)', marginBottom: '16px', fontStyle: 'italic' }}>
+                    <p style={{
+                      fontFamily: 'var(--font-body)', fontSize: '14px',
+                      color: 'var(--color-text-hint)', marginBottom: '16px', fontStyle: 'italic',
+                    }}>
                       (Click below to begin.)
                     </p>
                     <button
-                      onClick={handleStart}
+                      onClick={e => { e.stopPropagation(); handleStart() }}
                       style={{
                         ...btnBase,
                         backgroundColor: PURPLE,
@@ -450,7 +526,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                   transition={{ duration: 0.35, ease: 'easeOut' }}
                   style={{ width: '100%', position: 'relative', zIndex: 2 }}
                 >
-                  {/* Progress indicator */}
+                  {/* Progress dots */}
                   <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', marginBottom: '20px' }}>
                     {QUESTIONS.map((_, i) => (
                       <div
@@ -466,19 +542,16 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                     ))}
                   </div>
 
-                  {/* Question label */}
+                  {/* Question counter */}
                   <p style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '12px',
-                    color: TEAL,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    marginBottom: '10px',
+                    fontFamily: 'var(--font-mono)', fontSize: '12px',
+                    color: TEAL, textTransform: 'uppercase',
+                    letterSpacing: '0.1em', marginBottom: '10px',
                   }}>
                     Question {qIndex + 1} of {QUESTIONS.length}
                   </p>
 
-                  {/* Question */}
+                  {/* Question text */}
                   <h3 style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: 'clamp(18px, 3.5vw, 22px)',
@@ -490,9 +563,39 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                     {QUESTIONS[qIndex].question}
                   </h3>
 
-                  {/* Answer — appears on click */}
+                  {/* ── DISCLAIMER sticky note (first visit, before first click) ── */}
                   <AnimatePresence>
-                    {showAnswer && (
+                    {!disclaimerDismissed && (
+                      <motion.div
+                        key="disclaimer"
+                        initial={{ opacity: 0, scale: 0.95, y: 6 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -6 }}
+                        transition={{ duration: 0.3 }}
+                        style={{
+                          backgroundColor: 'rgba(251,191,36,0.08)',
+                          border: '1px solid rgba(251,191,36,0.25)',
+                          borderRadius: '10px',
+                          padding: '12px 16px',
+                          marginBottom: '18px',
+                          textAlign: 'left',
+                        }}
+                      >
+                        <p style={{
+                          fontFamily: 'var(--font-body)', fontSize: '13px',
+                          color: 'rgba(251,191,36,0.9)', margin: 0, lineHeight: 1.6,
+                        }}>
+                          <span style={{ fontWeight: 700 }}>📌 Tiny Disclaimer</span>
+                          <br />
+                          No need to hunt for buttons. Just click anywhere on the card whenever you're ready. ✨
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Answer bubble */}
+                  <AnimatePresence>
+                    {qSubStage === 'showing-answer' && (
                       <motion.div
                         key="answer"
                         initial={{ opacity: 0, y: 10 }}
@@ -503,7 +606,7 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                           border: '0.5px solid rgba(124,111,247,0.2)',
                           borderRadius: '12px',
                           padding: '18px 20px',
-                          marginBottom: '20px',
+                          marginBottom: '16px',
                           textAlign: 'left',
                         }}
                       >
@@ -528,54 +631,35 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                     )}
                   </AnimatePresence>
 
-                  {/* Action button */}
-                  {!showAnswer ? (
-                    <motion.button
-                      key="reveal-btn"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      onClick={handleShowAnswer}
-                      style={{
-                        ...btnBase,
-                        backgroundColor: PURPLE,
-                        color: '#ffffff',
-                        padding: '11px 28px',
-                      }}
-                      onMouseOver={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.87' }}
-                      onMouseOut={e => { (e.currentTarget as HTMLButtonElement).style.opacity = '1' }}
-                    >
-                      What did she say? →
-                    </motion.button>
-                  ) : (
-                    <motion.div
-                      key="next-wrap"
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      <button
-                        onClick={handleNext}
+                  {/* Subtle "click to continue" hint — only when answer is shown */}
+                  <AnimatePresence>
+                    {showClickHint && (
+                      <motion.p
+                        key="click-hint"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ delay: 0.5, duration: 0.4 }}
                         style={{
-                          ...btnBase,
-                          backgroundColor: 'transparent',
-                          color: TEAL,
-                          border: `1px solid rgba(45,212,168,0.35)`,
-                          fontSize: '15px',
-                          padding: '9px 22px',
+                          fontFamily: 'var(--font-body)',
+                          fontSize: '13px',
+                          color: 'var(--color-text-hint)',
+                          fontStyle: 'italic',
+                          margin: 0,
                         }}
-                        onMouseOver={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'rgba(45,212,168,0.07)' }}
-                        onMouseOut={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent' }}
                       >
-                        {qIndex < QUESTIONS.length - 1 ? '→ Ready for another?' : '→ That\'s all the questions!'}
-                      </button>
-                    </motion.div>
-                  )}
+                        {qIndex < QUESTIONS.length - 1
+                          ? '→ Click anywhere for the next question'
+                          : '→ Click anywhere to finish'}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               )}
             </AnimatePresence>
           )}
 
-          {/* ── CONFETTI stage placeholder ── */}
+          {/* ── CONFETTI ── */}
           {stage === 'confetti' && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -594,23 +678,22 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
               style={{ width: '100%', position: 'relative', zIndex: 2 }}
+              onClick={e => e.stopPropagation()}
             >
               <div style={{ fontSize: '28px', marginBottom: '16px' }}>👋</div>
 
-              <div
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'clamp(15px, 2.5vw, 17px)',
-                  color: 'var(--color-text-secondary)',
-                  lineHeight: 1.8,
-                  textAlign: 'left',
-                  marginBottom: '28px',
-                  whiteSpace: 'pre-wrap',
-                }}
-              >
+              <div style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(15px, 2.5vw, 17px)',
+                color: 'var(--color-text-secondary)',
+                lineHeight: 1.8,
+                textAlign: 'left',
+                marginBottom: '28px',
+                whiteSpace: 'pre-wrap',
+              }}>
                 {`Okay...\n\nThat's all the bonus content I had.\n\nIf you smiled even once...\nMission accomplished. 😄\n\nAnd if, somewhere between the projects and these silly answers, you thought...`}
                 <br /><br />
-                <em style={{ color: 'var(--color-text-primary)', fontStyle: 'italic' }}>
+                <em style={{ color: 'var(--color-text-primary)' }}>
                   "She'd probably be fun to work with."
                 </em>
                 <br /><br />
@@ -621,10 +704,11 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                 </strong>
               </div>
 
-              {/* Final buttons */}
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+              {/* Buttons */}
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: showEmailFallback ? '16px' : '0' }}>
                 <a
-                  href="mailto:harshikagahlot01@gmail.com"
+                  href={MAILTO_HREF}
+                  onClick={handleLetsTalk}
                   style={{
                     ...btnBase,
                     backgroundColor: PURPLE,
@@ -650,6 +734,47 @@ const SayHelloOverlay: React.FC<Props> = ({ onClose }) => {
                   ↻ Explore Again
                 </button>
               </div>
+
+              {/* Email fallback — only shown if mailto fails */}
+              <AnimatePresence>
+                {showEmailFallback && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      marginTop: '14px',
+                      padding: '12px 16px',
+                      backgroundColor: 'rgba(45,212,168,0.06)',
+                      border: '1px solid rgba(45,212,168,0.2)',
+                      borderRadius: '10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      flexWrap: 'wrap',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: TEAL }}>
+                      harshikagahlot01@gmail.com
+                    </span>
+                    <button
+                      onClick={handleCopyEmail}
+                      style={{
+                        ...btnBase,
+                        fontSize: '13px',
+                        padding: '6px 14px',
+                        backgroundColor: copied ? 'rgba(45,212,168,0.15)' : 'transparent',
+                        color: TEAL,
+                        border: `1px solid rgba(45,212,168,0.3)`,
+                      }}
+                    >
+                      {copied ? '✓ Copied!' : 'Copy'}
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
         </motion.div>
