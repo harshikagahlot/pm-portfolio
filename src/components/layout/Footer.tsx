@@ -6,7 +6,7 @@ import SayHelloOverlay from '../SayHelloOverlay'
 export const Footer: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
   const [helloHover, setHelloHover] = useState(false)
-  const [resumeHover, setResumeHover] = useState(false)
+
   const [helloOpen, setHelloOpen] = useState(false)
 
   return (
@@ -123,54 +123,7 @@ export const Footer: React.FC = () => {
             {/* Easter egg overlay */}
             {helloOpen && <SayHelloOverlay onClose={() => setHelloOpen(false)} />}
 
-            {/* Secondary Button — Download Resume */}
-            <motion.a
-              href="/Harshika_Gahlot_Resume.pdf"
-              download="Harshika_Gahlot_Resume.pdf"
-              onMouseEnter={() => setResumeHover(true)}
-              onMouseLeave={() => setResumeHover(false)}
-              onClick={(e) => {
-                e.preventDefault()
-                fetch('/Harshika_Gahlot_Resume.pdf')
-                  .then((res) => res.blob())
-                  .then((blob) => {
-                    const url = URL.createObjectURL(blob)
-                    const a = document.createElement('a')
-                    a.href = url
-                    a.download = 'Harshika_Gahlot_Resume.pdf'
-                    document.body.appendChild(a)
-                    a.click()
-                    a.remove()
-                    URL.revokeObjectURL(url)
-                  })
-              }}
-              animate={resumeHover ? { scale: 1.03 } : { scale: 1 }}
-              transition={shouldReduceMotion ? { duration: 0 } : TRANSITIONS.fast}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '18px',
-                fontWeight: 500,
-                color: 'var(--color-text-primary)',
-                padding: '14px 32px',
-                borderRadius: '10px',
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '1px solid var(--color-border-default)',
-                backgroundColor: 'transparent',
-                cursor: 'pointer',
-                transition: 'border-color 0.2s ease',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(124, 111, 247, 0.5)' // accent.purple at 50%
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.borderColor = 'var(--color-border-default)'
-              }}
-            >
-              Download resume
-            </motion.a>
+
           </motion.div>
         </motion.div>
 
