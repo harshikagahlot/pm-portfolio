@@ -193,24 +193,7 @@ export const Footer: React.FC = () => {
               >
                 harshikagahlot01@gmail.com
               </a>
-              <a
-                href="tel:+918279334467"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '15px',
-                  color: 'var(--color-text-secondary)',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s ease',
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.color = 'var(--color-text-primary)'
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.color = 'var(--color-text-secondary)'
-                }}
-              >
-                +91 8279 334 467
-              </a>
+
             </div>
           </div>
 
