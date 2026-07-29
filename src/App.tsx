@@ -9,6 +9,7 @@ import HowIThink from './sections/HowIThink'
 import CaseStudies from './sections/CaseStudies'
 import ProductTeardown from './sections/ProductTeardown'
 import Timeline from './sections/Timeline'
+import Experience from './sections/Experience'
 import SectionVignette from './components/SectionVignette'
 import { WorldCanvas } from './components/three/WorldCanvas'
 import { useDeviceCapability } from './hooks/useDeviceCapability'
@@ -70,6 +71,11 @@ const App: React.FC = () => {
           {/* id="timeline" — scroll target from ProductTeardown bottom connector */}
           <div id="timeline" style={{ backgroundColor: 'transparent' }}>
             <Timeline />
+          </div>
+
+          {/* id="experience" — Professional Experience section */}
+          <div id="experience" style={{ backgroundColor: 'transparent' }}>
+            <Experience />
           </div>
 
           {/* id="blog" — scroll target for Part 6 (Blog / Writing section) */}
