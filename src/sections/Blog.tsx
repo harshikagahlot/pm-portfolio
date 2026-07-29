@@ -13,6 +13,14 @@ interface BlogPost {
 
 const BLOG_POSTS: BlogPost[] = [
   {
+    id: 10,
+    date: 'Jul 2026',
+    readTime: '5 min read',
+    title: 'My First Startup Experience: Lessons Beyond the Job Description',
+    excerpt: 'How two weeks at an early-stage startup changed the way I think about startups, communication, and my own career. This experience shaped my understanding of cross-functional workflows and execution.',
+    href: 'https://productandperspective.blogspot.com/2026/07/my-first-startup-experience-lessons.html',
+  },
+  {
     id: 9,
     date: 'Jun 2026',
     readTime: '6 min read',
