@@ -20,7 +20,7 @@ interface ExperienceEntry {
 const EXPERIENCES: ExperienceEntry[] = [
   {
     title: 'Executive Assistant Intern',
-    company: 'EASTEAM',
+    company: 'EASTEAM • Remote • US-based Startup',
     location: 'Remote',
     duration: '30 June 2026 – 11 July 2026',
     description:
