@@ -3,11 +3,12 @@ import { motion, useScroll, useTransform, AnimatePresence, useReducedMotion } fr
 import { TRANSITIONS } from '../../lib/motion'
 import { scrollTo } from '../../lib/smoothScroll'
 
-const NAV_LINKS = ['Work', 'Thinking', 'Teardown', 'Timeline', 'Blog']
+const NAV_LINKS = ['Work', 'Experience', 'Thinking', 'Teardown', 'Timeline', 'Blog']
 
 // Maps display label to HTML target ID
 const LINK_TARGETS: Record<string, string> = {
   Work: '#work',
+  Experience: '#experience',
   Thinking: '#thinking',
   Teardown: '#teardown',
   Timeline: '#timeline',
@@ -26,7 +27,7 @@ const Navbar: React.FC = () => {
 
   // Track active section via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ['thinking', 'work', 'teardown', 'timeline', 'blog']
+    const sectionIds = ['thinking', 'work', 'experience', 'teardown', 'timeline', 'blog']
     const observerOptions = {
       root: null,
       rootMargin: '-50% 0px -40% 0px', // triggers when the section is centered in the viewport
