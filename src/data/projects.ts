@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
     tags: ['Google Apps Script', 'Google Sheets', 'Google Places API', 'Gmail API', 'Workflow Automation'],
     accent: '#2d88ff', // accent.blue
     githubLink: 'https://github.com/harshikagahlot/ai-lead-generation-outreach-platform/blob/main/README.md',
-    liveLink: '#',
+    liveLink: 'https://youtu.be/Qqnz0f8JtKs',
     caseStudy: {
       whatIBuilt: 'A complete serverless lead generation platform inside Google Workspace that discovers local businesses, analyzes websites, finds public business emails, qualifies leads, generates personalized outreach drafts, and creates Gmail drafts without automatically sending emails.',
       why: 'I built it to automate my own manual outreach workflow while learning business development. Instead of spending hours researching businesses and writing emails manually, I wanted one workflow that could research, qualify, and personalize outreach automatically while keeping me in control before sending.',
