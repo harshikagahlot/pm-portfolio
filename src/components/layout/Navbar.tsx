@@ -3,11 +3,11 @@ import { motion, useScroll, useTransform, AnimatePresence, useReducedMotion } fr
 import { TRANSITIONS } from '../../lib/motion'
 import { scrollTo } from '../../lib/smoothScroll'
 
-const NAV_LINKS = ['Work', 'Experience', 'Thinking', 'Teardown', 'Timeline', 'Blog']
+const NAV_LINKS = ['Projects', 'Experience', 'Thinking', 'Teardown', 'Timeline', 'Blog']
 
 // Maps display label to HTML target ID
 const LINK_TARGETS: Record<string, string> = {
-  Work: '#work',
+  Projects: '#work',
   Experience: '#experience',
   Thinking: '#thinking',
   Teardown: '#teardown',
@@ -221,7 +221,7 @@ const Navbar: React.FC = () => {
               e.currentTarget.style.backgroundColor = 'transparent'
             }}
           >
-            Say hello →
+            Let's Connect →
           </motion.a>
         </nav>
 
@@ -355,7 +355,7 @@ const Navbar: React.FC = () => {
                 marginTop: '8px',
               }}
             >
-              Say hello →
+              Let's Connect →
             </a>
           </motion.div>
         )}
