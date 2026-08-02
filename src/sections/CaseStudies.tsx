@@ -8,6 +8,7 @@ import type { Project } from '../data/projects'
 import CaseStudyOverlay from '../components/CaseStudyOverlay'
 import suswordImg from '../assets/susword.png'
 import habitmetricImg from '../assets/habitmetricdashboard.png'
+import aiLeadGenImg from '../assets/ai-lead-gen.png'
 
 // ── Pulsing dots indicator ────────────────────────────────────
 const PulsingDots: React.FC<{ shouldReduceMotion: boolean | null }> = ({ shouldReduceMotion }) => (
@@ -214,9 +215,14 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({ project, onClick, shouldRed
               justifyContent: 'center',
             }}
           >
-            {/* Actual project screenshot image */}
             <img
-              src={project.id === 'susword' ? suswordImg : habitmetricImg}
+              src={
+                project.id === 'ai-lead-gen' 
+                  ? aiLeadGenImg 
+                  : project.id === 'susword' 
+                    ? suswordImg 
+                    : habitmetricImg
+              }
               alt={`${project.name} screenshot`}
               style={{
                 width: '100%',

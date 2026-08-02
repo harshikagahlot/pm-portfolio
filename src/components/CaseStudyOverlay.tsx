@@ -571,90 +571,150 @@ const CaseStudyOverlay: React.FC<CaseStudyOverlayProps> = ({ project, onClose })
                   </div>
                 </ContentSection>
 
-                {/* Section 4 — What Surprised Me */}
-                <ContentSection delay={0.65} shouldReduceMotion={shouldReduceMotion}>
-                  <div style={{ marginBottom: '56px' }}>
-                    <SectionLabel text="What Surprised Me" accent={project.accent} />
-                    {project.caseStudy.whatSurprisedMe.map((surprise, i) => (
+                {/* Section 4 — What Surprised Me (Optional) */}
+                {project.caseStudy.whatSurprisedMe && (
+                  <ContentSection delay={0.65} shouldReduceMotion={shouldReduceMotion}>
+                    <div style={{ marginBottom: '56px' }}>
+                      <SectionLabel text="What Surprised Me" accent={project.accent} />
+                      {project.caseStudy.whatSurprisedMe.map((surprise, i) => (
+                        <p
+                          key={i}
+                          style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '18px',
+                            color: 'var(--color-text-primary)',
+                            lineHeight: 1.7,
+                            margin: 0,
+                            marginBottom: i < project.caseStudy.whatSurprisedMe!.length - 1 ? '16px' : 0,
+                          }}
+                        >
+                          💡 &nbsp; {surprise}
+                        </p>
+                      ))}
+                    </div>
+                  </ContentSection>
+                )}
+
+                {/* Section 5 — One Thing I'd Change (Optional) */}
+                {project.caseStudy.oneThingIWouldChange && (
+                  <ContentSection delay={0.75} shouldReduceMotion={shouldReduceMotion}>
+                    <div style={{ marginBottom: '56px' }}>
+                      <SectionLabel text="One Thing I'd Change" accent={project.accent} />
                       <p
-                        key={i}
                         style={{
                           fontFamily: 'var(--font-body)',
                           fontSize: '18px',
-                          color: 'var(--color-text-primary)',
+                          color: 'var(--color-text-secondary)',
                           lineHeight: 1.7,
                           margin: 0,
-                          marginBottom: i < project.caseStudy.whatSurprisedMe.length - 1 ? '16px' : 0,
                         }}
                       >
-                        💡 &nbsp; {surprise}
+                        {project.caseStudy.oneThingIWouldChange}
                       </p>
-                    ))}
-                  </div>
-                </ContentSection>
+                    </div>
+                  </ContentSection>
+                )}
 
-                {/* Section 5 — One Thing I'd Change */}
-                <ContentSection delay={0.75} shouldReduceMotion={shouldReduceMotion}>
-                  <div style={{ marginBottom: '56px' }}>
-                    <SectionLabel text="One Thing I'd Change" accent={project.accent} />
-                    <p
-                      style={{
-                        fontFamily: 'var(--font-body)',
-                        fontSize: '18px',
-                        color: 'var(--color-text-secondary)',
-                        lineHeight: 1.7,
-                        margin: 0,
-                      }}
-                    >
-                      {project.caseStudy.oneThingIWouldChange}
-                    </p>
-                  </div>
-                </ContentSection>
+                {/* Section 6 — What Users Said (Optional) */}
+                {project.caseStudy.whatUsersSaid && (
+                  <ContentSection delay={0.85} shouldReduceMotion={shouldReduceMotion}>
+                    <div style={{ marginBottom: '56px' }}>
+                      <SectionLabel text="What Users Said" accent={project.accent} />
+                      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                        {project.caseStudy.whatUsersSaid.map((quote, i) => (
+                          <li
+                            key={i}
+                            style={{
+                              display: 'flex',
+                              gap: '16px',
+                              alignItems: 'flex-start',
+                              marginBottom: i < project.caseStudy.whatUsersSaid!.length - 1 ? '12px' : 0,
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '15px',
+                                color: project.accent,
+                                flexShrink: 0,
+                                marginTop: '3px',
+                                minWidth: '20px',
+                              }}
+                            >
+                              {String(i + 1).padStart(2, '0')}
+                            </span>
+                            <p
+                              style={{
+                                fontFamily: 'var(--font-body)',
+                                fontSize: '18px',
+                                color: 'var(--color-text-secondary)',
+                                lineHeight: 1.65,
+                                fontStyle: 'italic',
+                                margin: 0,
+                              }}
+                            >
+                              {quote}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </ContentSection>
+                )}
 
-                {/* Section 6 — What Users Said */}
-                <ContentSection delay={0.85} shouldReduceMotion={shouldReduceMotion}>
-                  <div>
-                    <SectionLabel text="What Users Said" accent={project.accent} />
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                      {project.caseStudy.whatUsersSaid.map((quote, i) => (
-                        <li
+                {/* Section 7 — Challenges (Optional) */}
+                {project.caseStudy.challenges && (
+                  <ContentSection delay={0.65} shouldReduceMotion={shouldReduceMotion}>
+                    <div style={{ marginBottom: '56px' }}>
+                      <SectionLabel text="Challenges" accent={project.accent} />
+                      {project.caseStudy.challenges.map((challenge, i) => (
+                        <div
                           key={i}
                           style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '18px',
+                            color: 'var(--color-text-primary)',
+                            lineHeight: 1.7,
+                            margin: 0,
+                            marginBottom: i < project.caseStudy.challenges!.length - 1 ? '16px' : 0,
                             display: 'flex',
-                            gap: '16px',
-                            alignItems: 'flex-start',
-                            marginBottom: i < project.caseStudy.whatUsersSaid.length - 1 ? '12px' : 0,
+                            gap: '12px',
                           }}
                         >
-                          <span
-                            style={{
-                              fontFamily: 'var(--font-mono)',
-                              fontSize: '15px',
-                              color: project.accent,
-                              flexShrink: 0,
-                              marginTop: '3px',
-                              minWidth: '20px',
-                            }}
-                          >
-                            {String(i + 1).padStart(2, '0')}
-                          </span>
-                          <p
-                            style={{
-                              fontFamily: 'var(--font-body)',
-                              fontSize: '18px',
-                              color: 'var(--color-text-secondary)',
-                              lineHeight: 1.65,
-                              fontStyle: 'italic',
-                              margin: 0,
-                            }}
-                          >
-                            {quote}
-                          </p>
-                        </li>
+                          <span style={{ color: project.accent, marginTop: '2px' }}>▹</span>
+                          <p style={{ margin: 0 }}>{challenge}</p>
+                        </div>
                       ))}
-                    </ul>
-                  </div>
-                </ContentSection>
+                    </div>
+                  </ContentSection>
+                )}
+
+                {/* Section 8 — What I Learned (Optional) */}
+                {project.caseStudy.whatILearned && (
+                  <ContentSection delay={0.75} shouldReduceMotion={shouldReduceMotion}>
+                    <div style={{ marginBottom: '56px' }}>
+                      <SectionLabel text="What I Learned" accent={project.accent} />
+                      {project.caseStudy.whatILearned.map((learning, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '18px',
+                            color: 'var(--color-text-secondary)',
+                            lineHeight: 1.7,
+                            margin: 0,
+                            marginBottom: i < project.caseStudy.whatILearned!.length - 1 ? '12px' : 0,
+                            display: 'flex',
+                            gap: '12px',
+                          }}
+                        >
+                          <span style={{ color: project.accent, marginTop: '2px' }}>•</span>
+                          <p style={{ margin: 0 }}>{learning}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </ContentSection>
+                )}
               </>
             )}
 

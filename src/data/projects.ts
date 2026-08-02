@@ -5,9 +5,11 @@ export interface CaseStudyContent {
   why: string
   role: string
   duration: string
-  whatSurprisedMe: string[]
-  oneThingIWouldChange: string
-  whatUsersSaid: string[]
+  whatSurprisedMe?: string[]
+  oneThingIWouldChange?: string
+  whatUsersSaid?: string[]
+  challenges?: string[]
+  whatILearned?: string[]
 }
 
 export interface Project {
@@ -28,8 +30,34 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    id: 'susword',
+    id: 'ai-lead-gen',
     number: '01',
+    name: 'AI Lead Generation & Outreach Automation Platform',
+    tagline: 'Serverless AI-powered B2B lead generation platform that discovers local businesses, qualifies leads, and drafts personalized outreach emails directly inside Google Workspace.',
+    tags: ['Google Apps Script', 'Google Sheets', 'Google Places API', 'Gmail API', 'Workflow Automation'],
+    accent: '#2d88ff', // accent.blue
+    githubLink: 'https://github.com/harshikagahlot/ai-lead-generation-outreach-platform/blob/main/README.md',
+    liveLink: '#',
+    caseStudy: {
+      whatIBuilt: 'A complete serverless lead generation platform inside Google Workspace that discovers local businesses, analyzes websites, finds public business emails, qualifies leads, generates personalized outreach drafts, and creates Gmail drafts without automatically sending emails.',
+      why: 'I built it to automate my own manual outreach workflow while learning business development. Instead of spending hours researching businesses and writing emails manually, I wanted one workflow that could research, qualify, and personalize outreach automatically while keeping me in control before sending.',
+      role: 'Sole Developer',
+      duration: 'Ongoing',
+      challenges: [
+        'Apps Script execution time limits: Engineered resumable batch processing and idempotent execution to ensure jobs restart safely without missing leads or duplicating drafts.',
+        'Balancing automation with human review: Instead of auto-sending, configuring the system to strictly create drafts allowed for manual personalization checks to prevent mistakes.',
+        'Robust email extraction and duplicate Gmail draft prevention.'
+      ],
+      whatILearned: [
+        'Google Apps Script, Google Workspace automation, and API integrations.',
+        'Workflow design and designing around platform limitations.',
+        'Consultative B2B outreach.'
+      ]
+    }
+  },
+  {
+    id: 'susword',
+    number: '02',
     name: 'SusWord',
     tagline: 'Real-time multiplayer social deduction game focused on suspense and interaction psychology.',
     tags: ['Game Design', 'React', 'Socket.IO', 'Node.js', 'Interaction Psychology'],
@@ -57,7 +85,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'habitmetric',
-    number: '02',
+    number: '03',
     name: 'HabitMetric',
     tagline: 'Productivity habit tracker turning rough intentions into structured daily execution.',
     tags: ['Product Design', 'React', 'Behavioral UX', 'Data Viz'],
@@ -85,7 +113,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'accredian-orbit',
-    number: '03',
+    number: '04',
     name: 'Accredian Orbit',
     tagline: 'Unified student ecosystem planning and PM wireframing exploration.',
     tags: ['Product Management', 'Systems Thinking', 'UX Research', 'Ecosystem Planning'],
